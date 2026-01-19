@@ -4,7 +4,7 @@
 > The plugin is still very much in development. All planned features are listed, but only the checked off are available.
 ## Features Overview
 ### Core Features:
-- [ ] [Custom Server Spawn](#spawn)
+- [x] [Custom Server Spawn](#spawn)
 - [ ] Server Warps
 - [ ] Player Homes
 - [ ] Nicknames

@@ -30,6 +30,7 @@ public class Setspawn implements CommandExecutor {
         Location location = player.getLocation();
         String newSpawn = settings.locationToString(location);
         settings.setProperty("general.spawn", newSpawn);
+        location.getWorld().setSpawnLocation(location.getBlockX(), location.getBlockY(), location.getBlockZ());
         player.sendMessage("§5Set world spawn successfully!");
         return true;
     }
