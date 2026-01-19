@@ -1,0 +1,69 @@
+package org.whoisjeb.aurum.data;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.whoisjeb.aurum.Aurum;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.UUID;
+import java.util.logging.Logger;
+
+public class User extends AurumConfig {
+    private Aurum plugin;
+    private File dataFile;
+    private static final Logger log = Bukkit.getServer().getLogger();
+
+    public User(Aurum plugin, UUID uuid, File dataFile) {
+        super(new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml"));
+        this.plugin = plugin;
+        this.dataFile = new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml");
+    }
+
+    public void load(UUID uuid, String name) {
+        try {
+            Files.createDirectories(dataFile.getParentFile().toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (!dataFile.exists()) {
+            initializeNewUser(uuid, name);
+        }
+        super.load();
+        plugin.getLoadedUsers().put(uuid, this);
+        log.info("[Aurum] Loaded data for " + uuid.toString() + " successfully!");
+    }
+
+    private void initializeNewUser(UUID uuid, String name) {
+        String resourcePath = "/user.yml";
+        try (InputStream inputStream = getClass().getResourceAsStream(resourcePath)) {
+            if (inputStream == null) {
+                log.severe("[Aurum] Failed to find user.yml!");
+                return;
+            }
+            //Copy contents of resource to new dataFile, then add their data
+            {
+                Files.copy(inputStream, dataFile.toPath());
+                this.setProperty("info.uuid", uuid.toString());
+                this.setProperty("info.name", name);
+                this.save();
+                plugin.getLoadedUsers().put(uuid, this);
+            }
+        } catch (IOException e) {
+            log.severe("[Aurum] Failed to initialize new user!");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void unload() {
+        Player player = Bukkit.getPlayer(this.getString("info.name"));
+        Location location = player.getLocation();
+        String position = this.locationToString(location);
+        this.setProperty("data.position", position);
+        this.save();
+        plugin.getLoadedUsers().remove(this.getUUID("info.uuid"));
+        log.info("[Aurum] Unloaded data for " + this.getUUID("info.uuid") + " successfully!");
+    }
+}

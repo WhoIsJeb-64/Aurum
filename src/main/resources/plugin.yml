@@ -1,22 +1,50 @@
-name: ${project.name}
-description: ${project.description}
-main: org.retromc.templateplugin.TemplatePlugin
-version: ${project.version}
+name: Aurum
+description: An essentials alternative for project poseidon.
+main: org.whoisjeb.aurum.Aurum
+version: 1.0.0-SNAPSHOT
 authors:
-  - JohnyMuffin
-softdepend:
-  - Essentials
+  - WhoIsJeb
+depend:
+  - PermissionsEx
 
 commands:
-  testcommand:
-    description: A test command for the plugin.
-    usage: /<command> [args]
-    aliases: [tc]
-    permission: myplugin.testcommand
-    permission-message: You do not have permission to use this command.
+  spawn:
+    description: Warps the user to spawn.
+    usage: /<command>
+    permission: aurum.spawn
+    permission-message: You are not authorized to warp to spawn.
+  setspawn:
+    description: Sets spawn to the user's location.
+    usage: /<command>
+    permission: aurum.setspawn
+    permission-message: You are not authorized to warp to spawn.
+  rules:
+    description: Displays the server rules.
+    usage: /<command>
+    permission: aurum.rules
+    permission-message: You are not authorized to view the server rules.
+  discord:
+    description: Links to the server's discord.
+    usage: /<command>
+    permission: aurum.discord
+    permission-message: You are not authorized to view the server's discord invite.
 
 permissions:
-  myplugin.*:
-    description: Gives access to all myplugin commands.
+  aurum.player:
+    description: Gives access to Aurum's essential commands.
     children:
-      myplugin.testcommand: true
+      aurum.spawn: true
+      aurum.rules: true
+      aurum.discord: true
+  aurum.spawn:
+    description: Grants access to /spawn.
+    default: not op
+  aurum.setspawn:
+    description: Grants access to /setspawn.
+    default: op
+  aurum.rules:
+      description: Grants access to /rules.
+      default: not op
+  aurum.color:
+    description: Allows the usage of color codes.
+    default: op

@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>Poseidon-Plugin-Template</artifactId>
+    <groupId>org.whoisjeb</groupId>
+    <artifactId>Aurum</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <description>A template for creating plugins for the Poseidon server software.</description>
+    <description>An essentials alternative for project poseidon.</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -62,13 +62,11 @@
 
 
     <dependencies>
-
         <dependency>
             <groupId>com.legacyminecraft.poseidon</groupId>
             <artifactId>poseidon-craftbukkit</artifactId>
             <version>1.1.8</version>
         </dependency>
-
     </dependencies>
 
 </project>

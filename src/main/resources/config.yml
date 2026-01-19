@@ -1,0 +1,21 @@
+# Aurum configuration
+
+general:
+  # %prefix%  - The prefix of the user, supplied by the permissions plugin.
+  # %name%    - The chatter's display name.
+  # %message% - The content of a messsage typed by the chatter.
+  chat-format: '%prefix% %name%&f: %message%'
+
+  # World name, x, y, z, pitch, yaw
+  spawn: 'world, 0, 0, 0, 0, 0'
+
+messages:
+  discord: '&9discord.gg/<link>'
+  rules:
+    - '&c======= Server Rules ======='
+    - '1: Be respectful.'
+    - '2: Be ethical.'
+    - '3: Use common sense.'
+  motd:
+    - '&6Type /help for a list of commands!'
+    - '&9Join our discord!&b discord.gg/<link>'

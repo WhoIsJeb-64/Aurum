@@ -1,0 +1,16 @@
+# Aurum Userdata file
+
+info:
+  uuid: null
+  name: null
+
+states:
+  god: false
+  vanish: false
+  mute: false
+
+data:
+  lastOnline: null
+  position: 'world, 0, 0, 0, 0, 0'
+
+homes: null
