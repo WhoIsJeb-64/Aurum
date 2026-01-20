@@ -2,14 +2,12 @@ package org.whoisjeb.aurum.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import java.util.logging.Logger;
 
-public class Warps implements CommandExecutor {
+public class Warps extends AurumCommand {
     private final Aurum plugin;
     private final AurumSettings settings;
     private static final Logger log = Bukkit.getServer().getLogger();
@@ -20,9 +18,8 @@ public class Warps implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (!(commandSender instanceof Player)) {
-            log.info("That command may only be used by a player!");
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (!isSenderPlayer(sender)) {
             return true;
         }
         StringBuilder warpList = new StringBuilder("§5Warps:§d ");
@@ -35,7 +32,7 @@ public class Warps implements CommandExecutor {
             }
             i++;
         }
-        commandSender.sendMessage(warpList.toString());
+        sender.sendMessage(warpList.toString());
         return true;
     }
 }

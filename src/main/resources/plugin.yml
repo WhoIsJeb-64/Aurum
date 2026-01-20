@@ -35,6 +35,7 @@ commands:
     permission-message: You are not authorized to execute /sethome!
   home:
     description: Warps the sender to the specified home.
+    aliases: [h]
     usage: /<command>
     permission: aurum.home
     permission-message: You are not authorized to execute /home!

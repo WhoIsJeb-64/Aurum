@@ -2,17 +2,15 @@ package org.whoisjeb.aurum.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
-import java.io.File;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class Home implements CommandExecutor {
+public class Home extends AurumCommand {
     private final Aurum plugin;
     private final AurumSettings settings;
     private static final Logger log = Bukkit.getServer().getLogger();
@@ -23,21 +21,20 @@ public class Home implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (!(commandSender instanceof Player)) {
-            log.info("That command may only be used by a player!");
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (!isSenderPlayer(sender)) {
             return true;
         }
-        String homeName = "home";
-        if (strings.length < 1) {
-            commandSender.sendMessage("§c[!] Please specify a home!");
+        String homeName;
+        Player player = (Player) sender;
+        UUID uuid = player.getUniqueId();
+        User user = new User(plugin, uuid, plugin.userdataDir(uuid)).loadIfUnloaded(player);
+        if (args.length < 1) {
+            sender.sendMessage("§c[!] Please specify a home!");
             return true;
         } else {
-            homeName = strings[0];
+            homeName = (user.getMaxHomes(player) > 1) ? args[0] : "home";
         }
-        Player player = (Player) commandSender;
-        UUID uuid = player.getUniqueId();
-        User user = new User(plugin, uuid, new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml")).loadIfUnloaded(player);
         if (!user.hasProperty("homes." + homeName)) {
             player.sendMessage("§c[!] That home does not exist!");
             return true;

@@ -1,15 +1,15 @@
 package org.whoisjeb.aurum;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.whoisjeb.aurum.commands.*;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
+import ru.tehkode.permissions.PermissionManager;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +20,7 @@ public class Aurum extends JavaPlugin {
     private String pluginName;
     private PluginDescriptionFile pdf;
     private AurumSettings settings;
-    private static HashMap<UUID, User> loadedUsers;
+    private static HashMap<UUID, User> userCache;
 
     @Override public void onEnable() {
         plugin = this;
@@ -28,14 +28,10 @@ public class Aurum extends JavaPlugin {
         pdf = this.getDescription();
         pluginName = pdf.getName();
         log.info("[" + pluginName + "] Is Loading, Version: " + pdf.getVersion());
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PermissionsEx")) {
-            log.info("[" + pluginName + "] Loaded PermissionsEx successfully!");
-        } else {
-            log.severe("[" + pluginName + "] Failed to load permissions plugin!");
-        }
+
         settings = new AurumSettings(this, new File(getDataFolder(), "config.yml"));
         settings.load();
-        loadedUsers = new HashMap<>();
+        userCache = new HashMap<>();
 
         registerCommands();
         Listener listener = new Listener(this, settings);
@@ -64,32 +60,24 @@ public class Aurum extends JavaPlugin {
         getCommand("warps").setExecutor(new Warps(this, settings));
     }
 
-    public void logger(Level level, String message) {
-        Bukkit.getLogger().log(level, "[" + plugin.getDescription().getName() + "] " + message);
+    public HashMap<UUID, User> loadedUsers() {
+        return userCache;
     }
 
-    public AurumSettings getSettings() {
-        return settings;
+    public File userdataDir(UUID uuid) {
+        return new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml");
     }
 
-    public HashMap<UUID, User> getLoadedUsers() {
-        return loadedUsers;
+    public PermissionManager getPex() {
+        return PermissionsEx.getPermissionManager();
     }
 
     public String processColor(String input, boolean isAllowed) {
         String regex = "&([0-9a-f])";
-        String replacement;
-        if (isAllowed) {
-            replacement = "§$1";
-        } else {
-            replacement = "";
-        }
+        String replacement = isAllowed ? "§$1" : "";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
-            return matcher.replaceAll(replacement);
-        } else {
-            return input;
-        }
+
+        return matcher.find() ? matcher.replaceAll(replacement) : input;
     }
 }

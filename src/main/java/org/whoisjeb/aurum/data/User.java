@@ -14,14 +14,14 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 public class User extends AurumData {
-    private Aurum plugin;
-    private File dataFile;
+    private final Aurum plugin;
+    private final File dataFile;
     private static final Logger log = Bukkit.getServer().getLogger();
 
     public User(Aurum plugin, UUID uuid, File dataFile) {
         super(new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml"));
         this.plugin = plugin;
-        this.dataFile = new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml");
+        this.dataFile = plugin.userdataDir(uuid);
     }
 
     public void load(UUID uuid, String name) {
@@ -34,14 +34,14 @@ public class User extends AurumData {
             initializeNewUser(uuid, name);
         }
         super.load();
-        plugin.getLoadedUsers().put(uuid, this);
+        plugin.loadedUsers().put(uuid, this);
         log.info("[Aurum] Loaded data for " + uuid.toString() + " successfully!");
     }
 
     public User loadIfUnloaded(Player player) {
         UUID uuid = player.getUniqueId();
-        if (plugin.getLoadedUsers().containsKey(uuid)) {
-            return plugin.getLoadedUsers().get(uuid);
+        if (plugin.loadedUsers().containsKey(uuid)) {
+            return plugin.loadedUsers().get(uuid);
         }
         this.load(uuid, player.getName());
         return this;
@@ -60,7 +60,7 @@ public class User extends AurumData {
                 this.setProperty("info.uuid", uuid.toString());
                 this.setProperty("info.name", name);
                 this.save();
-                plugin.getLoadedUsers().put(uuid, this);
+                plugin.loadedUsers().put(uuid, this);
             }
         } catch (IOException e) {
             log.severe("[Aurum] Failed to initialize new user!");
@@ -74,16 +74,17 @@ public class User extends AurumData {
         String position = this.locationToString(location);
         this.setProperty("data.position", position);
         this.save();
-        plugin.getLoadedUsers().remove(this.getUUID("info.uuid"));
+        plugin.loadedUsers().remove(this.getUUID("info.uuid"));
         log.info("[Aurum] Unloaded data for " + this.getUUID("info.uuid") + " successfully!");
     }
 
-    public int getMaxHomes(Player player, World world) {
+    public int getMaxHomes(Player player) {
+        World world = player.getWorld();
         String[] userPerms = PermissionsEx.getPermissionManager().getUser(player).getPermissions(world.getName());
         for (String perm : userPerms) {
             if (perm.contains("aurum.maxhomes.")) {
                 String clean = perm.replaceAll("\\D+","");
-                return Integer.parseInt(clean);
+                return Math.max(Integer.parseInt(clean), 1);
             }
         }
         return 1;
