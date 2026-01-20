@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.logging.Logger;
 
-public class AurumSettings extends AurumConfig {
+public class AurumSettings extends AurumData {
     private Aurum plugin;
     private File settingsFile;
     private static final Logger log = Bukkit.getServer().getLogger();

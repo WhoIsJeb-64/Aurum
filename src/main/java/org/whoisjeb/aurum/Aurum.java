@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.whoisjeb.aurum.commands.*;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
@@ -55,6 +54,10 @@ public class Aurum extends JavaPlugin {
         getCommand("setspawn").setExecutor(new Setspawn(this, settings));
         getCommand("rules").setExecutor(new Rules(this, settings));
         getCommand("discord").setExecutor(new Discord(this, settings));
+        getCommand("sethome").setExecutor(new Sethome(this, settings));
+        getCommand("home").setExecutor(new Home(this, settings));
+        getCommand("delhome").setExecutor(new Delhome(this, settings));
+        getCommand("homes").setExecutor(new Homes(this, settings));
     }
 
     public void logger(Level level, String message) {

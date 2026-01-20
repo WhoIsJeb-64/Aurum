@@ -23,9 +23,8 @@ public class Listener implements org.bukkit.event.Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
-        String name = player.getName();
         User user = new User(plugin, uuid, new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml"));
-        user.load(uuid, name);
+        user.load(uuid, player.getName());
         for (Object rawLine : config.getList("messages.motd")) {
             String line = plugin.processColor(rawLine.toString(), true);
             player.sendMessage(line);

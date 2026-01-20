@@ -8,16 +8,20 @@ import java.io.File;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class AurumConfig extends Configuration {
+public class AurumData extends Configuration {
     private Aurum plugin;
     private File settingsFile;
     private static final Logger log = Bukkit.getServer().getLogger();
 
-    public AurumConfig(File file) {
+    public AurumData(File file) {
         super(file);
     }
 
-    public Location stringToLocation(String input) {
+    public boolean hasProperty(String path) {
+        return getProperty(path) != null;
+    }
+
+    public Location getLocation(String input) {
         input = getString(input).replaceAll(" ", "");
         final String[] split = input.split(",");
         try {

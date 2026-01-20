@@ -9,25 +9,45 @@ depend:
 
 commands:
   spawn:
-    description: Warps the user to spawn.
+    description: Warps the sender to spawn.
     usage: /<command>
     permission: aurum.spawn
-    permission-message: You are not authorized to warp to spawn.
+    permission-message: You are not authorized to execute /spawn!
   setspawn:
     description: Sets spawn to the user's location.
     usage: /<command>
     permission: aurum.setspawn
-    permission-message: You are not authorized to warp to spawn.
+    permission-message: You are not authorized to execute /setspawn!
   rules:
     description: Displays the server rules.
     usage: /<command>
     permission: aurum.rules
-    permission-message: You are not authorized to view the server rules.
+    permission-message: You are not authorized to execute /rules!
   discord:
     description: Links to the server's discord.
     usage: /<command>
     permission: aurum.discord
-    permission-message: You are not authorized to view the server's discord invite.
+    permission-message: You are not authorized to execute /discord!
+  sethome:
+    description: Sets a new home at the sender's position.
+    usage: /<command>
+    permission: aurum.home
+    permission-message: You are not authorized to execute /sethome!
+  home:
+    description: Warps the sender to the specified home.
+    usage: /<command>
+    permission: aurum.home
+    permission-message: You are not authorized to execute /home!
+  delhome:
+    description: Deletes the specified home.
+    usage: /<command>
+    permission: aurum.home
+    permission-message: You are not authorized to execute /delhome!
+  homes:
+    description: Lists the sender's homes.
+    usage: /<command>
+    permission: aurum.home
+    permission-message: You are not authorized to execute /homes!
 
 permissions:
   aurum.player:
@@ -36,6 +56,7 @@ permissions:
       aurum.spawn: true
       aurum.rules: true
       aurum.discord: true
+      aurum.home: true
   aurum.spawn:
     description: Grants access to /spawn.
     default: not op
@@ -43,8 +64,11 @@ permissions:
     description: Grants access to /setspawn.
     default: op
   aurum.rules:
-      description: Grants access to /rules.
-      default: not op
+    description: Grants access to /rules.
+    default: not op
+  aurum.home:
+    description: Grants access to the homes commands.
+    default: op
   aurum.color:
     description: Allows the usage of color codes.
     default: op
