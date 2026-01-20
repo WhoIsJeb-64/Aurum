@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
-
 import java.io.File;
 import java.util.UUID;
 import java.util.logging.Logger;

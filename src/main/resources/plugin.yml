@@ -48,6 +48,26 @@ commands:
     usage: /<command>
     permission: aurum.home
     permission-message: You are not authorized to execute /homes!
+  warp:
+    description: Teleports the sender to the specified warp.
+    usage: /<command> <warp>
+    permission: aurum.warp
+    permission-message: You are not authorized to execute /warp!
+  warps:
+    description: Lists the server's warps.
+    usage: /<command> <warp>
+    permission: aurum.warp
+    permission-message: You are not authorized to execute /warp!
+  setwarp:
+    description: Sets a new warp at the sender's position.
+    usage: /<command> <warp>
+    permission: aurum.setwarp
+    permission-message: You are not authorized to execute /setwarp!
+  delwarp:
+    description: Deletes the specified warp.
+    usage: /<command>
+    permission: aurum.delwarp
+    permission-message: You are not authorized to execute /delwarp!
 
 permissions:
   aurum.player:
@@ -71,4 +91,13 @@ permissions:
     default: op
   aurum.color:
     description: Allows the usage of color codes.
+    default: op
+  aurum.warp:
+    description: Grants access to /warp and /warps.
+    default: not op
+  aurum.setwarp:
+    description: Grants access to /setwarp.
+    default: op
+  aurum.delwarp:
+    description: Grants access to /delwarp.
     default: op

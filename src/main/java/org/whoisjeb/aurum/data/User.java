@@ -6,7 +6,6 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

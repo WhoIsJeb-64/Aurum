@@ -8,6 +8,8 @@ general:
 
   # World name, x, y, z, pitch, yaw
   spawn: 'world, 0, 0, 0, 0, 0'
+  per-warp-perms: false # If true, a warp xyz would require the permission aurum.warp.xyz to use.
+  warps: null
 
 messages:
   discord: '&9discord.gg/<link>'

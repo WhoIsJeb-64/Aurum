@@ -58,6 +58,10 @@ public class Aurum extends JavaPlugin {
         getCommand("home").setExecutor(new Home(this, settings));
         getCommand("delhome").setExecutor(new Delhome(this, settings));
         getCommand("homes").setExecutor(new Homes(this, settings));
+        getCommand("setwarp").setExecutor(new Setwarp(this, settings));
+        getCommand("warp").setExecutor(new Warp(this, settings));
+        getCommand("delwarp").setExecutor(new Delwarp(this, settings));
+        getCommand("warps").setExecutor(new Warps(this, settings));
     }
 
     public void logger(Level level, String message) {

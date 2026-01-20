@@ -5,7 +5,7 @@
 ## Features Overview
 ### Core Features:
 - [x] [Custom Server Spawn](#spawn)
-- [ ] Server Warps
+- [x] [Server Warps](#warps)
 - [x] [Player Homes](#homes)
 - [ ] Nicknames
 - [ ] Economy
@@ -32,6 +32,11 @@
 Authorized players can define a custom spawnpoint for the server using `/setspawn`.  
 Running `/spawn` will warp the sender to said defined spawn, stored in the plugin config.
 
+## Warps
+Players can teleport to a specified server warp using `/warp`.  
+Players can view a list of the server's warps with `/warps`.  
+If `per-warp-perms` is true in the config, a seperate permission is required for every warp.
+
 ## Homes
 Players can define a personal warp at their position using `/sethome`.  
 Using `/home` teleports one to a home, and `/delhome` deletes one.
@@ -56,5 +61,9 @@ It will not be clickable.
   - `aurum.rules`: Grants access to /rules.
   - `aurum.discord`: Grants access to /discord.
   - `aurum.home`: Grants access to /home, /sethome, /delhome, and /homes.
-  - `aurum.maxhomes.n` Grants the ability to set n homes. Default is 1.
+  - `aurum.maxhomes.n`: Grants the ability to set n homes. Default is 1.
+  - `aurum.warp`: Grants access to /warp and /warps.
+- `aurum.warp.xyz`: Grants access to /warp xyz, if per-warp-perms are enabled.
+- `aurum.setwarp`: Grants access to /setwarp.
+- `aurum.delwarp`: Grants access to /delwarp.
 - `aurum.color`: Grants the ability to use colors in chat and on signs.

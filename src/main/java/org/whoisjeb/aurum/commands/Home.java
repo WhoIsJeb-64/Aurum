@@ -30,7 +30,7 @@ public class Home implements CommandExecutor {
         }
         String homeName = "home";
         if (strings.length < 1) {
-            commandSender.sendMessage("§c[!] Please specify a name for the new home!");
+            commandSender.sendMessage("§c[!] Please specify a home!");
             return true;
         } else {
             homeName = strings[0];

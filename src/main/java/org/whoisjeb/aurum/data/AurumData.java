@@ -40,6 +40,9 @@ public class AurumData extends Configuration {
     }
 
     public String getString(String path) {
+        if (this.getProperty(path).toString() == null) {
+            return null;
+        }
         return this.getProperty(path).toString();
     }
 

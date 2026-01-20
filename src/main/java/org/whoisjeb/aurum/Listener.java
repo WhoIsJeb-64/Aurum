@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.*;
 import org.whoisjeb.aurum.data.*;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
-
 import java.io.File;
 import java.util.UUID;
 
