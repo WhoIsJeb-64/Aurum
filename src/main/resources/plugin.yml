@@ -93,6 +93,12 @@ commands:
     usage: /<command> <clear|rain>
     permission: aurum.weather
     permissions-message: You are not authorized to execute /weather!
+  playerlist:
+    description: Changes the weahter.
+    aliases: [list, who]
+    usage: /<command>
+    permission: aurum.playerlist
+    permissions-message: You are not authorized to execute /playerlist!
 
 permissions:
   aurum.player:
@@ -101,6 +107,7 @@ permissions:
       aurum.spawn: true
       aurum.rules: true
       aurum.discord: true
+      aurum.playerlist: true
       aurum.home: true
   aurum.spawn:
     description: Grants access to /spawn.
@@ -138,3 +145,6 @@ permissions:
   aurum.weather:
     description: Grants access to /weather.
     default: op
+  aurum.playerlist:
+    description: Grants access to /playerlist.
+    default: not op

@@ -25,10 +25,9 @@ public class Warps extends AurumCommand {
         StringBuilder warpList = new StringBuilder("§5Warps:§d ");
         int i = 1;
         for (String key : settings.getKeys("general.warps")) {
-            if (i == settings.getKeys("general.warps").size()) {
-                warpList.append(key);
-            } else {
-                warpList.append(key).append("§5,§d ");
+            warpList.append(key);
+            if (i < settings.getKeys("general.warps").size()) {
+                warpList.append("§5,§d ");
             }
             i++;
         }

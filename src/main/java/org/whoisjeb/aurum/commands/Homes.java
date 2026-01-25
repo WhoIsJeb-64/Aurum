@@ -32,10 +32,9 @@ public class Homes extends AurumCommand {
         StringBuilder homesList = new StringBuilder("§6Homes:§e ");
         int i = 1;
         for (String key : user.getKeys("homes")) {
-            if (i == user.getKeys("homes").size()) {
-                homesList.append(key);
-            } else {
-                homesList.append(key).append("§6,§e ");
+            homesList.append(key);
+            if (i < user.getKeys("homes").size()) {
+                homesList.append("§6,§e ");
             }
             i++;
         }

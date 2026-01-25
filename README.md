@@ -8,12 +8,13 @@
 - [x] [Server Warps](#warps)
 - [x] [Player Homes](#homes)
 - [x] [Nicknames](#nicknames)
-- [ ] Economy
+- [x] [Listing online players](#listing-online-players)
 - [ ] Teleportation
 - [ ] Configurable Sleep %
-- [ ] Listing online players
+- [ ] Economy
 ### Moderation Tools:
 - [x] [Time and Weather control](#time-and-weather-control)
+- [ ] Item Giving
 - [ ] Godmode, Heal, Vanish, Invsee
 - [ ] Warnings
 - [ ] Punishment & Ban Logs
@@ -51,6 +52,10 @@ Authorized players can also add another *online* player's username to end of the
 A nickname will only be able to use colors if the player is permitted to use colors in chat.
 
 Optionally, to mark nicknames, a configurable string can be set to prepend all nicknames.
+
+## Listing Online Players
+A list of online players can be viewed via `/playerlist`, `/list`, or `/who`.  
+It also displays the amount of players online and the player cap.
 
 ## Time and Weather Control
 Authorized players can change the server time using `/time <day|night|dawn|dusk>`.  
