@@ -7,18 +7,18 @@
 - [x] [Custom Server Spawn](#spawn)
 - [x] [Server Warps](#warps)
 - [x] [Player Homes](#homes)
-- [ ] Nicknames
+- [x] [Nicknames](#nicknames)
 - [ ] Economy
 - [ ] Teleportation
 - [ ] Configurable Sleep %
 - [ ] Listing online players
 ### Moderation Tools:
+- [x] [Time and Weather control](#time-and-weather-control)
 - [ ] Godmode, Heal, Vanish, Invsee
 - [ ] Warnings
 - [ ] Punishment & Ban Logs
 - [ ] Modview
 ### Misc. Features:
-- [ ] Time and Weather control
 - [x] [MOTD](#motd)
 - [x] [/rules](#rules)
 - [x] [/discord](#discord)
@@ -43,6 +43,18 @@ Using `/home` teleports one to a home, and `/delhome` deletes one.
 
 If a player is allowed to set more than 1 home, the above commands must be provided the home's name.  
 Players can see a list of their homes and how many more they can set using `/homes`.
+
+## Nicknames
+Players who are given permission to can assign themselves custom display names using `/nickname set <nickname>`.  
+Using `/nickname clear` clears one's nickname.  
+Authorized players can also add another *online* player's username to end of the commands to set and clear others' nicknames.  
+A nickname will only be able to use colors if the player is permitted to use colors in chat.
+
+Optionally, to mark nicknames, a configurable string can be set to prepend all nicknames.
+
+## Time and Weather Control
+Authorized players can change the server time using `/time <day|night|dawn|dusk>`.  
+The same can be done with the weather using `/weather <clear|rain>`.
 
 ## Miscellaneous Features
 ### MOTD

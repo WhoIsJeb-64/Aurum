@@ -9,11 +9,11 @@ import java.util.UUID;
 
 public class Listener implements org.bukkit.event.Listener {
     private final Aurum plugin;
-    private final AurumSettings config;
+    private final AurumSettings settings;
 
-    public Listener(Aurum plugin, AurumSettings config) {
+    public Listener(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;
-        this.config = config;
+        this.settings = settings;
     }
 
     @EventHandler(priority = Event.Priority.Normal)
@@ -22,7 +22,13 @@ public class Listener implements org.bukkit.event.Listener {
         UUID uuid = player.getUniqueId();
         User user = new User(plugin, uuid, plugin.userdataDir(uuid));
         user.load(uuid, player.getName());
-        for (Object rawLine : config.getList("messages.motd")) {
+
+        String nickname = user.getString("info.nickname");
+        if (nickname != null) {
+            player.setDisplayName(settings.getString("general.nickname-prefix") + nickname);
+        }
+
+        for (Object rawLine : settings.getList("messages.motd")) {
             String line = plugin.processColor(rawLine.toString(), true);
             player.sendMessage(line);
         }
@@ -46,7 +52,7 @@ public class Listener implements org.bukkit.event.Listener {
         String message = event.getMessage();
         message = plugin.processColor(message, event.getPlayer().hasPermission("aurum.color"));
         event.setMessage(message);
-        String format = config.getString("general.chat-format")
+        String format = settings.getString("general.chat-format")
                         .replace("%prefix%", prefix)
                         .replace("%name%", "%1$s")
                         .replace("%message%", "%2$s");

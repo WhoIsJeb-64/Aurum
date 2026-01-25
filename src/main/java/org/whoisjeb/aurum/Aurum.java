@@ -1,5 +1,6 @@
 package org.whoisjeb.aurum;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.whoisjeb.aurum.commands.*;
@@ -58,6 +59,9 @@ public class Aurum extends JavaPlugin {
         getCommand("warp").setExecutor(new Warp(this, settings));
         getCommand("delwarp").setExecutor(new Delwarp(this, settings));
         getCommand("warps").setExecutor(new Warps(this, settings));
+        getCommand("nickname").setExecutor(new Nickname(this, settings));
+        getCommand("time").setExecutor(new Time(this, settings));
+        getCommand("weather").setExecutor(new Weather(this, settings));
     }
 
     public HashMap<UUID, User> loadedUsers() {

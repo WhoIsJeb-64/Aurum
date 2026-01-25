@@ -69,6 +69,30 @@ commands:
     usage: /<command>
     permission: aurum.delwarp
     permission-message: You are not authorized to execute /delwarp!
+  nickname:
+    description: Changes or clears the nickname of the sender or another online player.
+    aliases: [nick]
+    usage: /<command> <set|clear> <nickname|> <player>
+    permission: aurum.nickname
+    permission-message: You are not authorized to execute /nickname!
+  whois:
+    description: Tells the sender the username of an online player.
+    aliases: [realname, whos]
+    usage: /<command> <nickname>
+    permission: aurum.whois
+    permission-message: You are not authorized to execute /whois!
+  time:
+    description: Changes the time to the specified time.
+    aliases: [settime, timeset]
+    usage: /<command> <day|night|dawn|dusk>
+    permission: aurum.time
+    permissions-message: You are not authorized to execute /time!
+  weather:
+    description: Changes the weahter.
+    aliases: [setweather, weatherset]
+    usage: /<command> <clear|rain>
+    permission: aurum.weather
+    permissions-message: You are not authorized to execute /weather!
 
 permissions:
   aurum.player:
@@ -101,4 +125,16 @@ permissions:
     default: op
   aurum.delwarp:
     description: Grants access to /delwarp.
+    default: op
+  aurum.nickname:
+    description: Grants access to /nickname.
+    default: op
+  aurum.whois:
+    description: Grants access to /whois.
+    default: not op
+  aurum.time:
+    description: Grants access to /time.
+    default: op
+  aurum.weather:
+    description: Grants access to /weather.
     default: op
