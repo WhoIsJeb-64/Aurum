@@ -24,9 +24,7 @@ public class Listener implements org.bukkit.event.Listener {
         user.load(uuid, player.getName());
 
         String nickname = user.getString("info.nickname");
-        if (nickname != null) {
-            player.setDisplayName(settings.getString("general.nickname-prefix") + nickname);
-        }
+        if (nickname != null) player.setDisplayName(settings.getString("general.nickname-prefix") + nickname);
 
         for (Object rawLine : settings.getList("messages.motd")) {
             String line = plugin.processColor(rawLine.toString(), true);

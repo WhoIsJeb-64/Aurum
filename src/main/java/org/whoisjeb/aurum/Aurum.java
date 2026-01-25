@@ -3,11 +3,11 @@ package org.whoisjeb.aurum;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.whoisjeb.aurum.commands.*;
-import org.whoisjeb.aurum.data.AurumSettings;
-import org.whoisjeb.aurum.data.User;
+import org.whoisjeb.aurum.data.*;
 import ru.tehkode.permissions.PermissionManager;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -21,6 +21,7 @@ public class Aurum extends JavaPlugin {
     private PluginDescriptionFile pdf;
     private AurumSettings settings;
     private static HashMap<UUID, User> userCache;
+    private static ArrayList<TeleportRequest> tpRequests;
 
     @Override public void onEnable() {
         plugin = this;
@@ -32,6 +33,7 @@ public class Aurum extends JavaPlugin {
         settings = new AurumSettings(this, new File(getDataFolder(), "config.yml"));
         settings.load();
         userCache = new HashMap<>();
+        tpRequests = new ArrayList<>();
 
         registerCommands();
         Listener listener = new Listener(this, settings);
@@ -62,10 +64,19 @@ public class Aurum extends JavaPlugin {
         getCommand("time").setExecutor(new Time(this, settings));
         getCommand("weather").setExecutor(new Weather(this, settings));
         getCommand("playerlist").setExecutor(new Playerlist(this, settings));
+        getCommand("teleport").setExecutor(new Teleport(this, settings));
+        getCommand("offlineteleport").setExecutor(new OfflineTeleport(this, settings));
+        getCommand("teleportask").setExecutor(new Teleportask(this, settings));
+        getCommand("teleportaccept").setExecutor(new Teleportaccept(this, settings));
+        getCommand("teleportdeny").setExecutor(new Teleportdeny(this, settings));
     }
 
     public HashMap<UUID, User> loadedUsers() {
         return userCache;
+    }
+
+    public ArrayList<TeleportRequest> tpRequestCache() {
+        return tpRequests;
     }
 
     public File userdataDir(UUID uuid) {

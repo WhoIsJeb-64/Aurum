@@ -99,6 +99,36 @@ commands:
     usage: /<command>
     permission: aurum.playerlist
     permissions-message: You are not authorized to execute /playerlist!
+  teleport:
+    description: Teleports the sender to player or position.
+    aliases: [tp]
+    usage: /<command> <player|x, y, z>
+    permission: aurum.teleport
+    permissions-message: You are not authorized to execute /teleport!
+  offlineteleport:
+    description: Teleports the sender to the last position of an offline player.
+    aliases: [offlinetp, otp]
+    usage: /<command> <player>
+    permission: aurum.teleport
+    permission-message: You are not authorized to execute /offlineteleport!
+  teleportask:
+    description: Requests the target to have the sender tp to them.
+    aliases: [tpa]
+    usage: /<command> <player>
+    permission: aurum.teleportask
+    permission-message: You are not authorized to execute /teleportask!
+  teleportaccept:
+    description: Accepts the most recent tp request, or that of a specific player.
+    aliases: [tpaccept]
+    usage: /<command> <player>
+    permission: aurum.teleportask
+    permission-message: You are not authorized to execute /teleportaccept!
+  teleportdeny:
+    description: Denies the most recent tp request, or that of a specific player.
+    aliases: [tpdeny]
+    usage: /<command> <player>
+    permission: aurum.teleportask
+    permission-message: You are not authorized to execute /teleportdeny!
 
 permissions:
   aurum.player:
@@ -148,3 +178,9 @@ permissions:
   aurum.playerlist:
     description: Grants access to /playerlist.
     default: not op
+  aurum.teleport:
+    description: Grants access to /teleport.
+    default: op
+  aurum.teleportask:
+    description: Grants access to /teleportask, /tpaccept, and /tpdeny.
+    default: op

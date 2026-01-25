@@ -21,9 +21,8 @@ public class Spawn extends AurumCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) {
-            return true;
-        }
+        if (!isSenderPlayer(sender)) return true;
+
         Location spawn = settings.getLocation("general.spawn");
         Player player = (Player) sender;
         player.teleport(spawn);

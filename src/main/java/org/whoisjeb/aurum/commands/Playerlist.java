@@ -30,7 +30,7 @@ public class Playerlist extends AurumCommand {
         int maxPlayers = Bukkit.getMaxPlayers();
 
         StringBuilder playerList =
-                new StringBuilder("§9(§b" + playerCount + "§9/§b" + maxPlayers + "§9)" + " Player(s) Online:§f ");
+                new StringBuilder("§9§b" + playerCount + "/" + maxPlayers + " §9Player(s) Online:§f ");
         int i = 1;
         for (String name : playerNames) {
             playerList.append(name);

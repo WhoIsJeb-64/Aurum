@@ -9,7 +9,7 @@
 - [x] [Player Homes](#homes)
 - [x] [Nicknames](#nicknames)
 - [x] [Listing online players](#listing-online-players)
-- [ ] Teleportation
+- [x] [Teleportation](#teleportation)
 - [ ] Configurable Sleep %
 - [ ] Economy
 ### Moderation Tools:
@@ -56,6 +56,18 @@ Optionally, to mark nicknames, a configurable string can be set to prepend all n
 ## Listing Online Players
 A list of online players can be viewed via `/playerlist`, `/list`, or `/who`.  
 It also displays the amount of players online and the player cap.
+
+## Teleportation
+Players who are permitted to can use `/tp <player|position>` to teleport to another online player, or to a
+specified position (x y z).  
+Additionally, authorized players can teleport to where an offline player last was using `/otp`.
+
+Under a different permission, players can request to teleport to other online players using `/tpa`.  
+The player to whom a request is sent must consent to the teleportation using `/tpaccept` for it to occur.
+They can deny a request with `/tpdeny`.  
+If there are multiple requests to one person, one can accept/deny a specific request by adding the name of the requester
+in the aforementioned commands.  
+Teleport requests expire after 1 minute.
 
 ## Time and Weather Control
 Authorized players can change the server time using `/time <day|night|dawn|dusk>`.  
