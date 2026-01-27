@@ -10,8 +10,7 @@ import java.util.logging.Logger;
 public abstract class AurumCommand implements CommandExecutor {
     private static final Logger log = Bukkit.getServer().getLogger();
 
-    protected AurumCommand() {
-    }
+    protected AurumCommand() {}
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

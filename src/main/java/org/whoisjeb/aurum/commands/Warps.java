@@ -19,9 +19,8 @@ public class Warps extends AurumCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) {
-            return true;
-        }
+        if (!isSenderPlayer(sender)) return true;
+
         StringBuilder warpList = new StringBuilder("§5Warps:§d ");
         int i = 1;
         for (String key : settings.getKeys("general.warps")) {

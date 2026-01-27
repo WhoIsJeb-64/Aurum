@@ -90,7 +90,7 @@ commands:
   weather:
     description: Changes the weahter.
     aliases: [setweather, weatherset]
-    usage: /<command> <clear|rain>
+    usage: /<command> [clear|rain]
     permission: aurum.weather
     permissions-message: You are not authorized to execute /weather!
   playerlist:
@@ -120,15 +120,21 @@ commands:
   teleportaccept:
     description: Accepts the most recent tp request, or that of a specific player.
     aliases: [tpaccept]
-    usage: /<command> <player>
+    usage: /<command> [player]
     permission: aurum.teleportask
     permission-message: You are not authorized to execute /teleportaccept!
   teleportdeny:
     description: Denies the most recent tp request, or that of a specific player.
     aliases: [tpdeny]
-    usage: /<command> <player>
+    usage: /<command> [player]
     permission: aurum.teleportask
     permission-message: You are not authorized to execute /teleportdeny!
+  item:
+    description: Gives the sender/a player an item.
+    aliases: [i]
+    usage: /<command> <item> [quanity]
+    permission: aurum.item
+    permission-message: You are not authorized to execute /item!
 
 permissions:
   aurum.player:
@@ -183,4 +189,7 @@ permissions:
     default: op
   aurum.teleportask:
     description: Grants access to /teleportask, /tpaccept, and /tpdeny.
+    default: op
+  aurum.item:
+    description: Grants access to /item.
     default: op

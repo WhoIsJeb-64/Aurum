@@ -20,9 +20,9 @@ public class Delwarp extends AurumCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) {
-            return true;
-        }
+        if (!isSenderPlayer(sender)) return true;
+        Player player = (Player) sender;
+
         String warpName;
         if (args.length < 1) {
             sender.sendMessage("§c[!] Please specify a warp to delete!");
@@ -30,7 +30,6 @@ public class Delwarp extends AurumCommand {
         } else {
             warpName = args[0];
         }
-        Player player = (Player) sender;
         if (!settings.hasProperty("general.warps." + warpName)) {
             player.sendMessage("§c[!] That warp does not exist!");
             return true;

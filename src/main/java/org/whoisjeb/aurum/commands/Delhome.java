@@ -22,11 +22,10 @@ public class Delhome extends AurumCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) {
-            return true;
-        }
-        String homeName;
+        if (!isSenderPlayer(sender)) return true;
         Player player = (Player) sender;
+
+        String homeName;
         UUID uuid = player.getUniqueId();
         User user = new User(plugin, uuid, plugin.userdataDir(uuid)).loadIfUnloaded(player);
         if (args.length < 1) {

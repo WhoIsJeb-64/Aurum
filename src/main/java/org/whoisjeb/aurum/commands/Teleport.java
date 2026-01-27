@@ -21,9 +21,7 @@ public class Teleport extends AurumCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) {
-            return true;
-        }
+        if (!isSenderPlayer(sender)) return true;
         Player player = (Player) sender;
 
         if (args.length < 1) {

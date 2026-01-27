@@ -11,6 +11,7 @@ general:
   warps: null
   per-warp-perms: false # If true, a warp xyz would require the permission aurum.warp.xyz to use.
   nickname-prefix: ""
+  /i-default-quanity: 1
 
 messages:
   discord: '&9discord.gg/<link>'

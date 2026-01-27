@@ -69,6 +69,7 @@ public class Aurum extends JavaPlugin {
         getCommand("teleportask").setExecutor(new Teleportask(this, settings));
         getCommand("teleportaccept").setExecutor(new Teleportaccept(this, settings));
         getCommand("teleportdeny").setExecutor(new Teleportdeny(this, settings));
+        getCommand("item").setExecutor(new Item(this, settings));
     }
 
     public HashMap<UUID, User> loadedUsers() {
