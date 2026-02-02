@@ -14,7 +14,7 @@
 - [ ] Economy
 ### Moderation Tools:
 - [x] [Time and Weather control](#time-and-weather-control)
-- [ ] Item Giving
+- [x] [Item Giving](#item-giving)
 - [ ] Godmode, Heal, Vanish, Invsee
 - [ ] Warnings
 - [ ] Punishment & Ban Logs
@@ -23,8 +23,10 @@
 - [x] [MOTD](#motd)
 - [x] [/rules](#rules)
 - [x] [/discord](#discord)
+- [x] [/tellraw](#tellraw)
+- [x] [/sudo](#sudo)
 - [ ] Teleport safety validation
-- [ ] API
+- [x] [API](#api)
 
 > [!IMPORTANT]
 > Remember to grant [permissions](#permissions) for any commands you want players to be able to use.
@@ -73,6 +75,9 @@ Teleport requests expire after 1 minute.
 Authorized players can change the server time using `/time <day|night|dawn|dusk>`.  
 The same can be done with the weather using `/weather <clear|rain>`.
 
+## Item Giving
+The command `/item` or `/i` can be used to give the sender or an online player items.
+
 ## Miscellaneous Features
 ### MOTD
 The MOTD (Message of the day) is a fully customiazable message sent to players upon joining the server.  
@@ -83,16 +88,40 @@ It is reccomeneded that they are numbered and consice.
 ### Discord
 If a server has an associated discord, its link can be configured to be printed upon using `/discord`.  
 It will not be clickable.
+### Tellraw
+The command `/tellraw` will broadcast whatever is put after it, allowing authorized players to send theoretically any message.
+### Sudo
+Players can be forced to run any command they are allowed to with `/sudo`.  
+They cna also be forced to chat any message if it is prepended by `c:`.
+
+## API
+Other plugins can interact with the properties in the Aurum userdata files, including making new custom properties.  
+For example, a statistics plugin can add properties such as `stats.blocks-mined` instead of it having to handle
+userdata storage itself.
+
+The API can be accessed by using `Aurum.api()...` when importing `org.whoisjeb.aurum.AurumAPI` and
+`org.whoisjeb.aurum.Aurum` in a java class.
 
 ## Permissions
 - `aurum.player`: Grants access to the plugin's basic player commands.
   - `aurum.spawn`: Grants access to /spawn.
   - `aurum.rules`: Grants access to /rules.
   - `aurum.discord`: Grants access to /discord.
+  - `aurum.playerlist`: Grants access to /playerlist / /who / /list.
   - `aurum.home`: Grants access to /home, /sethome, /delhome, and /homes.
-  - `aurum.maxhomes.n`: Grants the ability to set n homes. Default is 1.
   - `aurum.warp`: Grants access to /warp and /warps.
+  - `aurum.teleportask`: Grants access to /tpa, /tpahere, /tpaccept, and /tpdeny
+- `aurum.maxhomes.n`: Grants the ability to set n homes. Default is 1.
 - `aurum.warp.xyz`: Grants access to /warp xyz, if per-warp-perms are enabled.
 - `aurum.setwarp`: Grants access to /setwarp.
 - `aurum.delwarp`: Grants access to /delwarp.
 - `aurum.color`: Grants the ability to use colors in chat and on signs.
+- `aurum.nickname`: Grants access to /nickname / /nick.
+- `aurum.nickname.others`: Allows /nickname to modify others' nicknames.
+- `aurum.whois`: Grants access to /whois.
+- `aurum.time`: Grants access to /time.
+- `aurum.weather`: Grants access to /weather.
+- `aurum.teleport`: Grants access to /tp and /tphere.
+- `aurum.item`: Grants access to /item / /i.
+- `aurum.tellraw`: Grants access to /tellraw.
+- `aurum.sudo`: Grants access to /sudo.

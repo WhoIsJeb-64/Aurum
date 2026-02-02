@@ -1,6 +1,5 @@
 package org.whoisjeb.aurum.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -8,12 +7,10 @@ import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
 import java.util.UUID;
-import java.util.logging.Logger;
 
-public class Sethome extends AurumCommand {
+public class Sethome extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Sethome(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;
@@ -34,7 +31,13 @@ public class Sethome extends AurumCommand {
         } else {
             homeName = (user.getMaxHomes(player) > 1) ? args[0] : "home";
         }
-        int homesCount = user.getKeys("homes").size();
+
+        int homesCount;
+        if (user.getKeys("homes") == null) {
+            homesCount = 0;
+        } else {
+            homesCount = user.getKeys("homes").size();
+        }
         int maxHomes = user.getMaxHomes(player);
         if (homesCount + 1 <= maxHomes) {
             String playerPosition = user.locationToString(player.getLocation());

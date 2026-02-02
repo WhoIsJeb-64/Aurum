@@ -9,12 +9,10 @@ import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
 import java.util.UUID;
-import java.util.logging.Logger;
 
-public class OfflineTeleport extends AurumCommand {
+public class OfflineTeleport extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public OfflineTeleport(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;

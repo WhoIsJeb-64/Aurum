@@ -7,12 +7,10 @@ import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
-public class Playerlist extends AurumCommand {
+public class Playerlist extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Playerlist(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;
@@ -39,7 +37,7 @@ public class Playerlist extends AurumCommand {
             }
             i++;
         }
-        sender.sendMessage(plugin.processColor(playerList.toString(), true));
+        sender.sendMessage(plugin.colorize(playerList.toString(), true));
         return true;
     }
 }

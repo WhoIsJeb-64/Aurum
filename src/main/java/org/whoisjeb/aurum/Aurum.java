@@ -1,5 +1,7 @@
 package org.whoisjeb.aurum;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.whoisjeb.aurum.commands.*;
@@ -19,6 +21,7 @@ public class Aurum extends JavaPlugin {
     private Logger log;
     private String pluginName;
     private PluginDescriptionFile pdf;
+    private AurumAPI api;
     private AurumSettings settings;
     private static HashMap<UUID, User> userCache;
     private static ArrayList<TeleportRequest> tpRequests;
@@ -48,28 +51,37 @@ public class Aurum extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("spawn").setExecutor(new Spawn(this, settings));
-        getCommand("setspawn").setExecutor(new Setspawn(this, settings));
-        getCommand("rules").setExecutor(new Rules(this, settings));
-        getCommand("discord").setExecutor(new Discord(this, settings));
-        getCommand("sethome").setExecutor(new Sethome(this, settings));
-        getCommand("home").setExecutor(new Home(this, settings));
+        getCommand("aurum").setExecutor(new AurumCommand(this, settings));
         getCommand("delhome").setExecutor(new Delhome(this, settings));
-        getCommand("homes").setExecutor(new Homes(this, settings));
-        getCommand("setwarp").setExecutor(new Setwarp(this, settings));
-        getCommand("warp").setExecutor(new Warp(this, settings));
         getCommand("delwarp").setExecutor(new Delwarp(this, settings));
-        getCommand("warps").setExecutor(new Warps(this, settings));
-        getCommand("nickname").setExecutor(new Nickname(this, settings));
-        getCommand("time").setExecutor(new Time(this, settings));
-        getCommand("weather").setExecutor(new Weather(this, settings));
-        getCommand("playerlist").setExecutor(new Playerlist(this, settings));
-        getCommand("teleport").setExecutor(new Teleport(this, settings));
-        getCommand("offlineteleport").setExecutor(new OfflineTeleport(this, settings));
-        getCommand("teleportask").setExecutor(new Teleportask(this, settings));
-        getCommand("teleportaccept").setExecutor(new Teleportaccept(this, settings));
-        getCommand("teleportdeny").setExecutor(new Teleportdeny(this, settings));
+        getCommand("discord").setExecutor(new Discord(this, settings));
+        getCommand("home").setExecutor(new Home(this, settings));
+        getCommand("homes").setExecutor(new Homes(this, settings));
         getCommand("item").setExecutor(new Item(this, settings));
+        getCommand("nickname").setExecutor(new Nickname(this, settings));
+        getCommand("offlineteleport").setExecutor(new OfflineTeleport(this, settings));
+        getCommand("playerlist").setExecutor(new Playerlist(this, settings));
+        getCommand("rules").setExecutor(new Rules(this, settings));
+        getCommand("sethome").setExecutor(new Sethome(this, settings));
+        getCommand("setspawn").setExecutor(new Setspawn(this, settings));
+        getCommand("setwarp").setExecutor(new Setwarp(this, settings));
+        getCommand("spawn").setExecutor(new Spawn(this, settings));
+        getCommand("sudo").setExecutor(new Sudo(this, settings));
+        getCommand("teleport").setExecutor(new Teleport(this, settings));
+        getCommand("teleportaccept").setExecutor(new Teleportaccept(this, settings));
+        getCommand("teleportask").setExecutor(new Teleportask(this, settings));
+        getCommand("teleportdeny").setExecutor(new Teleportdeny(this, settings));
+        getCommand("tellraw").setExecutor(new Tellraw(this, settings));
+        getCommand("time").setExecutor(new Time(this, settings));
+        getCommand("warp").setExecutor(new Warp(this, settings));
+        getCommand("warps").setExecutor(new Warps(this, settings));
+        getCommand("weather").setExecutor(new Weather(this, settings));
+        getCommand("whois").setExecutor(new WhoIs(this, settings));
+    }
+
+    public static AurumAPI api() {
+        Aurum plugin = (Aurum) Bukkit.getServer().getPluginManager().getPlugin("Aurum");
+        return plugin.api;
     }
 
     public HashMap<UUID, User> loadedUsers() {
@@ -88,12 +100,22 @@ public class Aurum extends JavaPlugin {
         return PermissionsEx.getPermissionManager();
     }
 
-    public String processColor(String input, boolean isAllowed) {
+    public String colorize(String input, boolean isAllowed) {
         String regex = "&([0-9a-f])";
         String replacement = isAllowed ? "§$1" : "";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
         return matcher.find() ? matcher.replaceAll(replacement) : input;
+    }
+
+    public String formatChatMessage(Player player, String message) {
+        String prefix = getPex().getUser(player).getPrefix();
+        message = colorize(message, player.hasPermission("aurum.color"));
+        String format = settings.getString("general.chat-format")
+                .replace("%prefix%", prefix)
+                .replace("%name%", player.getDisplayName())
+                .replace("%message%", message);
+        return colorize(format, true);
     }
 }

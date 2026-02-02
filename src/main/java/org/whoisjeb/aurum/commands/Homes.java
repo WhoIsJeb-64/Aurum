@@ -1,6 +1,5 @@
 package org.whoisjeb.aurum.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,12 +8,10 @@ import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
 import java.io.File;
 import java.util.UUID;
-import java.util.logging.Logger;
 
-public class Homes extends AurumCommand {
+public class Homes extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Homes(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;
@@ -28,6 +25,11 @@ public class Homes extends AurumCommand {
 
         UUID uuid = player.getUniqueId();
         User user = new User(plugin, uuid, new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml")).loadIfUnloaded(player);
+        if (user.getKeys("homes") == null || user.getKeys("homes").isEmpty()) {
+            player.sendMessage("§6You have no homes!");
+            return true;
+        }
+
         StringBuilder homesList = new StringBuilder("§6Homes:§e ");
         int i = 1;
         for (String key : user.getKeys("homes")) {

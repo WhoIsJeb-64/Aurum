@@ -27,7 +27,7 @@ public class Listener implements org.bukkit.event.Listener {
         if (nickname != null) player.setDisplayName(settings.getString("general.nickname-prefix") + nickname);
 
         for (Object rawLine : settings.getList("messages.motd")) {
-            String line = plugin.processColor(rawLine.toString(), true);
+            String line = plugin.colorize(rawLine.toString(), true);
             player.sendMessage(line);
         }
     }
@@ -47,13 +47,7 @@ public class Listener implements org.bukkit.event.Listener {
     @EventHandler(priority = Event.Priority.Normal)
     public void onPlayerChat(PlayerChatEvent event) {
         String prefix = plugin.getPex().getUser(event.getPlayer()).getPrefix();
-        String message = event.getMessage();
-        message = plugin.processColor(message, event.getPlayer().hasPermission("aurum.color"));
-        event.setMessage(message);
-        String format = settings.getString("general.chat-format")
-                        .replace("%prefix%", prefix)
-                        .replace("%name%", "%1$s")
-                        .replace("%message%", "%2$s");
-        event.setFormat(plugin.processColor(format, true));
+        String finalMessage = plugin.formatChatMessage(event.getPlayer(), event.getMessage());
+        event.setFormat(plugin.colorize(finalMessage, true));
     }
 }

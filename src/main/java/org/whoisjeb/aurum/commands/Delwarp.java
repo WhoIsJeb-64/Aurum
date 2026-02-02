@@ -1,17 +1,14 @@
 package org.whoisjeb.aurum.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
-import java.util.logging.Logger;
 
-public class Delwarp extends AurumCommand {
+public class Delwarp extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Delwarp(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;

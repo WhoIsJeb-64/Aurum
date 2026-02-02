@@ -7,12 +7,10 @@ import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.TeleportRequest;
-import java.util.logging.Logger;
 
-public class Teleportask extends AurumCommand {
+public class Teleportask extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Teleportask(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;
@@ -34,7 +32,7 @@ public class Teleportask extends AurumCommand {
         }
 
         Player target = Bukkit.getPlayer(args[0]);
-        if (player.getUniqueId() == target.getUniqueId()) {
+        if (isTargetSender(sender, target)) {
             player.sendMessage("§c[!] You cannot send a teleport request to yourself!");
             return true;
         }

@@ -1,29 +1,30 @@
 package org.whoisjeb.aurum.commands;
 
-import org.bukkit.Location;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 
-public class Spawn extends AurumCommandBase {
+public class Tellraw extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
 
-    public Spawn(Aurum plugin, AurumSettings settings) {
+    public Tellraw(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;
         this.settings = settings;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) return true;
+        if (args.length < 1) {
+            sender.sendMessage("§c[!] Please provide a message!");
+            return true;
+        }
 
-        Location spawn = settings.getLocation("general.spawn");
-        Player player = (Player) sender;
-        player.teleport(spawn);
-        player.sendMessage("§5Teleported to world spawn!");
+        String message = String.join(" ", args);
+        Bukkit.broadcastMessage(plugin.colorize(message, true));
         return true;
     }
 }

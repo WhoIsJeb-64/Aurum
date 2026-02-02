@@ -8,12 +8,10 @@ import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
 import java.util.UUID;
-import java.util.logging.Logger;
 
-public class Nickname extends AurumCommand {
+public class Nickname extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Nickname(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;
@@ -40,6 +38,10 @@ public class Nickname extends AurumCommand {
             sender.sendMessage("§c[!] Invalid Player!");
             return true;
         }
+        if (Bukkit.getPlayer(subject) == sender && !sender.hasPermission("aurum.nickname.others")) {
+            sender.sendMessage("§c[!] You are not authorized to modify the nicknames of others!");
+            return true;
+        }
 
         UUID uuid = player.getUniqueId();
         User user = new User(plugin, uuid, plugin.userdataDir(uuid)).loadIfUnloaded(player);
@@ -50,7 +52,7 @@ public class Nickname extends AurumCommand {
             player.sendMessage("§2Set nickname successfully!");
         }
         else if (args[0].equals("set")) {
-            String nickname = plugin.processColor(args[1], player.hasPermission("aurum.color"));
+            String nickname = plugin.colorize(args[1], player.hasPermission("aurum.color"));
             user.setProperty("info.nickname", nickname);
             player.setDisplayName(settings.getString("general.nickname-prefix") + nickname);
             user.save();

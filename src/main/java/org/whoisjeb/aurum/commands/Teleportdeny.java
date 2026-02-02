@@ -7,12 +7,10 @@ import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.TeleportRequest;
-import java.util.logging.Logger;
 
-public class Teleportdeny extends AurumCommand {
+public class Teleportdeny extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Teleportdeny(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;

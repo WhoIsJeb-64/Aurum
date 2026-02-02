@@ -59,6 +59,7 @@ public class User extends AurumData {
                 Files.copy(inputStream, dataFile.toPath());
                 this.setProperty("info.uuid", uuid.toString());
                 this.setProperty("info.name", name);
+                this.setProperty("homes", null);
                 this.save();
                 plugin.loadedUsers().put(uuid, this);
             }

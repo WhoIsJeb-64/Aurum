@@ -2,27 +2,46 @@ package org.whoisjeb.aurum.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.whoisjeb.aurum.Aurum;
+import org.whoisjeb.aurum.data.AurumSettings;
+import org.whoisjeb.aurum.data.User;
+import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Logger;
 
-public abstract class AurumCommand implements CommandExecutor {
+public class AurumCommand extends AurumCommandBase {
+    private final Aurum plugin;
+    private final AurumSettings settings;
     private static final Logger log = Bukkit.getServer().getLogger();
 
-    protected AurumCommand() {}
-
-    @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
-        return false;
+    public AurumCommand(Aurum plugin, AurumSettings settings) {
+        this.plugin = plugin;
+        this.settings = settings;
     }
 
-    public boolean isSenderPlayer(CommandSender sender) {
-        if (sender instanceof Player) {
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length < 1 || args[0].equalsIgnoreCase("info")) {
+            sender.sendMessage("§6================= §eAurum Info §6=================");
+            sender.sendMessage("§6Version:§e " + plugin.getDescription().getVersion());
+            sender.sendMessage("§7An essentials alternative for project poseidon,");
+            sender.sendMessage("§7by coffeelover42.");
+            sender.sendMessage("§eCheck out the github page for documentation!");
             return true;
-        } else {
-            log.info("That command may only be used by a player!");
-            return false;
         }
+        else if (args[0].equalsIgnoreCase("reload")) {
+            settings.load();
+            for (Map.Entry<UUID, User> entry : plugin.loadedUsers().entrySet()) {
+                entry.getValue().load();
+            }
+            sender.sendMessage("§aReloaded Aurum successfully!");
+            log.info("[Aurum] Reloaded plugin successfully!");
+            return true;
+        }
+        else {
+            sender.sendMessage("§c[!] Invalid argument!");
+        }
+        return true;
     }
 }

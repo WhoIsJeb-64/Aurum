@@ -7,12 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumSettings;
-import java.util.logging.Logger;
 
-public class Time extends AurumCommand {
+public class Time extends AurumCommandBase {
     private final Aurum plugin;
     private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
     public Time(Aurum plugin, AurumSettings settings) {
         this.plugin = plugin;

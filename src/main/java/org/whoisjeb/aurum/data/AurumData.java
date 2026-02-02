@@ -3,14 +3,11 @@ package org.whoisjeb.aurum.data;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.util.config.Configuration;
-import org.whoisjeb.aurum.Aurum;
 import java.io.File;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 public class AurumData extends Configuration {
-    private Aurum plugin;
-    private File settingsFile;
     private static final Logger log = Bukkit.getServer().getLogger();
 
     public AurumData(File file) {
@@ -22,8 +19,7 @@ public class AurumData extends Configuration {
     }
 
     public Location getLocation(String input) {
-        input = getString(input).replaceAll(" ", "");
-        final String[] split = input.split(",");
+        String[] split = input.split("\\s+");
         try {
             return new Location(
                     Bukkit.getWorld(split[0]),    // World Name
@@ -50,6 +46,6 @@ public class AurumData extends Configuration {
         String z = String.valueOf(input.getZ());
         String pitch = String.valueOf(input.getPitch());
         String yaw = String.valueOf(input.getYaw());
-        return world + ", " + x + ", " + y + ", " + z + ", " + pitch + ", " + yaw;
+        return world + " " + x + " " + y + " " + z + " " + pitch + " " + yaw;
     }
 }
