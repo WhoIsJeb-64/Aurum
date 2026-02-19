@@ -10,22 +10,22 @@
 - [x] [Nicknames](#nicknames)
 - [x] [Listing online players](#listing-online-players)
 - [x] [Teleportation](#teleportation)
-- [ ] Configurable Sleep %
 - [ ] Economy
 ### Moderation Tools:
 - [x] [Time and Weather control](#time-and-weather-control)
 - [x] [Item Giving](#item-giving)
-- [ ] Godmode, Heal, Vanish, Invsee
-- [ ] Warnings
-- [ ] Punishment & Ban Logs
-- [ ] Modview
+- [ ] Godmode
+- [ ] [Heal](#healing)
+- [ ] Vanish
+- [ ] Invsee
+- [x] [Warnings](#warnings)
+- [x] [Modview](#modview)
 ### Misc. Features:
 - [x] [MOTD](#motd)
 - [x] [/rules](#rules)
 - [x] [/discord](#discord)
 - [x] [/tellraw](#tellraw)
 - [x] [/sudo](#sudo)
-- [ ] Teleport safety validation
 - [x] [API](#api)
 
 > [!IMPORTANT]
@@ -78,6 +78,22 @@ The same can be done with the weather using `/weather <clear|rain>`.
 ## Item Giving
 The command `/item` or `/i` can be used to give the sender or an online player items.
 
+## Healing
+The command `/heal` restores the hp of a specified player, or the user, to 10 hearts (20 HP).
+
+## Warnings
+Warnings, given out with `/warn <player> [reason]`, are a way of keeping track of how many times a player was warned, and why;  
+Serving to aid moderation teams with making sure players get due warning.
+
+A warning can be taken back with `/unwarn <player> <reason>`.
+
+## Modview
+Modview is a command that displays useful information about a player regarding server moderation.
+* UUID
+* Last used IP
+* Ban status/reason
+* First join and last seen dates
+
 ## Miscellaneous Features
 ### MOTD
 The MOTD (Message of the day) is a fully customiazable message sent to players upon joining the server.  
@@ -104,6 +120,7 @@ The API can be accessed by using `Aurum.api()...` when importing `org.whoisjeb.a
 
 ## Permissions
 - `aurum.player`: Grants access to the plugin's basic player commands.
+  - `aurum.help`: Grants access to /help.
   - `aurum.spawn`: Grants access to /spawn.
   - `aurum.rules`: Grants access to /rules.
   - `aurum.discord`: Grants access to /discord.
@@ -111,6 +128,7 @@ The API can be accessed by using `Aurum.api()...` when importing `org.whoisjeb.a
   - `aurum.home`: Grants access to /home, /sethome, /delhome, and /homes.
   - `aurum.warp`: Grants access to /warp and /warps.
   - `aurum.teleportask`: Grants access to /tpa, /tpahere, /tpaccept, and /tpdeny
+- `aurum.ban`: Grants the ability to /ban and /unban players.
 - `aurum.maxhomes.n`: Grants the ability to set n homes. Default is 1.
 - `aurum.warp.xyz`: Grants access to /warp xyz, if per-warp-perms are enabled.
 - `aurum.setwarp`: Grants access to /setwarp.
@@ -125,3 +143,6 @@ The API can be accessed by using `Aurum.api()...` when importing `org.whoisjeb.a
 - `aurum.item`: Grants access to /item / /i.
 - `aurum.tellraw`: Grants access to /tellraw.
 - `aurum.sudo`: Grants access to /sudo.
+- `aurum.heal`: Grants access to /heal.
+- `aurum.modview`: Grants access to /modview.
+- `aurum.warn`: Grants access to /warn and /unwarn.

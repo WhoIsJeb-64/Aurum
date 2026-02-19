@@ -4,39 +4,38 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
-import java.util.UUID;
 
 public class Delhome extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public Delhome(Aurum plugin, AurumSettings settings) {
+    public Delhome(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) return true;
+        //Make sure the command is being run in-game; Load User object
+        if (!validatePlayerhood(sender)) return true;
         Player player = (Player) sender;
+        User user = new User(player.getUniqueId()).loadIfUnloaded(player);
 
-        String homeName;
-        UUID uuid = player.getUniqueId();
-        User user = new User(plugin, uuid, plugin.userdataDir(uuid)).loadIfUnloaded(player);
+        //Get given home name, unless they can only set 1, in which case it is set to "home"
         if (args.length < 1) {
             sender.sendMessage("§c[!] Please specify a home to delete!");
             return true;
-        } else {
-            homeName = (user.getMaxHomes(player) > 1) ? args[0] : "home";
         }
+        String homeName = (user.getMaxHomes() > 1) ? args[0] : "home";
+
+        //Check that a home with the given name exists
         if (!user.hasProperty("homes." + homeName)) {
             player.sendMessage("§c[!] That home does not exist!");
             return true;
         }
+
+        //Remove the home and inform the player
         user.removeProperty("homes." + homeName);
-        user.save();
         player.sendMessage("§2Deleted home§a " + homeName + "§2!");
         return true;
     }

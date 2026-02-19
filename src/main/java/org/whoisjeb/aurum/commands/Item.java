@@ -1,28 +1,24 @@
 package org.whoisjeb.aurum.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
-import java.util.logging.Logger;
 
 public class Item extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
-    private static final Logger log = Bukkit.getServer().getLogger();
 
-    public Item(Aurum plugin, AurumSettings settings) {
+    public Item(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) return true;
+        //Make sure sender is a player and that there are enough arguments
+        if (!validatePlayerhood(sender)) return true;
         if (args.length < 1) {
             sender.sendMessage("§c[!] Please specify an item!");
             return true;
@@ -31,16 +27,15 @@ public class Item extends AurumCommandBase {
             sender.sendMessage("§c[!] Invalid item!");
             return true;
         }
+
+        //Determine what item and how much, then the target player
         Material material = Material.matchMaterial(args[0]);
-
         int quantity;
-        if (args.length < 2) quantity = settings.getInt("general./i-default-quanity", 1);
+        if (args.length < 2) quantity = plugin.settings.getInt("general./i-default-quanity", 1);
         else quantity = Integer.parseInt(args[1]);
+        Player target = (args.length < 3) ? (Player) sender : getOnlineTarget(args[2]);
 
-        Player target;
-        if (args.length < 3) target = (Player) sender;
-        else target = Bukkit.getPlayer(args[2]);
-
+        //Give the item(s) and send appropiate messages
         target.getInventory().addItem(new ItemStack(material, quantity));
         sender.sendMessage("§9Gave " + target.getName() +  " §b" + quantity + " §9of§b " + material.name() + "§9.");
         if (!isTargetSender(sender, target)) {

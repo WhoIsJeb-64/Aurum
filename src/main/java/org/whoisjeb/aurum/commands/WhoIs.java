@@ -2,20 +2,17 @@ package org.whoisjeb.aurum.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
 import java.util.Map;
 import java.util.UUID;
 
 public class WhoIs extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public WhoIs(Aurum plugin, AurumSettings settings) {
+    public WhoIs(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override

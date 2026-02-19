@@ -3,6 +3,7 @@
 info:
   uuid: null
   name: null
+  address: null
 
 states:
   god: false
@@ -10,6 +11,7 @@ states:
   mute: false
 
 data:
+  firstJoin: null
   lastOnline: null
   position: 'world, 0, 0, 0, 0, 0'
 

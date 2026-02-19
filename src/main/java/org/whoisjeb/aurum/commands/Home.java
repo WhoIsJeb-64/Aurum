@@ -4,32 +4,28 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
-import java.util.UUID;
 
 public class Home extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public Home(Aurum plugin, AurumSettings settings) {
+    public Home(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) return true;
+        if (!validatePlayerhood(sender)) return true;
         Player player = (Player) sender;
 
         String homeName;
-        UUID uuid = player.getUniqueId();
-        User user = new User(plugin, uuid, plugin.userdataDir(uuid)).loadIfUnloaded(player);
+        User user = new User(player.getUniqueId()).loadIfUnloaded(player);
         if (args.length < 1) {
             sender.sendMessage("§c[!] Please specify a home!");
             return true;
         } else {
-            homeName = (user.getMaxHomes(player) > 1) ? args[0] : "home";
+            homeName = (user.getMaxHomes() > 1) ? args[0] : "home";
         }
         if (!user.hasProperty("homes." + homeName)) {
             player.sendMessage("§c[!] That home does not exist!");

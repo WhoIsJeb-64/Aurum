@@ -1,7 +1,7 @@
 # Aurum configuration
 
 general:
-  # %prefix%  - The prefix of the user, supplied by the permissions plugin.
+  # %prefix%  - The prefix of the user, supplied by PermissionsEX.
   # %name%    - The chatter's display name.
   # %message% - The content of a messsage typed by the chatter.
   chat-format: '%prefix% %name%&f: %message%'

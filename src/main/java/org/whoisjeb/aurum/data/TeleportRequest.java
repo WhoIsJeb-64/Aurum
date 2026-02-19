@@ -25,7 +25,7 @@ public class TeleportRequest {
         return target;
     }
 
-    public void initialize() {
+    public void send() {
         plugin.tpRequestCache().add(this);
         target.sendMessage("§d" + owner.getDisplayName() + " §5sent a teleport request!");
         target.sendMessage("§7Run §5/tpaccept §7to accept, or §5/tpdeny §7to deny.");

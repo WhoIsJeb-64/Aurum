@@ -5,23 +5,21 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 
 public class Spawn extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public Spawn(Aurum plugin, AurumSettings settings) {
+    public Spawn(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) return true;
-
-        Location spawn = settings.getLocation("general.spawn");
+        if (!validatePlayerhood(sender)) return true;
         Player player = (Player) sender;
+
+        Location spawn = plugin.settings.getLocation("general.spawn");
         player.teleport(spawn);
         player.sendMessage("§5Teleported to world spawn!");
         return true;

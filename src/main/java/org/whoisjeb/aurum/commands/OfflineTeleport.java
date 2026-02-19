@@ -6,22 +6,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
 import java.util.UUID;
 
 public class OfflineTeleport extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public OfflineTeleport(Aurum plugin, AurumSettings settings) {
+    public OfflineTeleport(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) return true;
+        if (!validatePlayerhood(sender)) return true;
         Player player = (Player) sender;
 
         if (args.length < 1) {
@@ -36,9 +34,10 @@ public class OfflineTeleport extends AurumCommandBase {
             sender.sendMessage("§c[!] Player does not exist!");
             return true;
         }
-        UUID uuid = UUIDManager.getInstance().getUUIDFromUsername(args[0]);
-        User user = new User(plugin, uuid, plugin.userdataDir(uuid));
-        user.load(uuid, args[0]);
+
+        UUID uuid = plugin.getUUID(args[0]);
+        User user = new User(uuid);
+        user.load(uuid);
 
         player.teleport(user.getLocation("data.position"));
         return true;

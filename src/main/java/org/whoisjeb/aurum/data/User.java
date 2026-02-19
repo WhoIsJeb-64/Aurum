@@ -2,6 +2,7 @@ package org.whoisjeb.aurum.data;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
@@ -13,41 +14,47 @@ import java.nio.file.Files;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+/**
+ * The data structure used by Aurum to store, manipulate, and retireve data.
+ */
 public class User extends AurumData {
-    private final Aurum plugin;
+    private static Aurum plugin = (Aurum) Bukkit.getServer().getPluginManager().getPlugin("Aurum");
     private final File dataFile;
     private static final Logger log = Bukkit.getServer().getLogger();
 
-    public User(Aurum plugin, UUID uuid, File dataFile) {
+    public User(UUID uuid) {
         super(new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml"));
-        this.plugin = plugin;
-        this.dataFile = plugin.userdataDir(uuid);
+        this.dataFile = new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml");
     }
 
-    public void load(UUID uuid, String name) {
+    public void load(UUID uuid) {
+        String name = plugin.uuidManager.getUsernameFromUUID(uuid);
         try {
             Files.createDirectories(dataFile.getParentFile().toPath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         if (!dataFile.exists()) {
-            initializeNewUser(uuid, name);
+            initializeNewUser(uuid);
         }
         super.load();
-        plugin.loadedUsers().put(uuid, this);
-        log.info("[Aurum] Loaded data for " + uuid.toString() + " successfully!");
+        if (!plugin.loadedUsers().containsKey(uuid)) {
+            plugin.loadedUsers().put(uuid, this);
+            log.info("[Aurum] Loaded data for " + uuid.toString() + " successfully!");
+        }
     }
 
-    public User loadIfUnloaded(Player player) {
-        UUID uuid = player.getUniqueId();
+    public User loadIfUnloaded(OfflinePlayer player) {
+        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
         if (plugin.loadedUsers().containsKey(uuid)) {
             return plugin.loadedUsers().get(uuid);
         }
-        this.load(uuid, player.getName());
+        this.load(uuid);
         return this;
     }
 
-    private void initializeNewUser(UUID uuid, String name) {
+    private void initializeNewUser(UUID uuid) {
+        String name = plugin.uuidManager.getUsernameFromUUID(uuid);
         String resourcePath = "/user.yml";
         try (InputStream inputStream = getClass().getResourceAsStream(resourcePath)) {
             if (inputStream == null) {
@@ -59,6 +66,8 @@ public class User extends AurumData {
                 Files.copy(inputStream, dataFile.toPath());
                 this.setProperty("info.uuid", uuid.toString());
                 this.setProperty("info.name", name);
+                this.setProperty("data.firstJoin", System.currentTimeMillis());
+                this.setProperty("data.lastOnline", null);
                 this.setProperty("homes", null);
                 this.save();
                 plugin.loadedUsers().put(uuid, this);
@@ -79,9 +88,11 @@ public class User extends AurumData {
         log.info("[Aurum] Unloaded data for " + this.getUUID("info.uuid") + " successfully!");
     }
 
-    public int getMaxHomes(Player player) {
-        World world = player.getWorld();
-        String[] userPerms = PermissionsEx.getPermissionManager().getUser(player).getPermissions(world.getName());
+    //Getters
+
+    public int getMaxHomes() {
+        World world = this.getWorld("data.position");
+        String[] userPerms = PermissionsEx.getPermissionManager().getUser(this.getString("info.name")).getPermissions(world.getName());
         for (String perm : userPerms) {
             if (perm.contains("aurum.maxhomes.")) {
                 String clean = perm.replaceAll("\\D+","");
@@ -89,5 +100,11 @@ public class User extends AurumData {
             }
         }
         return 1;
+    }
+
+    public String getIP() {
+        if (!this.hasProperty("info.address")) return null;
+        String address = this.getString("info.address");
+        return address.substring(0, address.length() - 6);
     }
 }

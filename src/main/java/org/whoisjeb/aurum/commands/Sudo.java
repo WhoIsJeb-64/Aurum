@@ -5,16 +5,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 import java.util.Arrays;
 
 public class Sudo extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public Sudo(Aurum plugin, AurumSettings settings) {
+    public Sudo(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
@@ -38,7 +36,7 @@ public class Sudo extends AurumCommandBase {
         sudoContent = Arrays.copyOfRange(args, 1, args.length);
         if (sudoContent[0].startsWith("c:")) {
             sudoContent[0] = sudoContent[0].substring(2);
-            String message = plugin.formatChatMessage(victim, String.join(" ", sudoContent));
+            String message = plugin.chatFormat(victim, String.join(" ", sudoContent));
             Bukkit.getServer().broadcastMessage(message);
         }
         else {

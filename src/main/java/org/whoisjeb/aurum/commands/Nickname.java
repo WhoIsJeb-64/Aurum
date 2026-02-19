@@ -5,17 +5,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.User;
-import java.util.UUID;
 
 public class Nickname extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public Nickname(Aurum plugin, AurumSettings settings) {
+    public Nickname(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
@@ -43,19 +40,16 @@ public class Nickname extends AurumCommandBase {
             return true;
         }
 
-        UUID uuid = player.getUniqueId();
-        User user = new User(plugin, uuid, plugin.userdataDir(uuid)).loadIfUnloaded(player);
+        User user = new User(player.getUniqueId()).loadIfUnloaded(player);
         if (args[0].equals("clear")) {
             user.removeProperty("info.nickname");
             player.setDisplayName(player.getName());
-            user.save();
             player.sendMessage("§2Set nickname successfully!");
         }
         else if (args[0].equals("set")) {
             String nickname = plugin.colorize(args[1], player.hasPermission("aurum.color"));
             user.setProperty("info.nickname", nickname);
-            player.setDisplayName(settings.getString("general.nickname-prefix") + nickname);
-            user.save();
+            player.setDisplayName(plugin.settings.getString("general.nickname-prefix") + nickname);
             player.sendMessage("§2Cleared nickname successfully!");
         }
         else {

@@ -9,159 +9,164 @@ depend:
 
 commands:
   aurum:
-    description: Display plugin info, or reloads its userdata and config.
+    description: Display plugin's info, or reloads its data.
     aliases: [au]
     usage: /<command> [reload|info]
     permission: aurum.aurum
-    permission-message: §4[!] You are not authorized to execute /aurum!
+  help:
+    description: Displays available commands.
+    aliases: [?]
+    usage: /<command> [page|plugin]
+    permission: aurum.help
   spawn:
     description: Warps the sender to spawn.
     usage: /<command>
     permission: aurum.spawn
-    permission-message: §4[!] You are not authorized to execute /spawn!
   setspawn:
-    description: Sets spawn to the user's location.
+    description: Sets spawn to the sender's location.
     usage: /<command>
     permission: aurum.setspawn
-    permission-message: §4[!] You are not authorized to execute /setspawn!
   rules:
     description: Displays the server rules.
     usage: /<command>
     permission: aurum.rules
-    permission-message: §4[!] You are not authorized to execute /rules!
   discord:
     description: Links to the server's discord.
     usage: /<command>
     permission: aurum.discord
-    permission-message: §4[!] You are not authorized to execute /discord!
   sethome:
     description: Sets a new home at the sender's position.
     usage: /<command>
     permission: aurum.home
-    permission-message: §4[!] You are not authorized to execute /sethome!
   home:
     description: Warps the sender to the specified home.
     aliases: [h]
     usage: /<command>
     permission: aurum.home
-    permission-message: §4[!] You are not authorized to execute /home!
   delhome:
     description: Deletes the specified home.
     usage: /<command>
     permission: aurum.home
-    permission-message: §4[!] You are not authorized to execute /delhome!
   homes:
     description: Lists the sender's homes.
     usage: /<command>
     permission: aurum.home
-    permission-message: §4[!] You are not authorized to execute /homes!
   warp:
     description: Teleports the sender to the specified warp.
     usage: /<command> <warp>
     permission: aurum.warp
-    permission-message: §4[!] You are not authorized to execute /warp!
   warps:
     description: Lists the server's warps.
     usage: /<command> <warp>
     permission: aurum.warp
-    permission-message: §4[!] You are not authorized to execute /warp!
   setwarp:
     description: Sets a new warp at the sender's position.
     usage: /<command> <warp>
     permission: aurum.setwarp
-    permission-message: §4[!] You are not authorized to execute /setwarp!
   delwarp:
     description: Deletes the specified warp.
     usage: /<command>
     permission: aurum.delwarp
-    permission-message: §4[!] You are not authorized to execute /delwarp!
   nickname:
-    description: Changes or clears the nickname of the sender or another online player.
+    description: Changes or clears the sender's or another's nickname.
     aliases: [nick]
     usage: /<command> <set|clear> <nickname|> <player>
     permission: aurum.nickname
-    permission-message: §4[!] You are not authorized to execute /nickname!
   whois:
     description: Tells the sender the username of an online player.
     aliases: [realname, whos]
     usage: /<command> <nickname>
     permission: aurum.whois
-    permission-message: §4[!] You are not authorized to execute /whois!
   time:
     description: Changes the time to the specified time.
     aliases: [settime, timeset]
     usage: /<command> <day|night|dawn|dusk>
     permission: aurum.time
-    permissions-message: §4[!] You are not authorized to execute /time!
   weather:
     description: Changes the weahter.
     aliases: [setweather, weatherset]
     usage: /<command> [clear|rain]
     permission: aurum.weather
-    permissions-message: §4[!] You are not authorized to execute /weather!
   playerlist:
-    description: Changes the weahter.
+    description: Lists the currently online players.
     aliases: [list, who]
     usage: /<command>
     permission: aurum.playerlist
-    permissions-message: §4[!] You are not authorized to execute /playerlist!
   teleport:
-    description: Teleports the sender to player or position.
+    description: Teleports the sender to a player or position.
     aliases: [tp]
     usage: /<command> <player|x, y, z>
     permission: aurum.teleport
-    permissions-message: §4[!] You are not authorized to execute /teleport!
   offlineteleport:
     description: Teleports the sender to the last position of an offline player.
     aliases: [offlinetp, otp]
     usage: /<command> <player>
     permission: aurum.teleport
-    permission-message: §4[!] You are not authorized to execute /offlineteleport!
   teleportask:
     description: Requests the target to have the sender tp to them.
     aliases: [tpa]
     usage: /<command> <player>
     permission: aurum.teleportask
-    permission-message: §4[!] You are not authorized to execute /teleportask!
   teleportaccept:
     description: Accepts the most recent tp request, or that of a specific player.
     aliases: [tpaccept]
     usage: /<command> [player]
     permission: aurum.teleportask
-    permission-message: §4[!] You are not authorized to execute /teleportaccept!
   teleportdeny:
     description: Denies the most recent tp request, or that of a specific player.
     aliases: [tpdeny]
     usage: /<command> [player]
     permission: aurum.teleportask
-    permission-message: §4[!] You are not authorized to execute /teleportdeny!
   item:
     description: Gives the sender/a player an item.
     aliases: [i]
     usage: /<command> <item> [quanity]
     permission: aurum.item
-    permission-message: §4[!] You are not authorized to execute /item!
   tellraw:
     description: Prints what is typed after /tellraw.
     aliases: [tr]
     usage: /<command> <message>
     permission: aurum.tellraw
-    permission-message: §4[!] You are not authorized to execute /tellraw!
   sudo:
     description: Forces the victim to chat or run a command.
     usage: /<command> <player> <command|c:message>
     permission: aurum.sudo
-    permission-message: §4[!] You are not authorized to execute /sudo!
   heal:
     description: Heals the sender or target.
     usage: /<command> [player]
     permission: aurum.heal
-    permission-message: §4[!] You are not authorized to execute /heal!
+  modview:
+    description: Heals the sender or target.
+    aliases: [modv]
+    usage: /<command> [player]
+    permission: aurum.modview
+  ban:
+    description: Bans the specified user.
+    usage: /<command> [player]
+    permission: aurum.ban
+  unban:
+    description: Unbans the specified user.
+    usage: /<command> [player]
+    permission: aurum.ban
+  banlog:
+    description: Prints a page of the most recently banned players.
+    aliases: [banl]
+    usage: /<command> [page]
+    permission: aurum.ban
+  warn:
+    description: Warns the specified user.
+    usage: /<command> [player] [reason]
+    permission: aurum.warn
+  unwarn:
+    description: Removes a warning from the specified user.
+    usage: /<command> [player] [reason]
+    permission: aurum.warn
 
 permissions:
   aurum.player:
     description: Gives access to Aurum's essential commands.
     children:
+      aurum.help: true
       aurum.spawn: true
       aurum.rules: true
       aurum.discord: true
@@ -171,6 +176,9 @@ permissions:
       aurum.teleportask: true
   aurum.aurum:
     description: Grants access to /aurum.
+    default: not op
+  aurum.help:
+    description: Grants access to /help.
     default: not op
   aurum.spawn:
     description: Grants access to /spawn.
@@ -228,4 +236,13 @@ permissions:
     default: op
   aurum.heal:
     description: Grants access to /sudo.
+    default: op
+  aurum.modview:
+    description: Grants access to /modview.
+    default: op
+  aurum.ban:
+    description: Grants access to /ban, /unban, and /banlog.
+    default: op
+  aurum.warn:
+    description: Grants access to /warn and /unwarn.
     default: op

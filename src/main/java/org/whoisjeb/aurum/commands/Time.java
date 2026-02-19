@@ -6,15 +6,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
-
 public class Time extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public Time(Aurum plugin, AurumSettings settings) {
+    public Time(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override

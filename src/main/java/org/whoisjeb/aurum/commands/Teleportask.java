@@ -5,23 +5,21 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.AurumSettings;
 import org.whoisjeb.aurum.data.TeleportRequest;
 
 public class Teleportask extends AurumCommandBase {
     private final Aurum plugin;
-    private final AurumSettings settings;
 
-    public Teleportask(Aurum plugin, AurumSettings settings) {
+    public Teleportask(Aurum plugin) {
+        super(plugin);
         this.plugin = plugin;
-        this.settings = settings;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!isSenderPlayer(sender)) return true;
-        Player player = (Player) sender;
+        if (!validatePlayerhood(sender)) return true;
 
+        //Determine target
         if (args.length < 1) {
             sender.sendMessage("§c[!] Please specify a player!");
             return true;
@@ -30,16 +28,18 @@ public class Teleportask extends AurumCommandBase {
             sender.sendMessage("§c[!] Invalid player!");
             return true;
         }
-
         Player target = Bukkit.getPlayer(args[0]);
+
+        //Make sure the target is not the sender
         if (isTargetSender(sender, target)) {
-            player.sendMessage("§c[!] You cannot send a teleport request to yourself!");
+            sender.sendMessage("§c[!] You cannot send a teleport request to yourself!");
             return true;
         }
 
-        TeleportRequest tpRequest = new TeleportRequest(plugin, player, target);
-        tpRequest.initialize();
-        player.sendMessage("§5Sent a teleport request to§d " + args[0] + "§5!");
+        //Send the request and appropiate messages
+        TeleportRequest tpRequest = new TeleportRequest(plugin, (Player) sender, target);
+        tpRequest.send();
+        sender.sendMessage("§5Sent a teleport request to§d " + target.getName() + "§5!");
         return true;
     }
 }
