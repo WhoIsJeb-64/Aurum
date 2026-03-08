@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 
-public class Teleport extends AurumCommandBase {
+public class Teleport extends AuricCommand {
     private final Aurum plugin;
 
     public Teleport(Aurum plugin) {
@@ -17,20 +17,20 @@ public class Teleport extends AurumCommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!validatePlayerhood(sender)) return true;
+        if (!isPlayer(sender)) return true;
         Player player = (Player) sender;
 
         if (args.length < 1) {
-            sender.sendMessage("§c[!] Please specify a player or position!");
+            sender.sendMessage(message("error.specify").replace("%thing%", "player or position"));
             return true;
         }
-        if (Bukkit.getPlayer(args[0]) != null) {
+        if (getOnlineTarget(args[0]) != null) {
             player.teleport(Bukkit.getPlayer(args[0]));
             return true;
         }
 
         if (args.length < 3) {
-            sender.sendMessage("§c[!] Incomplete position / Invalid player!");
+            sender.sendMessage(message("error.invalid").replace("%thing%", "player or position"));
             return true;
         }
         player.teleport(new Location(player.getWorld(),

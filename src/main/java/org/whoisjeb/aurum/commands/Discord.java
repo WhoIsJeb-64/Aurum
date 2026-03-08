@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.whoisjeb.aurum.Aurum;
 
-public class Discord extends AurumCommandBase {
+public class Discord extends AuricCommand {
     private final Aurum plugin;
 
     public Discord(Aurum plugin) {
@@ -14,9 +14,8 @@ public class Discord extends AurumCommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String discordMessage = plugin.settings.getString("messages.discord");
-        discordMessage = plugin.colorize(discordMessage, true);
-        sender.sendMessage(discordMessage);
+        //Send appropiate message
+        sender.sendMessage(message(command));
         return true;
     }
 }

@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 
-public class Heal extends AurumCommandBase {
+public class Heal extends AuricCommand {
     private final Aurum plugin;
 
     public Heal(Aurum plugin) {
@@ -15,11 +15,13 @@ public class Heal extends AurumCommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        //Get target, who is the sender if none are specified
         Player target = (args.length >= 1) ? getOnlineTarget(args[0]) : (Player) sender;
 
+        //Heal target and send appropiate messages
         target.setHealth(20);
-        sender.sendMessage("§5Healed§d " + target.getDisplayName() + "§5!");
-        if (target != sender) target.sendMessage("§dYou have been healed!");
+        sender.sendMessage(message(command, "sender").replace("%target%", target.getName()));
+        if (target != sender) target.sendMessage(message(command, "target"));
         return true;
     }
 }

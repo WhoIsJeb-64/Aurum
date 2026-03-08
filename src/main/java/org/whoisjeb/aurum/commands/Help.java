@@ -9,7 +9,7 @@ import org.whoisjeb.aurum.Aurum;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Help extends AurumCommandBase {
+public class Help extends AuricCommand {
     private final Aurum plugin;
 
     public Help(Aurum plugin) {
@@ -23,7 +23,7 @@ public class Help extends AurumCommandBase {
         ArrayList<String> menu = new ArrayList<>();
         ArrayList<Command> commands = new ArrayList<>();
 
-        //Populate the command list with those to which the sender has access
+        //Fill the command list with those to which the sender has access
         for (Plugin p : Bukkit.getPluginManager().getPlugins()) {
             PluginDescriptionFile pdf = p.getDescription();
             //noinspection unchecked
@@ -34,18 +34,22 @@ public class Help extends AurumCommandBase {
             }
         }
 
-        //Determine target page and page count, correct target if it's too high
+        //Determine target page and page count; Correct target if it's too high
         int page = (args.length >= 1) ? Integer.parseInt(args[0]) : 1;
         int pageCount = (commands.size() / 10) + 1;
         if (page < 1 || page > pageCount) page = 1;
 
         //Construct menu
-        menu.add("§e[§6==================§e Help Page " + page + "/" + pageCount + " §6==================§e]");
+        menu.add(message(command, "header")
+                .replace("%page%", String.valueOf(page))
+                .replace("%pageCount%", String.valueOf(pageCount)));
         int i = 1;
         for (Command cmd : commands) {
             //Only print the correct range of entries
             if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
-                menu.add("§6" + cmd.getName() + ":§7 " + cmd.getDescription());
+                menu.add(message(command, "line")
+                        .replace("%command%", cmd.getName())
+                        .replace("%description%", cmd.getDescription()));
             }
             i++;
         }

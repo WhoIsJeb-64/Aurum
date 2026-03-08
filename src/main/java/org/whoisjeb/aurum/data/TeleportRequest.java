@@ -25,32 +25,41 @@ public class TeleportRequest {
         return target;
     }
 
-    public void send() {
+    public void send(boolean isToTarget) {
         plugin.tpRequestCache().add(this);
-        target.sendMessage("§d" + owner.getDisplayName() + " §5sent a teleport request!");
-        target.sendMessage("§7Run §5/tpaccept §7to accept, or §5/tpdeny §7to deny.");
+
+        target.sendMessage(message("sent." + ((isToTarget) ? "normal" : "here"))
+                .replace("%player%", owner.getName()));
+        target.sendMessage(message("prompt-answer"));
+
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, this::expire, 1200L);
     }
 
     public void expire() {
-        if (!plugin.tpRequestCache().contains(this)) {
-            return;
-        }
-        owner.sendMessage("§7Your teleport request to§5 " + target.getDisplayName() + " §7has expired.");
-        target.sendMessage("§5" + owner.getDisplayName() + "'s §7teleport request has expired.");
+        if (!plugin.tpRequestCache().contains(this)) return;
+
+        owner.sendMessage(message("sender.expired").replace("%player%", target.getDisplayName()));
+        target.sendMessage(message("target.expired").replace("%player%", owner.getDisplayName()));
+
         plugin.tpRequestCache().remove(this);
     }
 
     public void accept() {
-        owner.sendMessage("§a" + target.getDisplayName() + " §2accepted your teleport request!");
-        target.sendMessage("§5Accepted §d" + owner.getDisplayName() + "'s §5 teleport request!");
+        owner.sendMessage(message("sender.accepted").replace("%player%", target.getDisplayName()));
+        target.sendMessage(message("target.accepted").replace("%player%", owner.getDisplayName()));
+
         owner.teleport(target);
         plugin.tpRequestCache().remove(this);
     }
 
     public void deny() {
-        owner.sendMessage("§c" + target.getDisplayName() + " §4denied your teleport request!");
-        target.sendMessage("§5Denied §d" + owner.getDisplayName() + "'s §5 teleport request!");
+        owner.sendMessage(message("sender.denied").replace("%player%", target.getDisplayName()));
+        target.sendMessage(message("target.denied").replace("%player%", owner.getDisplayName()));
+
         plugin.tpRequestCache().remove(this);
+    }
+
+    private String message(String path) {
+        return plugin.colorize(plugin.language.getString("commands.teleportask." + path), true);
     }
 }

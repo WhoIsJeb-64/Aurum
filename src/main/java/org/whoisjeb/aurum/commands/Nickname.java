@@ -1,13 +1,12 @@
 package org.whoisjeb.aurum.commands;
 
-import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.User;
+import org.whoisjeb.aurum.data.AurumUser;
 
-public class Nickname extends AurumCommandBase {
+public class Nickname extends AuricCommand {
     private final Aurum plugin;
 
     public Nickname(Aurum plugin) {
@@ -17,44 +16,51 @@ public class Nickname extends AurumCommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        //Make sure that an argument is passed
         if (args.length < 1) {
-            sender.sendMessage("§c[!] Usage: /nickname <set|clear> <nickname|> <player>");
-            return true;
-        }
-        if (args.length < 2 && !args[0].equals("clear")) {
-            sender.sendMessage("§c[!] Please specify your desired nickname!");
+            sender.sendMessage(message("error.specify").replace("%thing%", "nickname"));
             return true;
         }
 
-        String subject = (args.length >= 3) ? args[2] : sender.getName();
+        //Set nickname to the given argument; Colorize only if sender is permitted
+        String nickname = plugin.colorize(args[0], sender.hasPermission("aurum.color"));
 
-        Player player;
-        try {
-            player = Bukkit.getPlayer(subject);
-        } catch (Exception e) {
-            sender.sendMessage("§c[!] Invalid Player!");
+        //Check if a target is specified as the 2nd argument
+        OfflinePlayer target = (OfflinePlayer) (args.length < 2 ? sender : getTarget(args[1]));
+
+        //Make sure that a target was resolved
+        if (target == null) {
+            sender.sendMessage(message("error-doesnt-exist")
+                    .replace("%thing%", "That player"));
             return true;
         }
-        if (Bukkit.getPlayer(subject) == sender && !sender.hasPermission("aurum.nickname.others")) {
-            sender.sendMessage("§c[!] You are not authorized to modify the nicknames of others!");
-            return true;
-        }
 
-        User user = new User(player.getUniqueId()).loadIfUnloaded(player);
-        if (args[0].equals("clear")) {
+        //Load target's AurumUser instance
+        AurumUser user = new AurumUser(plugin.getUUID(target));
+        user.load(plugin.getUUID(target));
+
+        //Clear the target's nickname if the argument "clear" was given
+        if (nickname.equalsIgnoreCase("clear")) {
             user.removeProperty("info.nickname");
-            player.setDisplayName(player.getName());
-            player.sendMessage("§2Set nickname successfully!");
+            if (getOnlineTarget(target.getName()) != null) {
+                getOnlineTarget(target.getName()).setDisplayName(target.getName());
+            }
+            sender.sendMessage(message(command, "clear").replace("%target%", target.getName()));
+            return true;
         }
-        else if (args[0].equals("set")) {
-            String nickname = plugin.colorize(args[1], player.hasPermission("aurum.color"));
-            user.setProperty("info.nickname", nickname);
-            player.setDisplayName(plugin.settings.getString("general.nickname-prefix") + nickname);
-            player.sendMessage("§2Cleared nickname successfully!");
+
+        //Get configured nickname prefix
+        String nicknamePrefix = plugin.settings.getString("chat.nickname-prefix");
+
+        //Set target's nickname through Aurum, and Minecraft if they're online
+        user.setProperty("info.nickname", nickname);
+        if (getOnlineTarget(target.getName()) != null) {
+            getOnlineTarget(target.getName()).setDisplayName(nicknamePrefix + nickname);
         }
-        else {
-            player.sendMessage("§c[!] Usage: /nickname <set|clear> <nickname|> <player>");
-        }
+        sender.sendMessage(message(command, "set." + ((sender == target) ? "sender" : "target"))
+                .replace("%nickname%", nicknamePrefix + nickname)
+                .replace("%target%", target.getName()));
+
         return true;
     }
 }

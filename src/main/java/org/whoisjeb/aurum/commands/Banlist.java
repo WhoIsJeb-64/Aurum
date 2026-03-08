@@ -1,7 +1,5 @@
 package org.whoisjeb.aurum.commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.whoisjeb.aurum.Aurum;
@@ -9,7 +7,7 @@ import org.whoisjeb.aurum.data.AurumPunishments;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Banlog extends AuricCommand {
+public class Banlist extends AuricCommand {
     private final Aurum plugin;
     private final AurumPunishments punishments;
     private static String issuer(UUID uuid) {
@@ -18,12 +16,8 @@ public class Banlog extends AuricCommand {
     private static String reason(UUID uuid) {
         return "bans." + uuid + ".reason";
     }
-    private String activeMarker(String name) {
-        OfflinePlayer player = Bukkit.getOfflinePlayer(name);
-        return punishments.isBanned(plugin.getUUID(player)) ? "§c[A]§f " : "§7[E]§f ";
-    }
 
-    public Banlog(Aurum plugin) {
+    public Banlist(Aurum plugin) {
         super(plugin);
         this.plugin = plugin;
         this.punishments = plugin.punishments;
@@ -41,7 +35,9 @@ public class Banlog extends AuricCommand {
         ArrayList<String> menu = new ArrayList<>();
         ArrayList<UUID> banEntries = new ArrayList<>();
         for (Object entry : punishments.getKeys("bans")) {
-            banEntries.add(UUID.fromString(entry.toString()));
+            if (punishments.isBanned(UUID.fromString(entry.toString()))) {
+                banEntries.add(UUID.fromString(entry.toString()));
+            }
         }
         if (banEntries.isEmpty()) {
             sender.sendMessage(message(command, "no-bans"));
@@ -62,7 +58,6 @@ public class Banlog extends AuricCommand {
             //Only print the correct range of entries
             if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
                 menu.add(message(command, "line")
-                        .replace("%activeMarker%", activeMarker(plugin.uuidManager.getUsernameFromUUID(uuid)))
                         .replace("%player%", plugin.uuidManager.getUsernameFromUUID(uuid))
                         .replace("%reason%", punishments.getString(reason(uuid)))
                         .replace("%issuer%", punishments.getString(issuer(uuid))));

@@ -2,10 +2,9 @@ package org.whoisjeb.aurum.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 
-public class Delwarp extends AurumCommandBase {
+public class Delwarp extends AuricCommand {
     private final Aurum plugin;
 
     public Delwarp(Aurum plugin) {
@@ -15,22 +14,25 @@ public class Delwarp extends AurumCommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!validatePlayerhood(sender)) return true;
-        Player player = (Player) sender;
-
+        //Warp name must be specified
         String warpName;
         if (args.length < 1) {
-            sender.sendMessage("§c[!] Please specify a warp to delete!");
+            sender.sendMessage(message("error.specify").replace("%thing%", "warp"));
             return true;
         } else {
             warpName = args[0];
         }
+
+        //Check that a warp with the given name exists; Return if not
         if (!plugin.settings.hasProperty("general.warps." + warpName)) {
-            player.sendMessage("§c[!] That warp does not exist!");
+            sender.sendMessage(message("error.doesnt-exist")
+                    .replace("%thing%", "The warp " + warpName));
             return true;
         }
+
+        //Remove the warp and inform the player
         plugin.settings.removeProperty("general.warps." + warpName);
-        player.sendMessage("§2Deleted warp§a " + warpName + "§2!");
+        sender.sendMessage(message(command).replace("%home%", warpName));
         return true;
     }
 }

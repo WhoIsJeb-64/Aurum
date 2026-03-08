@@ -11,156 +11,210 @@ commands:
   aurum:
     description: Display plugin's info, or reloads its data.
     aliases: [au]
-    usage: /<command> [reload|info]
+    usage: /aurum [reload|info]
     permission: aurum.aurum
-  help:
-    description: Displays available commands.
-    aliases: [?]
-    usage: /<command> [page|plugin]
-    permission: aurum.help
-  spawn:
-    description: Warps the sender to spawn.
-    usage: /<command>
-    permission: aurum.spawn
-  setspawn:
-    description: Sets spawn to the sender's location.
-    usage: /<command>
-    permission: aurum.setspawn
-  rules:
-    description: Displays the server rules.
-    usage: /<command>
-    permission: aurum.rules
-  discord:
-    description: Links to the server's discord.
-    usage: /<command>
-    permission: aurum.discord
-  sethome:
-    description: Sets a new home at the sender's position.
-    usage: /<command>
-    permission: aurum.home
-  home:
-    description: Warps the sender to the specified home.
-    aliases: [h]
-    usage: /<command>
-    permission: aurum.home
+  balance:
+    description: Prints the sender's or another's balance.
+    aliases: [bal, bla, money]
+    usage: /balance [player]
+    permission: aurum.balance
+  balancetop:
+    description: Displays a page of the richest players.
+    aliases: [baltop, blatop, baltpo, blatpo]
+    usage: /balancetop [page]
+    permission: aurum.balance
+  ban:
+    description: Bans the specified user.
+    usage: /ban <player>
+    permission: aurum.ban
+  banlist:
+    description: Prints a page of currently active bans.
+    usage: /banlist [page]
+    permission: aurum.ban
+  banlog:
+    description: Prints a page of instances of bans, active or not.
+    usage: /banlog [page]
+    permission: aurum.ban
   delhome:
     description: Deletes the specified home.
-    usage: /<command>
+    aliases: [delh]
+    usage: /delhome <home>
     permission: aurum.home
-  homes:
-    description: Lists the sender's homes.
-    usage: /<command>
-    permission: aurum.home
-  warp:
-    description: Teleports the sender to the specified warp.
-    usage: /<command> <warp>
-    permission: aurum.warp
-  warps:
-    description: Lists the server's warps.
-    usage: /<command> <warp>
-    permission: aurum.warp
-  setwarp:
-    description: Sets a new warp at the sender's position.
-    usage: /<command> <warp>
-    permission: aurum.setwarp
   delwarp:
     description: Deletes the specified warp.
-    usage: /<command>
+    usage: /delwarp <warp>
     permission: aurum.delwarp
-  nickname:
-    description: Changes or clears the sender's or another's nickname.
-    aliases: [nick]
-    usage: /<command> <set|clear> <nickname|> <player>
-    permission: aurum.nickname
-  whois:
-    description: Tells the sender the username of an online player.
-    aliases: [realname, whos]
-    usage: /<command> <nickname>
-    permission: aurum.whois
-  time:
-    description: Changes the time to the specified time.
-    aliases: [settime, timeset]
-    usage: /<command> <day|night|dawn|dusk>
-    permission: aurum.time
-  weather:
-    description: Changes the weahter.
-    aliases: [setweather, weatherset]
-    usage: /<command> [clear|rain]
-    permission: aurum.weather
-  playerlist:
-    description: Lists the currently online players.
-    aliases: [list, who]
-    usage: /<command>
-    permission: aurum.playerlist
-  teleport:
-    description: Teleports the sender to a player or position.
-    aliases: [tp]
-    usage: /<command> <player|x, y, z>
-    permission: aurum.teleport
-  offlineteleport:
-    description: Teleports the sender to the last position of an offline player.
-    aliases: [offlinetp, otp]
-    usage: /<command> <player>
-    permission: aurum.teleport
-  teleportask:
-    description: Requests the target to have the sender tp to them.
-    aliases: [tpa]
-    usage: /<command> <player>
-    permission: aurum.teleportask
-  teleportaccept:
-    description: Accepts the most recent tp request, or that of a specific player.
-    aliases: [tpaccept]
-    usage: /<command> [player]
-    permission: aurum.teleportask
-  teleportdeny:
-    description: Denies the most recent tp request, or that of a specific player.
-    aliases: [tpdeny]
-    usage: /<command> [player]
-    permission: aurum.teleportask
+  discord:
+    description: Links to the server's discord.
+    usage: /discord
+    permission: aurum.discord
+  economy:
+    description: Allows for managing the server economy.
+    aliases: [eco, econ]
+    usage: /economy <give|take|set> <player> <amount>
+    permission: aurum.economy
+  grounditemclear:
+    description: Clears all ground items.
+    aliases: [itemclear, iclear, gic, giclear]
+    usage: /gic
+    permission: aurum.grounditemclear
+  heal:
+    description: Heals the sender or target.
+    usage: /heal [player]
+    permission: aurum.heal
+  help:
+    description: Displays available commands.
+    aliases: [?, hlep]
+    usage: /help [page|plugin]
+    permission: aurum.help
+  home:
+    description: Warps the sender to the specified home.
+    aliases: [h, hmoe, hoem]
+    usage: /home <home>
+    permission: aurum.home
+  homes:
+    description: Lists the sender's or another's homes.
+    usage: /homes [player]
+    permission: aurum.home
   item:
     description: Gives the sender/a player an item.
     aliases: [i]
-    usage: /<command> <item> [quanity]
+    usage: /item <item> [quanity]
     permission: aurum.item
-  tellraw:
-    description: Prints what is typed after /tellraw.
-    aliases: [tr]
-    usage: /<command> <message>
-    permission: aurum.tellraw
-  sudo:
-    description: Forces the victim to chat or run a command.
-    usage: /<command> <player> <command|c:message>
-    permission: aurum.sudo
-  heal:
-    description: Heals the sender or target.
-    usage: /<command> [player]
-    permission: aurum.heal
+  killall:
+    description: Kills hostile and/or passive mobs.
+    aliases: [killa, ka, purge, pruge]
+    usage: /killall [all|passive|hostile]
+    permission: aurum.killall
   modview:
     description: Heals the sender or target.
     aliases: [modv]
-    usage: /<command> [player]
+    usage: /modview [player]
     permission: aurum.modview
-  ban:
-    description: Bans the specified user.
-    usage: /<command> [player]
-    permission: aurum.ban
+  motd:
+    description: Prints the server's MOTD.
+    usage: /motd
+    permission: aurum.motd
+  mute:
+    description: Mutes the target.
+    usage: /mute <player>
+    permission: aurum.mute
+  nickname:
+    description: Changes the sender's or another's nickname.
+    aliases: [nick, ncik]
+    usage: /nickname <nickname|"clear"> [player]
+    permission: aurum.nickname
+  offlineteleport:
+    description: Teleports the sender to the last position of an offline player.
+    aliases: [offlinetp, otp]
+    usage: /otp <player>
+    permission: aurum.teleport
+  pay:
+    description: Pays the target an amount of the sender's money.
+    usage: /pay <player> <amount>
+    permission: aurum.pay
+  playerlist:
+    description: Lists the currently online players.
+    aliases: [list, who]
+    usage: /playerlist
+    permission: aurum.playerlist
+  rules:
+    description: Displays the server rules.
+    aliases: [rlues]
+    usage: /rules
+    permission: aurum.rules
+  sethome:
+    description: Sets a new home at the sender's position.
+    aliases: [seth]
+    usage: /sethome <home>
+    permission: aurum.home
+  setspawn:
+    description: Sets spawn to the sender's location.
+    aliases: [setsapwn, setspanw]
+    usage: /setspawn
+    permission: aurum.setspawn
+  setwarp:
+    description: Sets a new warp at the sender's position.
+    usage: /setwarp <warp>
+    permission: aurum.setwarp
+  spawn:
+    description: Warps the sender to spawn.
+    aliases: [sapwn, spanw]
+    usage: /spawn
+    permission: aurum.spawn
+  sudo:
+    description: Forces the victim to chat or run a command.
+    usage: /sudo <player> <command|c:message>
+    permission: aurum.sudo
+  teleport:
+    description: Teleports the sender to a player or position.
+    aliases: [tp]
+    usage: /tp <player|x, y, z>
+    permission: aurum.teleport
+  teleportaccept:
+    description: Accepts a teleport request.
+    aliases: [tpaccept, tpac]
+    usage: /tpaccept [player]
+    permission: aurum.teleportask
+  teleportask:
+    description: Requests that the sender teleport to the target.
+    aliases: [tpa]
+    usage: /tpa <player>
+    permission: aurum.teleportask
+  teleportaskhere:
+    description: Requests that the target teleport to the sender.
+    aliases: [tpahere, tpah]
+    usage: /tpahere <player>
+    permission: aurum.teleportask
+  teleportdeny:
+    description: Denies a teleport request.
+    aliases: [tpdeny, tpd, tpad]
+    usage: /tpdeny [player]
+    permission: aurum.teleportask
+  tellraw:
+    description: Prints what is typed after /tellraw.
+    aliases: [tr]
+    usage: /tellraw <message>
+    permission: aurum.tellraw
+  time:
+    description: Changes the time to the specified time.
+    aliases: [settime, timeset]
+    usage: /time <day|night|dawn|dusk>
+    permission: aurum.time
   unban:
-    description: Unbans the specified user.
-    usage: /<command> [player]
+    description: Unbans the target.
+    usage: /unban <player>
     permission: aurum.ban
-  banlog:
-    description: Prints a page of the most recently banned players.
-    aliases: [banl]
-    usage: /<command> [page]
-    permission: aurum.ban
-  warn:
-    description: Warns the specified user.
-    usage: /<command> [player] [reason]
-    permission: aurum.warn
+  unmute:
+    description: Unmutes the target.
+    usage: /unban <player>
+    permission: aurum.mute
   unwarn:
     description: Removes a warning from the specified user.
-    usage: /<command> [player] [reason]
+    usage: /unwarn <player> <reason>
     permission: aurum.warn
+  warn:
+    description: Warns the target.
+    usage: /warn <player> [reason]
+    permission: aurum.warn
+  warp:
+    description: Teleports the sender to the specified warp.
+    usage: /warp <warp>
+    permission: aurum.warp
+  warps:
+    description: Lists the server's warps.
+    usage: /warps
+    permission: aurum.warp
+  weather:
+    description: Changes the weather.
+    aliases: [setweather, weatherset]
+    usage: /weather [clear|rain]
+    permission: aurum.weather
+  whois:
+    description: Tells the sender the username of an online player.
+    aliases: [realname, whos]
+    usage: /whois <nickname>
+    permission: aurum.whois
 
 permissions:
   aurum.player:
@@ -171,18 +225,34 @@ permissions:
       aurum.rules: true
       aurum.discord: true
       aurum.playerlist: true
+      aurum.motd: true
       aurum.home: true
       aurum.warp: true
       aurum.teleportask: true
   aurum.aurum:
     description: Grants access to /aurum.
     default: not op
+  aurum.balance:
+    description: Grants access to /balance and /baltop.
+    default: op
+  aurum.killall:
+    description: Grants access to /killall.
+    default: op
   aurum.help:
     description: Grants access to /help.
+    default: not op
+  aurum.economy:
+    description: Grants access to /economy.
+    default: op
+  aurum.motd:
+    description: Grants access to /motd.
     default: not op
   aurum.spawn:
     description: Grants access to /spawn.
     default: not op
+  aurum.grounditemclear:
+    description: Grants access to /grounditemclear.
+    default: op
   aurum.setspawn:
     description: Grants access to /setspawn.
     default: op
@@ -191,6 +261,9 @@ permissions:
     default: not op
   aurum.home:
     description: Grants access to the homes commands.
+    default: op
+  aurum.pay:
+    description: Grants access to /pay.
     default: op
   aurum.color:
     description: Allows the usage of color codes.
@@ -242,6 +315,9 @@ permissions:
     default: op
   aurum.ban:
     description: Grants access to /ban, /unban, and /banlog.
+    default: op
+  aurum.mute:
+    description: Grants access to /mute and /unmute.
     default: op
   aurum.warn:
     description: Grants access to /warn and /unwarn.

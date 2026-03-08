@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.whoisjeb.aurum.Aurum;
 
-public class Tellraw extends AurumCommandBase {
+public class Tellraw extends AuricCommand {
     private final Aurum plugin;
 
     public Tellraw(Aurum plugin) {
@@ -16,7 +16,7 @@ public class Tellraw extends AurumCommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length < 1) {
-            sender.sendMessage("§c[!] Please provide a message!");
+            sender.sendMessage(message("error.specify").replace("%thing%", "message"));
             return true;
         }
 

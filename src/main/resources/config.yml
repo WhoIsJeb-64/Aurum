@@ -1,25 +1,26 @@
-# Aurum configuration
+##############################################
+#          Aurum Configuration File          #
+##############################################
 
 general:
-  # %prefix%  - The prefix of the user, supplied by PermissionsEX.
-  # %name%    - The chatter's display name.
-  # %message% - The content of a messsage typed by the chatter.
-  chat-format: '%prefix% %name%&f: %message%'
-
-  # World name, x, y, z, pitch, yaw
-  spawn: 'world, 0, 0, 0, 0, 0'
-  warps: null
+  # World name, x, y, z, yaw, pitch
   per-warp-perms: false # If true, a warp xyz would require the permission aurum.warp.xyz to use.
-  nickname-prefix: ""
-  /i-default-quanity: 1
+  stack-default-quanity: 1
+  compact-playerlist: false # Recomeneded for larger servers
 
-messages:
-  discord: '&9discord.gg/<link>'
-  rules:
-    - '&c======= Server Rules ======='
-    - '1: Be respectful.'
-    - '2: Be ethical.'
-    - '3: Use common sense.'
-  motd:
-    - '&6Type /help for a list of commands!'
-    - '&9Join our discord!&b discord.gg/<link>'
+chat:
+  # %prefix%  - The prefix of the user, supplied by PermissionsEX.
+  # %color%   - The 'color' option of the player's group, meant to be its thematic color.
+  # %sender%   - The message-sender's display name.
+  # %target%   - The target of the message, if applicable.
+  # %suffix%  - The suffix of the user, supplied by PermissionsEX.
+  # %message% - The message's content.
+  format:
+    normal: "%prefix%%name%&f: %message%"
+    message-in: "%prefix%%sender% &7-> You&f: %message%"
+    message-out: "&7You -> &f%prefix%%target%&f: %message%"
+  nickname-prefix: ""
+
+data:
+  spawn: null
+  warps: null

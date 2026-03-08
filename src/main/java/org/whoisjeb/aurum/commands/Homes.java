@@ -5,9 +5,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.User;
+import org.whoisjeb.aurum.data.AurumUser;
 
-public class Homes extends AurumCommandBase {
+public class Homes extends AuricCommand {
     private final Aurum plugin;
 
     public Homes(Aurum plugin) {
@@ -19,30 +19,33 @@ public class Homes extends AurumCommandBase {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //Determine whose homes are being queried
         OfflinePlayer target = (args.length < 1) ? (Player) sender : (OfflinePlayer) getTarget(args[0]);
-        User user = new User(plugin.uuidManager.getUUIDFromUsername(target.getName()));
-        user.load();
 
-        //Retrieve target player's homes
+        //Get target's AurumUser instance
+        AurumUser user = new AurumUser(plugin.uuidManager.getUUIDFromUsername(target.getName()));
+        user.load(plugin.getUUID(target), false);
+
+        //If the target has no homes, send a different message and return
         if (user.getKeys("homes") == null || user.getKeys("homes").isEmpty()) {
-            String message = isTargetSender(sender, target) ? "§6You have no homes!" : "§6" + target.getName() + " has no homes!";
-            sender.sendMessage("§6You have no homes!");
+            String message = message(command, "no-homes." + ((sender == target) ? "sender" : "target"));
+            sender.sendMessage(message.replace("%target%", target.getName()));
             return true;
         }
 
         //Construct menu
         int homesCount = user.getKeys("homes").size();
-        StringBuilder homesList = new StringBuilder("§e" + homesCount + "/" + user.getMaxHomes() + " §6Homes:§e ");
+        StringBuilder menu = new StringBuilder(message(command, "head")
+                .replace("%homesCount%", String.valueOf(homesCount))
+                .replace("%maxHomes%", String.valueOf(user.getMaxHomes())));
         int i = 1;
         for (String key : user.getKeys("homes")) {
-            homesList.append(key);
-            if (i < homesCount) {
-                homesList.append("§6,§e ");
-            }
+            menu.append((i < homesCount)
+                    ? message(command, "body").replace("%home%", key)
+                    : message(command, "tail").replace("%home%", key));
             i++;
         }
 
-        //Process the color of, then send, the final menu
-        sender.sendMessage(homesList.toString());
+        //Print menu
+        sender.sendMessage(menu.toString());
         return true;
     }
 }

@@ -6,7 +6,7 @@ info:
   address: null
 
 states:
-  god: false
+  new: true
   vanish: false
   mute: false
 
@@ -16,3 +16,17 @@ data:
   position: 'world, 0, 0, 0, 0, 0'
 
 homes: null
+
+economy:
+  balance: 0.00
+
+statistics:
+  playtime: 0
+  blocks-placed: 0
+  blocks-broken: 0
+  blocks-traveled: 0
+  damage-dealt: 0
+  damage-taken: 0
+  player-kills: 0
+  mob-kills: 0
+  deaths: 0

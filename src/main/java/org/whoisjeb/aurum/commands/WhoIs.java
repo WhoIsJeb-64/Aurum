@@ -3,11 +3,9 @@ package org.whoisjeb.aurum.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.User;
-import java.util.Map;
-import java.util.UUID;
+import org.whoisjeb.aurum.data.AurumUser;
 
-public class WhoIs extends AurumCommandBase {
+public class WhoIs extends AuricCommand {
     private final Aurum plugin;
 
     public WhoIs(Aurum plugin) {
@@ -17,22 +15,26 @@ public class WhoIs extends AurumCommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        //Make sure a nickname is given
         if (args.length < 1) {
-            sender.sendMessage("§c[!] Please specify the nickname!");
+            sender.sendMessage(message("error.specify").replace("%thing%", "nickname"));
             return true;
         }
-        String nickname = args[0];
-        boolean matchesFound = false;
-        for (Map.Entry<UUID, User> entry : plugin.loadedUsers().entrySet()) {
-            User user = entry.getValue();
-            if (user.getString("info.nickname").equalsIgnoreCase(nickname)) {
-                sender.sendMessage("§6Match:§e " + user.getString("info.name"));
-                matchesFound = true;
+
+        //Track whether any matches are found
+        boolean matchFound = false;
+
+        //Iterate through online players, sending a message for every match.
+        String nickname = plugin.colorize(args[0], false);
+        for (AurumUser user : plugin.loadedUsers().values()) {
+            if (args[0].equalsIgnoreCase(nickname)) {
+                sender.sendMessage(message(command, "match")
+                        .replace("%name%", user.getString("info.name")));
+                matchFound = true;
             }
         }
-        if (!matchesFound) {
-            sender.sendMessage("&6No Matches Found!");
-        }
+
+        if (!matchFound) sender.sendMessage(message(command, "no-matches"));
         return true;
     }
 }

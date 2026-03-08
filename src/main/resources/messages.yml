@@ -1,0 +1,205 @@
+#########################################
+#          Aurum Messages File          #
+#########################################
+
+# In this file you can extensively customize the Aurum's messages.
+# Color codes can use either & or §.
+
+# Some miscellaneous messages
+general:
+  welcome-message: "§dWelcome %name% to the server!"
+  ban:
+    permanent: "§4You are permanently banned for %reason%!"
+    temporary: "§cYou are banned for %reason%! Expires in: %time%"
+  muted: "§4[!] §cYou are currently muted!"
+
+# The messages shown as a result of user/plugin errors.
+error:
+  no-perm: "§4[!] §cYou do not have permission to use /%command%!"
+  command-usage: "§c[!] Usage: %usage%"
+  must-be-player: "This command may only be executed by a player!"
+  invalid: "§c[!] Invalid %thing%!"
+  specify: "§c[!] Please specify a %thing%!"
+  doesnt-exist: "§c[!] %thing% does not exist!"
+  not-online: "§c[!] %player% is not online!"
+
+# The messages shown as a result of running commands.
+commands:
+  aurum:
+    reload: "§aReloaded successfully!"
+
+  balance:
+    self: "§2Your balance: §a$%balance%"
+    other: "§2%name%'s balance: §a$%balance%" # %nickname% is also available here
+
+  balancetop:
+    header: "§a[§2===============§a Top Balances %page%/%pageCount% §2===============§a]"
+    line: "§2%rank%: %color%%name%: §7$%balance%" # %prefix% is also available here
+    server-total: "§6Server Total: §e$%total%"
+    no-users: "§2There are currently no users on this server!"
+
+  ban:
+    permanent: "§4Permanently banned §c%player% §4for %reason%!"
+    temporary: "§4Banned §c%player% §4for %reason%, for %duration%!"
+    invalid-duration: "§c[!] Supported duration units: weeks, days, minutes. E.g 3d"
+    fail: "§4[!] Failed to ban §c%player%§4!"
+
+  banlist:
+    header: "§c[§4===============§c Banlist Page %page%/%pageCount% §4===============§c]"
+    line: "§f%player% §cis banned for§f %reason% §cby §f%issuer%"
+    no-bans: "§cThere are currently no active bans on this server!"
+
+  banlog:
+    header: "§c[§4===============§c Banlog Page %page%/%pageCount% §4===============§c]"
+    line: "%activeMarker% §f%player% §cwas banned for§f %reason% §cby §f%issuer%"
+    no-bans: "§cThere are currently no bans on this server!"
+
+  delhome: "§cDeleted home %home%!"
+
+  delwarp: "§cDeleted warp %warp%!"
+
+  discord: "§9Our Discord: §b<link>"
+
+  economy:
+    give: "§2Gave %target% §a$%amount%§2! Their new balance: §a$%newBalance%"
+    take: "§4Took §c$%amount% §4from %target%! Their new balance: §c$%newBalance%"
+    set: "§3Set %target%'s balance to §b$%amount%§2!"
+
+  grounditemclear: "§3Cleared §b%amount% §3item%plural%!"
+
+  heal:
+    sender: "§5Healed §d%target%§5!"
+    target: "§dYou've been healed!"
+
+  help:
+    header: "§e[§6=================§e Help Page %page%/%pageCount% §6=================§6]"
+    line: "§6%command%: §7%description%"
+
+  home: "§5Teleported to home §d%home%§5!"
+
+  homes:
+    no-homes:
+      sender: "§6You have no homes!"
+      target: "§6%target% has no homes!"
+    head: "§e%homesCount%/%maxHomes% §6Homes: "
+    body: "§e%home%§6, "
+    tail: "§e%home%"
+
+  item:
+    sender: "§9Gave %target% %quantity% of §b%item%§9!"
+    target: "§9You were given %quantity% of §b%item§9 by %sender%!"
+
+  killall: "§4Killed §c%count% §4%set% mob%plural%!"
+
+  modview:
+    header: "§7[§8============= %prefix%%color%%name% §8=============§7]"
+    line: "§f- %property%: %value%"
+    ban-line: "§f- §cBanned for: §f%reason% §cby §f%issuer%"
+    warn-line: "§f- §6Warned for: §f%reason%"
+    date-format: "MMM. d, yyyy"
+
+  motd:
+    - "§6Type /help for a list of commands!"
+    - "§9Join our discord!§b discord.gg/<link>"
+
+  mute:
+    permanent: "§9Permanently muted §3%player%§9 for %reason%!"
+    temporary: "§9Muted §3%player%§9 for %reason%, for %duration%!"
+    fail: "§4[!] Failed to mute §c%player%§4!"
+
+  nickname:
+    set:
+      sender: "§2Set your nickname to §f%nickname%§2!"
+      target: "§2Set %target%'s nickname to §f%nickname%§2!"
+    clear: "§2Cleared §a%target%'s §2nickname!"
+    deny-mod-other: "§4[!] §cYou do not have permission to modify others' nicknames!"
+
+  offlineteleport:
+    run: "§5Teleported to the last position of §d%target%§5!"
+    target-online: "§c[!] %target% is online!"
+
+  pay:
+    message-sender: "§2Paid §a$%amount% §2to %target%! Your balance: §a$%balance%"
+    message-target: "§2%sender% paid you §a$%amount%§2! Your balance: §a$%balance%"
+    not-enough-money: "§4You don't have enough money! Your balance: §c$%balance%"
+    target-cant-be-sender: "§c[!] Why would you /pay yourself? What would that even accomplish?"
+
+  playerlist:
+    header: "§3[§9============ §b%playerCount%/%maxPlayers% §3Players - Page %page%/%pageCount% §9============§3]"
+    line: "§f- %prefix%%color%%name%"
+    compact:
+      head: "§b%playerCount%/%maxPlayers% §9Players: "
+      body: "%color%%name%§f, "
+      tail: "%color%%name%"
+    no-players: "§9There are no players online!"
+
+  rules:
+    - "§c[§4========== §cServer Rules §4==========§c]"
+    - "§c1: §7Be respectful."
+    - "§c2: §7Be ethical."
+    - "§c3: §7Use common sense."
+
+  sethome:
+    run: "§2Set home §a%home%§2!"
+    cannot-exceed-max: "§4[!] §cYou are not authorized to set more than %maxHomes% home%plural%!"
+
+  setspawn: "§5Spawn set!"
+
+  setwarp: "§5Set warp §d%warp%§5!"
+
+  spawn: "§5Teleported to spawn!"
+
+  teleport: "§5Teleported to §d%nickname%§5!" # %preifx%, %color%, and %name% are also available here
+
+  teleportask: # %preifx%, %color%, and %name% are also available here
+    sender:
+      sent: "§5Sent a teleport request to §d%player%§5!"
+      accepted: "§a%player% §2accepted your teleport request!"
+      denied: "§c%player% §4denied your teleport request!"
+      expired: "§7Your teleport request to §5%player% §7has expired."
+
+    target:
+      sent:
+        normal: "§d%player% §5requested to teleport to you!"
+        here: "§d%player% §5requested that your teleport to them!"
+      accepted: "§2Accepted §a%player%§a's §2teleport request!"
+      denied: "§5Denied §d%nickname%§d's §5teleport request!"
+      expired: "§5%player%'s §7teleport request has expired."
+
+    to-self: "§c[!] You cannot send a teleport request to yourself!"
+    prompt-answer: "§7Run §5/tpaccept §7to accept, or §5/tpdeny §7to deny."
+    request-not-found: "§c[!] Request not found!"
+
+  time: "§3Set time to %time%!"
+
+  unban:
+    run: "§2Unbanned §a%target%§2!"
+    fail: "§4[!] Failed to unban §c%target%§4!"
+
+  unmute:
+    run: "§2Unmuted §a%target%§2!"
+    fail: "§4[!] Failed to unmute §c%target%§4!"
+
+  unwarn:
+    run: "§2Lifted §a%target%§a's §2warning for §a%reason%§2!"
+    fail: "§4[!] Failed to unwarn §c%target%§4!"
+
+  warn:
+    run: "§6Warned §e%target% §6for §e%reason%§6!"
+    fail: "§4[!] Failed to warn §c%target%§4!"
+
+  warp:
+    run: "§5Teleported to warp §d%warp%§5!"
+    no-perm: "§4[!] §cYou do not have permission to use warp %warp%!"
+
+  warps:
+    no-warps: "§5There are no warps!"
+    head: "§5Warps: "
+    body: "§d%warp%§5, "
+    tail: "§d%warp%"
+
+  weather: "§3Set weather to %weather%!"
+
+  whois:
+    match: "§6Match: §e%name%"
+    no-matches: "§6No matches found!"

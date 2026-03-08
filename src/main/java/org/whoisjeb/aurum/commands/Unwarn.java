@@ -5,12 +5,12 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.whoisjeb.aurum.Aurum;
-import org.whoisjeb.aurum.data.Punishments;
+import org.whoisjeb.aurum.data.AurumPunishments;
 import java.util.Arrays;
 
-public class Unwarn extends AurumCommandBase {
+public class Unwarn extends AuricCommand {
     private final Aurum plugin;
-    private final Punishments punishments;
+    private final AurumPunishments punishments;
 
     public Unwarn(Aurum plugin) {
         super(plugin);
@@ -21,7 +21,7 @@ public class Unwarn extends AurumCommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length < 1) {
-            sender.sendMessage("§c[!] Please specify a player!");
+            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
             return true;
         }
 
@@ -31,8 +31,8 @@ public class Unwarn extends AurumCommandBase {
 
         OfflinePlayer target = (Bukkit.getPlayer(args[0]) == null) ? Bukkit.getOfflinePlayer(args[0]) : Bukkit.getPlayer(args[0]);
         plugin.punishments.unwarn(target, reason);
-        String message = punishments.hasProperty("warnings." + plugin.getUUID(target))
-                ? "§6Lifted§e " + target.getName() + "'s §2warning for§e " + reason + "§6!" : "§4[!] Failed to unwarn§c " + target.getName() + "§4!";
+        String message = message(command, (!punishments.hasProperty("warnings." + plugin.getUUID(target)) ? "run" : "fail"))
+                .replace("%target%", target.getName());
         sender.sendMessage(message);
         return true;
     }

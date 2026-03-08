@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.TeleportRequest;
 
-public class Teleportaccept extends AurumCommandBase {
+public class Teleportaccept extends AuricCommand {
     private final Aurum plugin;
 
     public Teleportaccept(Aurum plugin) {
@@ -17,7 +17,7 @@ public class Teleportaccept extends AurumCommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!validatePlayerhood(sender)) return true;
+        if (!isPlayer(sender)) return true;
         Player player = (Player) sender;
         TeleportRequest request = null;
 
@@ -37,11 +37,12 @@ public class Teleportaccept extends AurumCommandBase {
                 }
             }
         } else {
-            player.sendMessage("§c[!] Invalid player!");
+            player.sendMessage(message("error.invalid").replace("%thing%", "player"));
             return true;
         }
 
-        if (request != null) request.accept(); else player.sendMessage("§c[!] Request not found!");
+        if (request != null) request.accept();
+        else player.sendMessage(message("commands.teleportask.request-not-found"));
         return true;
     }
 }

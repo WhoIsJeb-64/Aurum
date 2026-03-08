@@ -6,10 +6,11 @@ import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.TeleportRequest;
 
-public class Teleportask extends AuricCommand {
+public class TeleportaskHere
+        extends AuricCommand {
     private final Aurum plugin;
 
-    public Teleportask(Aurum plugin) {
+    public TeleportaskHere(Aurum plugin) {
         super(plugin);
         this.plugin = plugin;
     }
@@ -31,18 +32,14 @@ public class Teleportask extends AuricCommand {
 
         //Make sure the target is not the sender
         if (sender == target) {
-            sender.sendMessage(message(command, "to-self"));
+            sender.sendMessage(message("commands.teleportask.to-self"));
             return true;
         }
 
         //Send the request and appropiate messages
-        TeleportRequest tpRequest = new TeleportRequest(plugin, (Player) sender, target);
-        tpRequest.send(true);
-        sender.sendMessage(message(command, "sender.sent")
-                .replace("%name%", target.getName())
-                .replace("%nickname%", target.getDisplayName())
-                .replace("%color%", plugin.getPex().getUser(target.getName()).getOption("color"))
-                .replace("%prefix%", plugin.getPex().getUser(target.getName()).getPrefix()));
+        TeleportRequest tpRequest = new TeleportRequest(plugin, target, (Player) sender);
+        tpRequest.send(false);
+        sender.sendMessage(message("commands.teleportask.sender.sent"));
         return true;
     }
 }

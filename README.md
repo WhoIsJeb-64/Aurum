@@ -14,7 +14,8 @@
 ### Moderation Tools:
 - [x] [Time and Weather control](#time-and-weather-control)
 - [x] [Item Giving](#item-giving)
-- [ ] Godmode
+- [ ] [Mob Butchering](#mob-butchering)
+- [ ] [Item Clearing](#item-clearing)
 - [ ] [Heal](#healing)
 - [ ] Vanish
 - [ ] Invsee
@@ -78,6 +79,14 @@ The same can be done with the weather using `/weather <clear|rain>`.
 ## Item Giving
 The command `/item` or `/i` can be used to give the sender or an online player items.
 
+## Mob Butchering
+Using `/killall`, an permitted player can kill all creatures in a world.  
+Giving no argument or giving `all` will kill both `passive` and `hostile` mobs, but either can be
+given as an argument to kill only those.
+
+## Item Clearing
+The command `/grounditemclear` can be used by authorized players to clear all dropped items in the world.
+
 ## Healing
 The command `/heal` restores the hp of a specified player, or the user, to 10 hearts (20 HP).
 
@@ -111,12 +120,10 @@ Players can be forced to run any command they are allowed to with `/sudo`.
 They cna also be forced to chat any message if it is prepended by `c:`.
 
 ## API
-Other plugins can interact with the properties in the Aurum userdata files, including making new custom properties.  
-For example, a statistics plugin can add properties such as `stats.blocks-mined` instead of it having to handle
-userdata storage itself.
+Other plugins can interact with Aurum's userdata, config, and punishment data via an api.
 
-The API can be accessed by using `Aurum.api()...` when importing `org.whoisjeb.aurum.AurumAPI` and
-`org.whoisjeb.aurum.Aurum` in a java class.
+It can be invoked with `Aurum.api()...`,  
+once the plugin instance is gotten from `Bukkit.getPluginManager().getPlugin("Aurum")`.
 
 ## Permissions
 - `aurum.player`: Grants access to the plugin's basic player commands.

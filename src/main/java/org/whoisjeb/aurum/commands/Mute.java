@@ -6,15 +6,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
 import org.whoisjeb.aurum.data.AurumPunishments;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-public class Ban extends AuricCommand {
+public class Mute extends AuricCommand {
     private final Aurum plugin;
     private final AurumPunishments punishments;
 
-    public Ban(Aurum plugin) {
+    public Mute(Aurum plugin) {
         super(plugin);
         this.plugin = plugin;
         this.punishments = plugin.punishments;
@@ -38,10 +39,10 @@ public class Ban extends AuricCommand {
         //Resolve issuer's name
         String issuer = (sender instanceof Player) ? sender.getName() : "Console";
 
-        //Create an ArrayList from args for data handling; Purge target name
+        //Create an ArrayList from args for data handling
         ArrayList<String> argsList = new ArrayList<>(Arrays.asList(args));
-        argsList.remove(0);
 
+        //Extract duration from arguments if given
         String durationArg = "";
         long duration = 0;
         for (String arg : argsList) {
@@ -76,14 +77,14 @@ public class Ban extends AuricCommand {
         if (!durationArg.isEmpty()) argsList.remove(durationArg);
 
         //Get ban reason
-        String reason = (argsList.isEmpty()) ? "Rule breaking" : String.join(" ", argsList);
+        String reason = (args.length < 2) ? "Rule breaking" : String.join(" ", argsList.remove(0));
 
-        //Issue ban and send appropiate messages
-        punishments.ban(target, duration, reason, issuer);
-        String message = message(command, (duration == 0L) ? "permanent" : "temporary")
+        //Issue mute and send appropiate messages
+        punishments.mute(target, duration, reason, issuer);
+        String message = message(command, (duration == 0) ? "permanent" : "temporary")
                 .replace("%player%", target.getName())
                 .replace("%reason%", reason)
-                .replace("%duration%", formatDuration(duration));
+                .replace("%duration%", String.valueOf(duration));
 
         //Should never happen, but just in case:
         if (!punishments.isBanned(plugin.getUUID(target))) {
@@ -92,13 +93,5 @@ public class Ban extends AuricCommand {
 
         sender.sendMessage(message);
         return true;
-    }
-
-    private String formatDuration(Long raw) {
-        long minutes = (raw / (1000 * 60)) % 60;
-        long hours = (raw / (1000 * 60 * 60)) % 24;
-        long days = (raw / (1000 * 60 * 60 * 24));
-
-        return String.format("%02dd %02dh %02dm", days, hours, minutes);
     }
 }
