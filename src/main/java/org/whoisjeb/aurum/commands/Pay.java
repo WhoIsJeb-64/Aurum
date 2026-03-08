@@ -40,21 +40,17 @@ public class Pay extends AuricCommand {
         AurumUser userSender = new AurumUser(player.getUniqueId());
         userSender.load(player.getUniqueId());
 
-        //Get user balances and the amount to be paid
-        double targetBalance = userTarget.getDouble("economy.balance");
-        double senderBalance = userSender.getDouble("economy.balance");
-        double amount = Double.parseDouble(args[1]);
-
         //Process payment and send appropiate messages
+        double amount = Double.parseDouble(args[1]);
         if (!userSender.subtractBalance(amount, false)) {
             sender.sendMessage(message(command, "not-enough-money")
-                    .replace("%balance%", String.valueOf(senderBalance)));
+                    .replace("%balance%", userSender.getString("economy.balance")));
             return true;
         }
         sender.sendMessage(message(command, "message-sender")
                 .replace("%amount%", String.valueOf(amount))
                 .replace("%target%", target.getName())
-                .replace("%balance%", String.valueOf(senderBalance)));
+                .replace("%balance%", userSender.getString("economy.balance")));
         userTarget.addBalance(amount);
 
         //Target only recieves a message if they're online
@@ -62,7 +58,7 @@ public class Pay extends AuricCommand {
             Bukkit.getPlayer(target.getName()).sendMessage(message(command, "message-target")
                     .replace("%sender%", sender.getName())
                     .replace("%amount%", String.valueOf(amount))
-                    .replace("%balance%", String.valueOf(senderBalance)));
+                    .replace("%balance%", userTarget.getString("economy.balance")));
         }
         return true;
     }
