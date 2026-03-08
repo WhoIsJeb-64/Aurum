@@ -45,22 +45,19 @@ public class Pay extends AuricCommand {
         double senderBalance = userSender.getDouble("economy.balance");
         double amount = Double.parseDouble(args[1]);
 
-        //Make sure the sender can afford the payment
-        if (amount > senderBalance) {
+        //Process payment and send appropiate messages
+        if (!userSender.subtractBalance(amount, false)) {
             sender.sendMessage(message(command, "not-enough-money")
                     .replace("%balance%", String.valueOf(senderBalance)));
             return true;
         }
-
-        //Process payment and send appropiate messages
-        userSender.setProperty("economy.balance", senderBalance - amount);
         sender.sendMessage(message(command, "message-sender")
                 .replace("%amount%", String.valueOf(amount))
                 .replace("%target%", target.getName())
                 .replace("%balance%", String.valueOf(senderBalance)));
+        userTarget.addBalance(amount);
 
         //Target only recieves a message if they're online
-        userTarget.setProperty("economy.balance", targetBalance + amount);
         if (target.isOnline()) {
             Bukkit.getPlayer(target.getName()).sendMessage(message(command, "message-target")
                     .replace("%sender%", sender.getName())

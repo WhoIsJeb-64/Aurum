@@ -116,4 +116,30 @@ public class AurumUser extends AurumData {
         String address = this.getString("info.address");
         return address.substring(0, address.length() - 6);
     }
+
+    /**
+     * Adds to a user's balance.
+     * @param amount The amount ot be added.
+     * @return True, since there is no fail condition.
+     */
+    public boolean addBalance(double amount) {
+        double balance = this.getDouble("economy.balance", 0.00);
+
+        this.setProperty("economy.balance", balance + amount);
+        return true;
+    }
+
+    /**
+     * Takes from a user's balance, optionally only if they can afford to.
+     * @param amount The amount to be charged.
+     * @param allowNegative Whether the balance is allowed to go negative.
+     * @return True or false based on if the charge succeeded.
+     */
+    public boolean subtractBalance(double amount, boolean allowNegative) {
+        double balance = this.getDouble("economy.balance", 0.00);
+        if (amount > balance && !allowNegative) return false;
+
+        this.setProperty("economy.balance", balance - amount);
+        return true;
+    }
 }
