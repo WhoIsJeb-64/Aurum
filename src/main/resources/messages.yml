@@ -75,7 +75,10 @@ commands:
     header: "§e[§6=================§e Help Page %page%/%pageCount% §6=================§6]"
     line: "§6%command%: §7%description%"
 
-  home: "§5Teleported to home §d%home%§5!"
+  home:
+    self: "§5Teleported to home §d%home%§5!"
+    other: "§5Teleported to %target%'s home §d%home%§5!"
+    deny-other: "§4[!] §cYou are not authorized to teleport to others' homes!"
 
   homes:
     no-homes:
@@ -84,6 +87,7 @@ commands:
     head: "§e%homesCount%/%maxHomes% §6Homes: "
     body: "§e%home%§6, "
     tail: "§e%home%"
+    deny-other: "§4[!] §cYou are not authorized to view to others' homes!"
 
   item:
     sender: "§9Gave %target% %quantity% of §b%item%§9!"

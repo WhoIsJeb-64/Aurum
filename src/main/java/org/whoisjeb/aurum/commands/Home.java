@@ -1,5 +1,6 @@
 package org.whoisjeb.aurum.commands;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,9 +21,16 @@ public class Home extends AuricCommand {
         if (!isPlayer(sender)) return true;
         Player player = (Player) sender;
 
+        //Sender must be authorized to go to others' homes
+        OfflinePlayer target = (args.length < 1) ? player : (OfflinePlayer) getTarget(args[0]);
+        if (player == target && !sender.hasPermission("aurum.home.others")) {
+            sender.sendMessage(message(command, "deny-other"));
+            return true;
+        }
+
         //Get target's AurumUser instance
-        AurumUser user = new AurumUser(player.getUniqueId());
-        user.load(player.getUniqueId());
+        AurumUser user = new AurumUser(plugin.getUUID(target));
+        user.load(plugin.getUUID(target));
 
         //Get home name
         //It will alawys be "home" if the sender can only set 1
@@ -40,9 +48,10 @@ public class Home extends AuricCommand {
             return true;
         }
 
-        //Teleport player and send appropiate message
+        //Teleport target and send appropiate message
         player.teleport(user.getLocation("homes." + homeName));
-        player.sendMessage(message(command).replace("%home%", homeName));
+        player.sendMessage(message(command, ((target == player) ? "self" : "other"))
+                .replace("%home%", homeName));
         return true;
     }
 }

@@ -17,8 +17,12 @@ public class Homes extends AuricCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        //Determine whose homes are being queried
+        //Sender must be authorized to view to others' homes
         OfflinePlayer target = (args.length < 1) ? (Player) sender : (OfflinePlayer) getTarget(args[0]);
+        if (sender == target && !sender.hasPermission("aurum.home.others")) {
+            sender.sendMessage(message(command, "deny-other"));
+            return true;
+        }
 
         //Get target's AurumUser instance
         AurumUser user = new AurumUser(plugin.uuidManager.getUUIDFromUsername(target.getName()));
