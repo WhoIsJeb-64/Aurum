@@ -5,6 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.whoisjeb.aurum.Aurum;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
+
 import java.util.*;
 
 public class Playerlist extends AuricCommand {
@@ -48,8 +50,8 @@ public class Playerlist extends AuricCommand {
                 //Only print the correct range of entries
                 if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
                     menu.add(message(command, "line")
-                            .replace("%prefix%", plugin.getPex().getUser(player.getName()).getPrefix())
-                            .replace("%color%", plugin.getPex().getUser(player.getName()).getOption("color"))
+                            .replace("%prefix%", plugin.utils.getPrefix(player.getName()))
+                            .replace("%color%", plugin.utils.getColor(player.getName()))
                             .replace("%name%", player.getName()));
                 }
                 i++;
@@ -67,10 +69,10 @@ public class Playerlist extends AuricCommand {
                 menu.append((i < playerCount)
                         ? message(command, "compact.body")
                         .replace("%name%", player.getName())
-                        .replace("%color%", plugin.getPex().getUser(player.getName()).getOption("color"))
+                        .replace("%color%", plugin.utils.getColor(player.getName()))
                         : message(command, "compact.tail")
                         .replace("%name%", player.getName())
-                        .replace("%color%", plugin.getPex().getUser(player.getName()).getOption("color")));
+                        .replace("%color%", plugin.utils.getColor(player.getName())));
                 i++;
             }
             sender.sendMessage(menu.toString());
@@ -82,7 +84,7 @@ public class Playerlist extends AuricCommand {
         //Populate HashMap with players and their group's ranks
         HashMap<Player, Integer> hierarchy = new HashMap<>();
         for (Player player : players) {
-            hierarchy.put(player, Integer.valueOf(plugin.getPex().getUser(player).getOption("rank")));
+            hierarchy.put(player, Integer.valueOf(PermissionsEx.getPermissionManager().getUser(player).getOption("rank")));
         }
 
         //Create a list from elements of HashMap, then sort it

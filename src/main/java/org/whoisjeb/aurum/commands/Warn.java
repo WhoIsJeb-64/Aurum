@@ -36,7 +36,7 @@ public class Warn extends AuricCommand {
 
         //Issue warning and send appropiate messages
         punishments.warn(target, reason);
-        String message = message(command, (punishments.hasProperty("warnings." + plugin.getUUID(target)) ? "run" : "fail"))
+        String message = message(command, (punishments.hasProperty("warnings." + plugin.utils.getUUID(target)) ? "run" : "fail"))
                 .replace("%target%", target.getName());
         sender.sendMessage(message);
         return true;

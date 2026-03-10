@@ -57,8 +57,8 @@ public class Balancetop extends AuricCommand {
                 menu.add(message(command, "line")
                         .replace("%name%", entry.getKey())
                         .replace("%rank%", String.valueOf(i))
-                        .replace("%color%", plugin.getPex().getUser(entry.getKey()).getOption("color"))
-                        .replace("%prefix%", plugin.getPex().getUser(entry.getKey()).getPrefix())
+                        .replace("%color%", plugin.utils.getColor(entry.getKey()))
+                        .replace("%prefix%", plugin.utils.getPrefix(entry.getKey()))
                         .replace("%balance%", String.valueOf(entry.getValue())));
                 i++;
             }

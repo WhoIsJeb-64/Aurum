@@ -35,8 +35,8 @@ public class Pay extends AuricCommand {
         }
 
         //Get AurumUser instances
-        AurumUser userTarget = new AurumUser(plugin.getUUID(target));
-        userTarget.load(plugin.getUUID(target));
+        AurumUser userTarget = new AurumUser(plugin.utils.getUUID(target));
+        userTarget.load(plugin.utils.getUUID(target));
         AurumUser userSender = new AurumUser(player.getUniqueId());
         userSender.load(player.getUniqueId());
 

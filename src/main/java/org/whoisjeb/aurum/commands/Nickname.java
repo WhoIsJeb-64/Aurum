@@ -23,7 +23,7 @@ public class Nickname extends AuricCommand {
         }
 
         //Set nickname to the given argument; Colorize only if sender is permitted
-        String nickname = plugin.colorize(args[0], sender.hasPermission("aurum.color"));
+        String nickname = plugin.utils.colorize(args[0], sender.hasPermission("aurum.color"));
 
         //Check if a target is specified as the 2nd argument
         OfflinePlayer target = (OfflinePlayer) (args.length < 2 ? sender : getTarget(args[1]));
@@ -36,8 +36,8 @@ public class Nickname extends AuricCommand {
         }
 
         //Load target's AurumUser instance
-        AurumUser user = new AurumUser(plugin.getUUID(target));
-        user.load(plugin.getUUID(target));
+        AurumUser user = new AurumUser(plugin.utils.getUUID(target));
+        user.load(plugin.utils.getUUID(target));
 
         //Clear the target's nickname if the argument "clear" was given
         if (nickname.equalsIgnoreCase("clear")) {

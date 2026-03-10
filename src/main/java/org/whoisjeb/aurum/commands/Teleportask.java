@@ -41,8 +41,8 @@ public class Teleportask extends AuricCommand {
         sender.sendMessage(message(command, "sender.sent")
                 .replace("%name%", target.getName())
                 .replace("%nickname%", target.getDisplayName())
-                .replace("%color%", plugin.getPex().getUser(target.getName()).getOption("color"))
-                .replace("%prefix%", plugin.getPex().getUser(target.getName()).getPrefix()));
+                .replace("%color%", plugin.utils.getColor(target.getName()))
+                .replace("%prefix%", plugin.utils.getPrefix(target.getName())));
         return true;
     }
 }

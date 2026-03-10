@@ -29,12 +29,12 @@ public class OfflineTeleport extends AuricCommand {
                     .replace("%target%", getOnlineTarget(args[0]).getName()));
             return true;
         }
-        if (plugin.uuidManager.getUUIDFromUsername(args[0]) == null) {
+        if (plugin.utils.getUUID(args[0]) == null) {
             sender.sendMessage(message("error.doesnt-exist").replace("%thing%", "That player"));
             return true;
         }
 
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(args[0]);
+        UUID uuid = plugin.utils.getUUID(args[0]);
         AurumUser user = new AurumUser(uuid);
         user.load(uuid, false);
 

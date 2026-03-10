@@ -106,7 +106,7 @@ public class AurumPunishments extends AurumData {
      * @param issuer The name of who is issuing the ban.
      */
     public void ban(OfflinePlayer player, long duration, String reason, String issuer) {
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
+        UUID uuid = plugin.utils.getUUID(player.getName());
         String path = "bans." + uuid + ".";
         this.setProperty(path + "expiration", duration);
         this.setProperty(path + "active", true);
@@ -114,8 +114,8 @@ public class AurumPunishments extends AurumData {
         this.setProperty(path + "reason", reason);
 
         //Make sure that the lastOnline date is set before kicking
-        AurumUser user = new AurumUser(plugin.uuidManager.getUUIDFromUsername(player.getName()));
-        user.load(plugin.uuidManager.getUUIDFromUsername(player.getName()));
+        AurumUser user = new AurumUser(plugin.utils.getUUID(player.getName()));
+        user.load(plugin.utils.getUUID(player.getName()));
         user.setProperty("data.lastOnline", System.currentTimeMillis());
         user.save();
         if (player.isOnline()) Bukkit.getPlayer(player.getName()).kickPlayer(reason);
@@ -126,7 +126,7 @@ public class AurumPunishments extends AurumData {
      * @param player The player who will be unbanned.
      */
     public void unban(OfflinePlayer player) {
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
+        UUID uuid = plugin.utils.getUUID(player.getName());
         String path = "bans." + uuid + ".";
         this.setProperty(path + "active", false);
     }
@@ -139,7 +139,7 @@ public class AurumPunishments extends AurumData {
      * @param issuer The name of who is issuing the mute.
      */
     public void mute(OfflinePlayer player, long duration, String reason, String issuer) {
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
+        UUID uuid = plugin.utils.getUUID(player.getName());
         String path = "mutes." + uuid + ".";
         this.setProperty(path + "expiration", duration);
         this.setProperty(path + "active", true);
@@ -155,7 +155,7 @@ public class AurumPunishments extends AurumData {
      * @param issuer The name of who is issuing the ban.
      */
     public void tempMute(OfflinePlayer player, int days, String reason, String issuer) {
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
+        UUID uuid = plugin.utils.getUUID(player.getName());
         String path = "mutes." + uuid + ".";
         this.setProperty(path + "expiration", System.currentTimeMillis() + (days * 86400000L));
         this.setProperty(path + "active", true);
@@ -168,7 +168,7 @@ public class AurumPunishments extends AurumData {
      * @param player The player who will be unmuted.
      */
     public void unmute(OfflinePlayer player) {
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
+        UUID uuid = plugin.utils.getUUID(player.getName());
         String path = "mutes." + uuid + ".";
         this.setProperty(path + "active", false);
     }
@@ -179,7 +179,7 @@ public class AurumPunishments extends AurumData {
      * @param reason The content of/reason for the warning.
      */
     public void warn(OfflinePlayer player, String reason) {
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
+        UUID uuid = plugin.utils.getUUID(player.getName());
         String path = "warnings." + uuid;
         ArrayList<String> warnings = new ArrayList<>(this.getStringList(path, null));
 
@@ -193,7 +193,7 @@ public class AurumPunishments extends AurumData {
      * @param reason The content of the warning to be lifted.
      */
     public void unwarn(OfflinePlayer player, String reason) {
-        UUID uuid = plugin.uuidManager.getUUIDFromUsername(player.getName());
+        UUID uuid = plugin.utils.getUUID(player.getName());
         String path = "warnings." + uuid;
         ArrayList<String> warnings = new ArrayList<>(this.getStringList(path, null));
 

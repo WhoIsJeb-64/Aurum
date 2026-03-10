@@ -43,7 +43,7 @@ public class Sudo extends AuricCommand {
         //Logic for sudo'ing a chat message
         if (sudoContent[0].startsWith("c:")) {
             sudoContent[0] = sudoContent[0].substring(2);
-            String message = plugin.formatChatMessage(target, String.join(" ", sudoContent), false);
+            String message = plugin.utils.formatChat(target, String.join(" ", sudoContent), false);
             plugin.getServer().broadcastMessage(message);
         }
         //Logic for sudo'ing a command

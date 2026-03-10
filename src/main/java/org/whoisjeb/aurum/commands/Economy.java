@@ -33,8 +33,8 @@ public class Economy extends AuricCommand {
             }
 
             //Get AurumUser object
-            AurumUser user = new AurumUser(plugin.getUUID(target));
-            user.load(plugin.getUUID(target));
+            AurumUser user = new AurumUser(plugin.utils.getUUID(target));
+            user.load(plugin.utils.getUUID(target));
             double balance = 0;
 
             //Add the value of args[2] to the target's balance

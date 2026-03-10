@@ -25,7 +25,7 @@ public class WhoIs extends AuricCommand {
         boolean matchFound = false;
 
         //Iterate through online players, sending a message for every match.
-        String nickname = plugin.colorize(args[0], false);
+        String nickname = plugin.utils.colorize(args[0], false);
         for (AurumUser user : plugin.loadedUsers().values()) {
             if (args[0].equalsIgnoreCase(nickname)) {
                 sender.sendMessage(message(command, "match")

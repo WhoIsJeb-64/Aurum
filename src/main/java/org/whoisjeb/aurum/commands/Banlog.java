@@ -20,7 +20,7 @@ public class Banlog extends AuricCommand {
     }
     private String activeMarker(String name) {
         OfflinePlayer player = Bukkit.getOfflinePlayer(name);
-        return punishments.isBanned(plugin.getUUID(player)) ? "§c[A]§f " : "§7[E]§f ";
+        return punishments.isBanned(plugin.utils.getUUID(player)) ? "§c[A]§f " : "§7[E]§f ";
     }
 
     public Banlog(Aurum plugin) {
@@ -62,8 +62,8 @@ public class Banlog extends AuricCommand {
             //Only print the correct range of entries
             if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
                 menu.add(message(command, "line")
-                        .replace("%activeMarker%", activeMarker(plugin.uuidManager.getUsernameFromUUID(uuid)))
-                        .replace("%player%", plugin.uuidManager.getUsernameFromUUID(uuid))
+                        .replace("%activeMarker%", activeMarker(plugin.utils.getUsername(uuid)))
+                        .replace("%player%", plugin.utils.getUsername(uuid))
                         .replace("%reason%", punishments.getString(reason(uuid)))
                         .replace("%issuer%", punishments.getString(issuer(uuid))));
                 i++;

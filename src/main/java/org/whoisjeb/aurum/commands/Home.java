@@ -29,8 +29,8 @@ public class Home extends AuricCommand {
         }
 
         //Get target's AurumUser instance
-        AurumUser user = new AurumUser(plugin.getUUID(target));
-        user.load(plugin.getUUID(target));
+        AurumUser user = new AurumUser(plugin.utils.getUUID(target));
+        user.load(plugin.utils.getUUID(target));
 
         //Get home name
         //It will alawys be "home" if the sender can only set 1

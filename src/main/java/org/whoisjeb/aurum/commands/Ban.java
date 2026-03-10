@@ -86,7 +86,7 @@ public class Ban extends AuricCommand {
                 .replace("%duration%", formatDuration(duration));
 
         //Should never happen, but just in case:
-        if (!punishments.isBanned(plugin.getUUID(target))) {
+        if (!punishments.isBanned(plugin.utils.getUUID(target))) {
             message = message(command, "fail").replace("%player%", target.getName());
         }
 

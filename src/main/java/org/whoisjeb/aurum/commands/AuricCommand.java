@@ -31,7 +31,7 @@ public abstract class AuricCommand implements CommandExecutor {
      * @return The message at the specified path in Aurum's messages.yml.
      */
     public String message(String path) {
-        return plugin.colorize(plugin.language.getString(path), true);
+        return plugin.utils.colorize(plugin.language.getString(path), true);
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class AuricCommand implements CommandExecutor {
      */
     public String message(Command command) {
         String message = plugin.language.getString("commands." + command.getName());
-        return plugin.colorize(message, true);
+        return plugin.utils.colorize(message, true);
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class AuricCommand implements CommandExecutor {
      */
     public String message(Command command, String path) {
         String message = plugin.language.getString("commands." + command.getName() + "." + path);
-        return plugin.colorize(message, true);
+        return plugin.utils.colorize(message, true);
     }
 
     /**

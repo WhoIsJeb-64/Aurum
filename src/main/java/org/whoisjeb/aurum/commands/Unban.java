@@ -25,7 +25,7 @@ public class Unban extends AuricCommand {
         }
         OfflinePlayer target = (Bukkit.getPlayer(args[0]) == null) ? Bukkit.getOfflinePlayer(args[0]) : Bukkit.getPlayer(args[0]);
         punishments.unban(target);
-        String message = message(command, (!punishments.isBanned(plugin.getUUID(target)) ? "run" : "fail"))
+        String message = message(command, (!punishments.isBanned(plugin.utils.getUUID(target)) ? "run" : "fail"))
                 .replace("%target%", target.getName());
         sender.sendMessage(message);
         return true;

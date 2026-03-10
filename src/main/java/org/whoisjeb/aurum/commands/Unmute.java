@@ -25,7 +25,7 @@ public class Unmute extends AuricCommand {
         }
         OfflinePlayer target = (Bukkit.getPlayer(args[0]) == null) ? Bukkit.getOfflinePlayer(args[0]) : Bukkit.getPlayer(args[0]);
         punishments.unmute(target);
-        String message = message(command, (!punishments.isMuted(plugin.getUUID(target)) ? "run" : "fail"))
+        String message = message(command, (!punishments.isMuted(plugin.utils.getUUID(target)) ? "run" : "fail"))
                 .replace("%target%", target.getName());
         sender.sendMessage(message);
         return true;

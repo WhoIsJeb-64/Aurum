@@ -31,7 +31,7 @@ public class Unwarn extends AuricCommand {
 
         OfflinePlayer target = (Bukkit.getPlayer(args[0]) == null) ? Bukkit.getOfflinePlayer(args[0]) : Bukkit.getPlayer(args[0]);
         plugin.punishments.unwarn(target, reason);
-        String message = message(command, (!punishments.hasProperty("warnings." + plugin.getUUID(target)) ? "run" : "fail"))
+        String message = message(command, (!punishments.hasProperty("warnings." + plugin.utils.getUUID(target)) ? "run" : "fail"))
                 .replace("%target%", target.getName());
         sender.sendMessage(message);
         return true;

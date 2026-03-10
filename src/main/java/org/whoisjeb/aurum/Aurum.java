@@ -1,23 +1,16 @@
 package org.whoisjeb.aurum;
 
-import com.projectposeidon.johnymuffin.UUIDManager;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.whoisjeb.aurum.commands.*;
 import org.whoisjeb.aurum.data.*;
-import ru.tehkode.permissions.PermissionManager;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Aurum extends JavaPlugin {
     private JavaPlugin plugin;
@@ -28,9 +21,9 @@ public class Aurum extends JavaPlugin {
     public AurumSettings settings;
     public AurumPunishments punishments;
     public AurumMessages language;
-    public UUIDManager uuidManager;
     private static HashMap<UUID, AurumUser> userCache;
     private static ArrayList<TeleportRequest> tpRequests;
+    public Utilities utils;
 
     @Override public void onEnable() {
         intializeData();
@@ -52,7 +45,6 @@ public class Aurum extends JavaPlugin {
         pluginName = pdf.getName();
 
         //Data Storage
-        uuidManager = UUIDManager.getInstance();
         settings = new AurumSettings(this, new File(getDataFolder(), "config.yml"));
         settings.load();
         punishments = new AurumPunishments(this, new File(getDataFolder(), "punishments.yml"));
@@ -62,6 +54,7 @@ public class Aurum extends JavaPlugin {
 
         userCache = new HashMap<>();
         tpRequests = new ArrayList<>();
+        utils = new Utilities(this);
 
         //Listeners
         Listener listener = new Listener(this, settings);
@@ -85,6 +78,7 @@ public class Aurum extends JavaPlugin {
         getCommand("help").setExecutor(new Help(this));
         getCommand("home").setExecutor(new Home(this));
         getCommand("homes").setExecutor(new Homes(this));
+        getCommand("importzcore").setExecutor(new ImportZCore(this));
         getCommand("item").setExecutor(new Item(this));
         getCommand("modview").setExecutor(new Modview(this));
         getCommand("motd").setExecutor(new MOTD(this));
@@ -116,49 +110,6 @@ public class Aurum extends JavaPlugin {
         getCommand("whois").setExecutor(new WhoIs(this));
     }
 
-    /**
-     * @param player The player whose UUID is to be retrieved
-     * @return The player's UUID.
-     */
-    public UUID getUUID(OfflinePlayer player) {
-        return uuidManager.getUUIDFromUsername(player.getName());
-    }
-
-    /**
-     * Adds color to text by convertings false codes (Those with &s) into real ones (with §s) if isAllowed permits.
-     * @param input The text to be colorized.
-     * @param isAllowed Whether to destroy or translate the false color codes.
-     * @return The processed text.
-     */
-    public String colorize(String input, boolean isAllowed) {
-        String regex = "&([0-9a-f])";
-        String replacement = isAllowed ? "§$1" : "";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
-
-        return matcher.find() ? matcher.replaceAll(replacement) : input;
-    }
-
-    public String formatChatMessage(Player player, String message, boolean hasTarget) {
-        //Define necessary variables
-        String prefix = getPex().getUser(player).getPrefix();
-        String color = getPex().getUser(player).getOption("color");
-        String suffix = getPex().getUser(player).getSuffix();
-        String target = hasTarget ? player.getDisplayName() : "";
-        message = colorize(message, player.hasPermission("aurum.color"));
-
-        //Replace placeholders with content
-        String format = settings.getString("chat.format.normal")
-                .replace("%prefix%", prefix)
-                .replace("%color%", color)
-                .replace("%sender%", player.getDisplayName())
-                .replace("%target%", target)
-                .replace("%suffix%", suffix)
-                .replace("%message%", message);
-
-        return colorize(format, true);
-    }
-
     public HashMap<UUID, AurumUser> loadedUsers() {
         return userCache;
     }
@@ -170,9 +121,5 @@ public class Aurum extends JavaPlugin {
     public static AurumAPI api() {
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Aurum");
         return ((Aurum) plugin).api;
-    }
-
-    public PermissionManager getPex() {
-        return PermissionsEx.getPermissionManager();
     }
 }

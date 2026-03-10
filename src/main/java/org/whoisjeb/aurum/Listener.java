@@ -7,6 +7,8 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.*;
 import org.whoisjeb.aurum.data.*;
+
+import java.util.List;
 import java.util.UUID;
 
 public class Listener implements org.bukkit.event.Listener {
@@ -68,9 +70,15 @@ public class Listener implements org.bukkit.event.Listener {
             }
         }
 
-        for (String line : settings.getStringList("messages.motd", null)) {
-            player.sendMessage(plugin.colorize(line, true));
+        //Send MOTD
+        List<String> motd = plugin.language.getStringList("commands.motd", null);
+        motd.replaceAll(str -> str.replace("%name%", player.getName()));
+        motd.replaceAll(str -> str.replace("%nickname%", player.getDisplayName()));
+        motd.replaceAll(line -> line.replace("%prefix%", plugin.utils.getPrefix(player.getName())));
+        for (String line : motd) {
+            player.sendMessage(plugin.utils.colorize(line, true));
         }
+
         user.setProperty("states.new", false);
     }
 
@@ -108,9 +116,9 @@ public class Listener implements org.bukkit.event.Listener {
         }
 
         //Use plugin's chat formatting
-        String prefix = plugin.getPex().getUser(event.getPlayer()).getPrefix();
-        String finalMessage = plugin.formatChatMessage(event.getPlayer(), event.getMessage(), false);
-        event.setFormat(plugin.colorize(finalMessage, true));
+        String prefix = plugin.utils.getPrefix(event.getPlayer().getName());
+        String finalMessage = plugin.utils.formatChat(event.getPlayer(), event.getMessage(), false);
+        event.setFormat(plugin.utils.colorize(finalMessage, true));
     }
 
     private void updateUserData(Player player, AurumUser user) {

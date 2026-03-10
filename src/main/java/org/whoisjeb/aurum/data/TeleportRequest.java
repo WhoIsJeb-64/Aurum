@@ -60,6 +60,6 @@ public class TeleportRequest {
     }
 
     private String message(String path) {
-        return plugin.colorize(plugin.language.getString("commands.teleportask." + path), true);
+        return plugin.utils.colorize(plugin.language.getString("commands.teleportask." + path), true);
     }
 }

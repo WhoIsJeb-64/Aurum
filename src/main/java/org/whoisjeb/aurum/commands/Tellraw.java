@@ -21,7 +21,7 @@ public class Tellraw extends AuricCommand {
         }
 
         String message = String.join(" ", args);
-        Bukkit.broadcastMessage(plugin.colorize(message, true));
+        Bukkit.broadcastMessage(plugin.utils.colorize(message, true));
         return true;
     }
 }

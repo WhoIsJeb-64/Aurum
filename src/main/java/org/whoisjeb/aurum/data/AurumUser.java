@@ -13,9 +13,6 @@ import java.nio.file.Files;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-/**
- * The data structure used by Aurum to store, manipulate, and retireve userdata.
- */
 public class AurumUser extends AurumData {
     private static Aurum plugin = (Aurum) Bukkit.getServer().getPluginManager().getPlugin("Aurum");
     private final File dataFile;
@@ -27,7 +24,7 @@ public class AurumUser extends AurumData {
     }
 
     public void load(UUID uuid) {
-        String name = plugin.uuidManager.getUsernameFromUUID(uuid);
+        String name = plugin.utils.getUsername(uuid);
         try {
             Files.createDirectories(dataFile.getParentFile().toPath());
         } catch (IOException e) {
@@ -41,7 +38,7 @@ public class AurumUser extends AurumData {
     }
 
     public void load(UUID uuid, boolean keep) {
-        String name = plugin.uuidManager.getUsernameFromUUID(uuid);
+        String name = plugin.utils.getUsername(uuid);
         try {
             Files.createDirectories(dataFile.getParentFile().toPath());
         } catch (IOException e) {
@@ -55,10 +52,10 @@ public class AurumUser extends AurumData {
     }
 
     private boolean initializeNewUser(UUID uuid) {
-        if (plugin.uuidManager.getUsernameFromUUID(uuid) == null) {
+        if (plugin.utils.getUsername(uuid) == null) {
             return false;
         }
-        String name = plugin.uuidManager.getUsernameFromUUID(uuid);
+        String name = plugin.utils.getUsername(uuid);
         String resourcePath = "/user.yml";
         try (InputStream inputStream = getClass().getResourceAsStream(resourcePath)) {
             if (inputStream == null) {
@@ -93,9 +90,6 @@ public class AurumUser extends AurumData {
         log.info("[Aurum] Unloaded data for " + this.getUUID("info.uuid") + " successfully!");
     }
 
-    /**
-     * @return How many homes a player can set, determined by the permission aurum.maxhomes.n.
-     */
     public int getMaxHomes() {
         World world = this.getWorld("data.position");
         String[] userPerms = PermissionsEx.getPermissionManager().getUser(this.getString("info.name")).getPermissions(world.getName());
@@ -108,20 +102,12 @@ public class AurumUser extends AurumData {
         return 1;
     }
 
-    /**
-     * @return The IP address of a player with the port removed.
-     */
     public String getIP() {
         if (!this.hasProperty("info.address")) return null;
         String address = this.getString("info.address");
         return address.substring(0, address.length() - 6);
     }
 
-    /**
-     * Adds to a user's balance.
-     * @param amount The amount ot be added.
-     * @return True, since there is no fail condition.
-     */
     public boolean addBalance(double amount) {
         double balance = this.getDouble("economy.balance", 0.00);
 
@@ -129,12 +115,6 @@ public class AurumUser extends AurumData {
         return true;
     }
 
-    /**
-     * Takes from a user's balance, optionally only if they can afford to.
-     * @param amount The amount to be charged.
-     * @param allowNegative Whether the balance is allowed to go negative.
-     * @return True or false based on if the charge succeeded.
-     */
     public boolean subtractBalance(double amount, boolean allowNegative) {
         double balance = this.getDouble("economy.balance", 0.00);
         if (amount > balance && !allowNegative) return false;

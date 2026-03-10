@@ -24,21 +24,21 @@ public class Modview extends AuricCommand {
         //Get target and their AurumUser instance
         OfflinePlayer target =
                 (args.length < 1) ? (OfflinePlayer) sender : (OfflinePlayer) getTarget(args[0]);
-        UUID uuid = plugin.getUUID(target);
-        AurumUser user = new AurumUser(plugin.getUUID(target));
+        UUID uuid = plugin.utils.getUUID(target);
+        AurumUser user = new AurumUser(plugin.utils.getUUID(target));
         user.load(uuid, false);
 
-        //Get target's prefix and group color
-        String prefix = (plugin.getPex().getUser(target.getName()).getPrefix() != null)
-                ? plugin.getPex().getUser(target.getName()).getPrefix() : null;
-        String color = (plugin.getPex().getUser(target.getName()).getOption("color") != null)
-                ? plugin.getPex().getUser(target.getName()).getOption("color") : null;
+        //Get target's prefix, group color, and suffix
+        String prefix = plugin.utils.getPrefix(uuid);
+        String color = plugin.utils.getColor(uuid);
+        String suffix = plugin.utils.getSuffix(uuid);
 
         //Initialize menu
         ArrayList<String> menu = new ArrayList<>();
         menu.add(message(command, "header")
-                .replace("%prefix%", (prefix != null) ? prefix : "")
-                .replace("%color%", (color != null) ? color : "")
+                .replace("%prefix%", prefix)
+                .replace("%color%", color)
+                .replace("%suffix%", suffix)
                 .replace("%name%", target.getName()));
 
         //Identifying Information (UUID, IP, Nickname)

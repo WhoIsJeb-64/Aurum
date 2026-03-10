@@ -9,17 +9,18 @@ general:
   compact-playerlist: false # Recomeneded for larger servers
 
 chat:
+  # %display-name% The here-configured display name of players.
   # %prefix%  - The prefix of the user, supplied by PermissionsEX.
   # %color%   - The 'color' option of the player's group, meant to be its thematic color.
-  # %sender%   - The message-sender's display name.
-  # %target%   - The target of the message, if applicable.
+  # %sender%   - The relevant player's username.
   # %suffix%  - The suffix of the user, supplied by PermissionsEX.
   # %message% - The message's content.
-  format:
-    normal: "%prefix%%name%&f: %message%"
-    message-in: "%prefix%%sender% &7-> You&f: %message%"
-    message-out: "&7You -> &f%prefix%%target%&f: %message%"
+  display-name: "%prefix%%sender%"
   nickname-prefix: ""
+  format:
+    normal: "%display-name%&f: %message%"
+    message-in: "%display-name% &7-> You&f: %message%"
+    message-out: "&7You -> &f%display-name%&f: %message%"
 
 data:
   spawn: null

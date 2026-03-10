@@ -58,7 +58,8 @@ commands:
 
   delwarp: "§cDeleted warp %warp%!"
 
-  discord: "§9Our Discord: §b<link>"
+  discord:
+    - "§9Our Discord: §b<link>"
 
   economy:
     give: "§2Gave %target% §a$%amount%§2! Their new balance: §a$%newBalance%"
@@ -89,6 +90,18 @@ commands:
     tail: "§e%home%"
     deny-other: "§4[!] §cYou are not authorized to view to others' homes!"
 
+  importzcore:
+    zcore-not-found: "§4[!] ZCore not found!"
+    start: "§5ZCore Found! §7Starting import..."
+
+    config-not-found: "§4[!] ZCore Configuration not found!"
+    config-imported: "§5ZCore configuration data imported!"
+
+    database-not-found: "§4[!] ZCore Database not found!"
+    database-imported: "§5ZCore database data imported!"
+
+    finish: "§5ZCore import finished! §7It is recomended that ZCore be removed immediately!"
+
   item:
     sender: "§9Gave %target% %quantity% of §b%item%§9!"
     target: "§9You were given %quantity% of §b%item§9 by %sender%!"
@@ -102,7 +115,7 @@ commands:
     warn-line: "§f- §6Warned for: §f%reason%"
     date-format: "MMM. d, yyyy"
 
-  motd:
+  motd: #%prefix%, %name%, and %nickname% are available here
     - "§6Type /help for a list of commands!"
     - "§9Join our discord!§b discord.gg/<link>"
 

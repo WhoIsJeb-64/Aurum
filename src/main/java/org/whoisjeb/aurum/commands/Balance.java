@@ -34,8 +34,8 @@ public class Balance extends AuricCommand {
         }
 
         //Get balance from target's AurumUser object
-        AurumUser user = new AurumUser(plugin.getUUID(target));
-        user.load(plugin.getUUID(target));
+        AurumUser user = new AurumUser(plugin.utils.getUUID(target));
+        user.load(plugin.utils.getUUID(target));
         double balance = user.getDouble("economy.balance");
 
         //Send appropiate message
