@@ -13,6 +13,7 @@ public class WhoIs extends AuricCommand {
         this.plugin = plugin;
     }
 
+    //TODO: Make this command actually work
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //Make sure a nickname is given
