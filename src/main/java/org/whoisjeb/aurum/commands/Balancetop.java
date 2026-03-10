@@ -35,7 +35,7 @@ public class Balancetop extends AuricCommand {
         }
 
         //Sort entries, purging it of broke players
-        entries = sortedEntries(entries);
+        entries = sort(entries);
 
         //Determine target page and page count, correct target if it's too high
         int page = (args.length >= 1) ? Integer.parseInt(args[0]) : 1;
@@ -72,7 +72,7 @@ public class Balancetop extends AuricCommand {
         return true;
     }
 
-    private static HashMap<String, Double> sortedEntries(HashMap<String, Double> entries) {
+    private static HashMap<String, Double> sort(HashMap<String, Double> entries) {
         //Create a list from elements of HashMap, then sort it
         List<Map.Entry<String, Double>> list = new LinkedList<>(entries.entrySet());
         list.sort(Map.Entry.comparingByValue());

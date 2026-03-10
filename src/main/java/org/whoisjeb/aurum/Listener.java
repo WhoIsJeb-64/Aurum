@@ -27,11 +27,12 @@ public class Listener implements org.bukkit.event.Listener {
         Command command = Bukkit.getPluginCommand((message.split(" ")[0]));
 
         //Commands that aren't formally registered in a plugin.yml cannot give the custom deny message
-        if (command.getPermission().isEmpty()) return;
+        if (command.getPermission() == null) return;
 
         //Override "I'm sorry, Dave" message with custom denial message
         if (!player.hasPermission(command.getPermission()) || !player.isOp()) {
-            player.sendMessage("§4[!] §cYou do not have permission to use /" + command.getName() + "!");
+            player.sendMessage(plugin.language.getString("error.no-perm")
+                    .replace("%command%", command.getName()));
             event.setCancelled(true);
         }
     }
@@ -65,8 +66,8 @@ public class Listener implements org.bukkit.event.Listener {
                     .replace("%name%", player.getName()));
 
             //Make sure the player spawns at the Aurum spawn
-            if (plugin.settings.getLocation("general.spawn") != null) {
-                player.teleport(plugin.settings.getLocation("general.spawn"));
+            if (plugin.settings.getLocation("data.spawn") != null) {
+                player.teleport(plugin.settings.getLocation("data.spawn"));
             }
         }
 
@@ -111,7 +112,7 @@ public class Listener implements org.bukkit.event.Listener {
         //Cancel event if chatter is muted
         UUID uuid = event.getPlayer().getUniqueId();
         if (plugin.punishments.isMuted(uuid)) {
-            event.getPlayer().sendMessage(plugin.language.getString("general.mute"));
+            event.getPlayer().sendMessage(plugin.language.getString("general.muted"));
             event.setCancelled(true);
         }
 
@@ -125,7 +126,6 @@ public class Listener implements org.bukkit.event.Listener {
         //Check if their username has changed since last join
         if (!user.getString("info.name").equals(player.getName())) {
             user.setProperty("info.name", player.getName());
-            user.save();
         }
 
         //Check if they're joining from a different IP

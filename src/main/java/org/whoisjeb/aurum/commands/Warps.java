@@ -18,7 +18,7 @@ public class Warps extends AuricCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //If the server has no warps, send a different message and return
-        if (settings.getProperty("data.warps") == null || settings.getKeys("data.warps").isEmpty()) {
+        if (settings.hasProperty("data.warps")) {
             sender.sendMessage(message(command, "no-warps"));
             return true;
         }

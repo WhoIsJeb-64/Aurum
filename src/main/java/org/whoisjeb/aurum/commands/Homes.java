@@ -25,11 +25,11 @@ public class Homes extends AuricCommand {
         }
 
         //Get target's AurumUser instance
-        AurumUser user = new AurumUser(plugin.utils.getUUID(target.getName()));
+        AurumUser user = new AurumUser(plugin.utils.getUUID(target));
         user.load(plugin.utils.getUUID(target), false);
 
         //If the target has no homes, send a different message and return
-        if (user.getKeys("homes") == null || user.getKeys("homes").isEmpty()) {
+        if (user.hasProperty("homes")) {
             String message = message(command, "no-homes." + ((sender == target) ? "sender" : "target"));
             sender.sendMessage(message.replace("%target%", target.getName()));
             return true;

@@ -14,9 +14,9 @@ public class AurumSettings extends AurumData {
     private static final Logger log = Bukkit.getServer().getLogger();
 
     public AurumSettings(Aurum plugin, File settingsFile) {
-        super(new File(plugin.getDataFolder(), "config.yml"));
+        super(settingsFile);
         this.plugin = plugin;
-        this.settingsFile = new File(plugin.getDataFolder(), "config.yml");
+        this.settingsFile = settingsFile;
     }
 
     public void load() {

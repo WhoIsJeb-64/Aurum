@@ -30,7 +30,7 @@ public class Playerlist extends AuricCommand {
         }
 
         //Sort players by rank
-        HashMap<Player, Integer> players = sortedPlayers(Bukkit.getOnlinePlayers());
+        HashMap<Player, Integer> players = sort(Bukkit.getOnlinePlayers());
 
         //Construct and print menu using the default format
         if (!plugin.settings.getBoolean("compact-playerlist", false)) {
@@ -80,7 +80,7 @@ public class Playerlist extends AuricCommand {
         return true;
     }
 
-    private HashMap<Player, Integer> sortedPlayers(Player[] players) {
+    private HashMap<Player, Integer> sort(Player[] players) {
         //Populate HashMap with players and their group's ranks
         HashMap<Player, Integer> hierarchy = new HashMap<>();
         for (Player player : players) {
