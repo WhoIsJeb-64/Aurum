@@ -29,7 +29,7 @@ public class TeleportRequest {
         plugin.tpRequestCache().add(this);
 
         target.sendMessage(message("sent." + ((isToTarget) ? "normal" : "here"))
-                .replace("%player%", owner.getName()));
+                .replace("{player}", owner.getName()));
         target.sendMessage(message("prompt-answer"));
 
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, this::expire, 1200L);
@@ -38,23 +38,23 @@ public class TeleportRequest {
     public void expire() {
         if (!plugin.tpRequestCache().contains(this)) return;
 
-        owner.sendMessage(message("sender.expired").replace("%player%", target.getDisplayName()));
-        target.sendMessage(message("target.expired").replace("%player%", owner.getDisplayName()));
+        owner.sendMessage(message("sender.expired").replace("{player}", target.getDisplayName()));
+        target.sendMessage(message("target.expired").replace("{player}", owner.getDisplayName()));
 
         plugin.tpRequestCache().remove(this);
     }
 
     public void accept() {
-        owner.sendMessage(message("sender.accepted").replace("%player%", target.getDisplayName()));
-        target.sendMessage(message("target.accepted").replace("%player%", owner.getDisplayName()));
+        owner.sendMessage(message("sender.accepted").replace("{player}", target.getDisplayName()));
+        target.sendMessage(message("target.accepted").replace("{player}", owner.getDisplayName()));
 
         owner.teleport(target);
         plugin.tpRequestCache().remove(this);
     }
 
     public void deny() {
-        owner.sendMessage(message("sender.denied").replace("%player%", target.getDisplayName()));
-        target.sendMessage(message("target.denied").replace("%player%", owner.getDisplayName()));
+        owner.sendMessage(message("sender.denied").replace("{player}", target.getDisplayName()));
+        target.sendMessage(message("target.denied").replace("{player}", owner.getDisplayName()));
 
         plugin.tpRequestCache().remove(this);
     }

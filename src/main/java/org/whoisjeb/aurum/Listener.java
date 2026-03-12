@@ -95,7 +95,7 @@ public class Listener implements org.bukkit.event.Listener {
         user.setProperty("data.lastOnline", System.currentTimeMillis());
         user.save();
 
-        user.unload();
+        user.unload(true);
     }
 
     @EventHandler(priority = Event.Priority.High)
@@ -107,7 +107,7 @@ public class Listener implements org.bukkit.event.Listener {
         user.setProperty("data.lastOnline", System.currentTimeMillis());
         user.save();
 
-        user.unload();
+        user.unload(true);
     }
 
     @EventHandler(priority = Event.Priority.High)

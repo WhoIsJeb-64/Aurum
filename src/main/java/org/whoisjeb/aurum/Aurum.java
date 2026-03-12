@@ -78,7 +78,6 @@ public class Aurum extends JavaPlugin {
         getCommand("help").setExecutor(new Help(this));
         getCommand("home").setExecutor(new Home(this));
         getCommand("homes").setExecutor(new Homes(this));
-        getCommand("importzcore").setExecutor(new ImportZCore(this));
         getCommand("item").setExecutor(new Item(this));
         getCommand("modview").setExecutor(new Modview(this));
         getCommand("motd").setExecutor(new MOTD(this));

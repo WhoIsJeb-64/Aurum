@@ -89,10 +89,12 @@ public class AurumUser extends AurumData {
         return true;
     }
 
-    public void unload() {
+    public void unload(boolean updatePosition) {
         Player player = Bukkit.getPlayer(this.getString("info.name"));
-        Location location = player.getLocation();
-        this.setProperty("data.position", location);
+        if (updatePosition) {
+            Location location = player.getLocation();
+            this.setProperty("data.position", location);
+        }
         plugin.loadedUsers().remove(plugin.utils.getUUID(player.getName()));
         log.info("[Aurum] Unloaded data for " + this.getUUID("info.uuid") + " successfully!");
     }
@@ -121,16 +123,22 @@ public class AurumUser extends AurumData {
 
     public boolean addBalance(double amount) {
         double balance = this.getDouble("economy.balance", 0.00);
+        UUID uuid = this.getUUID("info.uuid");
 
-        this.setProperty("economy.balance", balance + amount);
+        this.setProperty("economy.balance", (balance + amount));
+        this.unload(false);
+        this.load(uuid);
         return true;
     }
 
     public boolean subtractBalance(double amount, boolean allowNegative) {
         double balance = this.getDouble("economy.balance", 0.00);
+        UUID uuid = this.getUUID("info.uuid");
         if (amount > balance && !allowNegative) return false;
 
-        this.setProperty("economy.balance", balance - amount);
+        this.setProperty("economy.balance", (balance - amount));
+        this.unload(false);
+        this.load(uuid);
         return true;
     }
 }

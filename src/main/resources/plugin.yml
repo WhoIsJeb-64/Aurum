@@ -76,10 +76,6 @@ commands:
     description: Lists the sender's or target's homes.
     usage: /homes [player]
     permission: aurum.home
-  importzcore:
-    description: Imports data from ZCore into Aurum.
-    usage: /importzcore
-    permission: aurum.importzcore
   item:
     description: Gives the sender or target an item.
     aliases: [i]
@@ -266,8 +262,6 @@ permissions:
   aurum.home:
     description: Grants access to the homes commands.
     default: op
-  aurum.importzcore:
-    description: Grants access to /importzcore.
     default: op
   aurum.pay:
     description: Grants access to /pay.

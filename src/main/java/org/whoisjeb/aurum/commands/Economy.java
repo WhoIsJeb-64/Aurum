@@ -35,17 +35,17 @@ public class Economy extends AuricCommand {
             //Get AurumUser object
             AurumUser user = new AurumUser(plugin.utils.getUUID(target));
             user.load(plugin.utils.getUUID(target));
-            double balance = 0;
+            double amount = 0;
 
             //Add the value of args[2] to the target's balance
             if (args[0].equalsIgnoreCase("give") && args.length >= 3) {
-                balance = Double.parseDouble(args[2]);
-                user.setProperty("economy.balance", user.getDouble("economy.balance") + balance);
+                amount = Double.parseDouble(args[2]);
+                user.addBalance(amount);
             }
             //Take the value of args[2] from the target's balance
             else if (args[0].equalsIgnoreCase("take") && args.length >= 3) {
-                balance = Double.parseDouble(args[2]);
-                user.setProperty("economy.balance", user.getDouble("economy.balance") - balance);
+                amount = Double.parseDouble(args[2]);
+                user.subtractBalance(amount, false);
             }
             //Set the target's balance to the value of args[2]
             else if (args[0].equalsIgnoreCase("set") && args.length >= 3) {
@@ -55,9 +55,10 @@ public class Economy extends AuricCommand {
             //Send appropiate message based on subcommand
             message = message(command, args[0])
                     .replace("{target}", target.getName())
-                    .replace("{amount}", String.valueOf(balance))
+                    .replace("{amount}", String.valueOf(amount))
                     .replace("{newBalance}", String.valueOf(user.getDouble("economy.balance")));
             sender.sendMessage(message);
+            user.save();
             return true;
         }
 
