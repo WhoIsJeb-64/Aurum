@@ -19,7 +19,7 @@ public class Setwarp extends AuricCommand {
 
         String warpName;
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "name"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "name"));
             return true;
         } else {
             warpName = args[0];
@@ -27,7 +27,7 @@ public class Setwarp extends AuricCommand {
 
         Player player = (Player) sender;
         plugin.settings.setProperty("data.warps." + warpName, player.getLocation());
-        player.sendMessage(message(command).replace("%warp%", warpName));
+        player.sendMessage(message(command).replace("{warp}", warpName));
         return true;
     }
 }

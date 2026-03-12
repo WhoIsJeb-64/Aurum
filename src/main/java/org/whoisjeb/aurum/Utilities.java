@@ -25,41 +25,47 @@ public class Utilities {
     }
 
     public String formatChat(Player player, String message, boolean hasTarget) {
-        //Define necessary variables
+        //Define target
         String prefix = getPrefix(player.getName());
         String color = getColor(player.getName());
         String suffix = getSuffix(player.getName());
         String target = hasTarget ? player.getDisplayName() : "";
 
         String displayName = plugin.settings.getString("chat.display-name")
-                .replace("%prefix%", prefix)
-                .replace("%color%", color)
-                .replace("%name%", player.getDisplayName())
-                .replace("%suffix%", suffix);
+                .replace("{prefix}", prefix)
+                .replace("{color}", color)
+                .replace("{name}", player.getDisplayName())
+                .replace("{suffix}", suffix);
 
         message = colorize(message, player.hasPermission("aurum.color"));
 
         //Replace placeholders with content
         String format = plugin.settings.getString("chat.format.normal")
-                .replace("%prefix%", prefix)
-                .replace("%color%", color)
-                .replace("%display-name%", displayName)
-                .replace("%name%", player.getName())
-                .replace("%message%", message);
+                .replace("{prefix}", prefix)
+                .replace("{color}", color)
+                .replace("{suffix}", suffix)
+                .replace("{name}", displayName)
+                .replace("{message}", message);
 
         return colorize(format, true);
     }
 
     public UUID getUUID(OfflinePlayer player) {
-        return UUIDManager.getInstance().getUUIDFromUsername(player.getName());
+        return (UUIDManager.getInstance().getUUIDFromUsername(player.getName()) != null)
+                ? UUIDManager.getInstance().getUUIDFromUsername(player.getName())
+                : null;
     }
 
     public UUID getUUID(String name) {
-        return UUIDManager.getInstance().getUUIDFromUsername(name);
+        return (UUIDManager.getInstance().getUUIDFromUsername(name) != null)
+                ? UUIDManager.getInstance().getUUIDFromUsername(name)
+                : null;
     }
 
     public String getUsername(UUID uuid) {
-        return UUIDManager.getInstance().getUsernameFromUUID(uuid);
+        return (UUIDManager.getInstance().getUsernameFromUUID(uuid) != null)
+                ? UUIDManager.getInstance().getUsernameFromUUID(uuid)
+                : null;
     }
 
     public String getPrefix(String name) {

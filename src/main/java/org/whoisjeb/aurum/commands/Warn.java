@@ -21,12 +21,12 @@ public class Warn extends AuricCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //Determine who will be warned
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player"));
             return true;
         }
         OfflinePlayer target = (OfflinePlayer) getTarget(args[0]);
         if (target == null) {
-            sender.sendMessage(message("error.doesnt-exist").replace("%thing%", "That player"));
+            sender.sendMessage(message("error.doesnt-exist").replace("{thing}", "That player"));
             return true;
         }
 
@@ -37,7 +37,7 @@ public class Warn extends AuricCommand {
         //Issue warning and send appropiate messages
         punishments.warn(target, reason);
         String message = message(command, (punishments.hasProperty("warnings." + plugin.utils.getUUID(target)) ? "run" : "fail"))
-                .replace("%target%", target.getName());
+                .replace("{target}", target.getName());
         sender.sendMessage(message);
         return true;
     }

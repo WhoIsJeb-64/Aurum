@@ -5,6 +5,9 @@ import org.whoisjeb.aurum.Aurum;
 import java.util.UUID;
 
 public class AurumAPI {
+
+    public AurumAPI() {}
+
     private static Aurum plugin = (Aurum) Bukkit.getServer().getPluginManager().getPlugin("Aurum");
 
     public AurumUser user(UUID uuid) {

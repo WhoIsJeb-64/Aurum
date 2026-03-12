@@ -40,8 +40,8 @@ public class Balance extends AuricCommand {
 
         //Send appropiate message
         sender.sendMessage(message
-                .replace("%balance%", String.valueOf(balance))
-                .replace("%name%", target.getName()));
+                .replace("{balance}", String.valueOf(balance))
+                .replace("{name}", target.getName()));
         return true;
     }
 }

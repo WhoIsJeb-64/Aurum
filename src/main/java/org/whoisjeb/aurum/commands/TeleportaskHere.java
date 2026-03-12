@@ -21,11 +21,11 @@ public class TeleportaskHere
 
         //Determine target
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player"));
             return true;
         }
         if (getOnlineTarget(args[0]) == null) {
-            sender.sendMessage(message("error.invalid").replace("%thing%", "player"));
+            sender.sendMessage(message("error.invalid").replace("{thing}", "player"));
             return true;
         }
         Player target = getOnlineTarget(args[0]);

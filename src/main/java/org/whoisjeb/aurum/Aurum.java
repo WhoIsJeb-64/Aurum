@@ -120,6 +120,6 @@ public class Aurum extends JavaPlugin {
 
     public static AurumAPI api() {
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Aurum");
-        return ((Aurum) plugin).api;
+        return new AurumAPI();
     }
 }

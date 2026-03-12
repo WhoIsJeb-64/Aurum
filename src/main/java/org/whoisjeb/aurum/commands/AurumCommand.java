@@ -40,7 +40,7 @@ public class AurumCommand extends AuricCommand {
         }
         //Logic for invalid subcommand
         else {
-            menu.add(message("general.command-usage").replace("%usage%", command.getUsage()));
+            menu.add(message("general.command-usage").replace("{usage}", command.getUsage()));
         }
 
         //Send appropiate message(s) based on the subcommand

@@ -17,7 +17,7 @@ public class Delwarp extends AuricCommand {
         //Warp name must be specified
         String warpName;
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "warp"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "warp"));
             return true;
         } else {
             warpName = args[0];
@@ -26,13 +26,13 @@ public class Delwarp extends AuricCommand {
         //Check that a warp with the given name exists; Return if not
         if (!plugin.settings.hasProperty("data.warps." + warpName)) {
             sender.sendMessage(message("error.doesnt-exist")
-                    .replace("%thing%", "The warp " + warpName));
+                    .replace("{thing}", "The warp " + warpName));
             return true;
         }
 
         //Remove the warp and inform the player
         plugin.settings.removeProperty("data.warps." + warpName);
-        sender.sendMessage(message(command).replace("%home%", warpName));
+        sender.sendMessage(message(command).replace("{home}", warpName));
         return true;
     }
 }

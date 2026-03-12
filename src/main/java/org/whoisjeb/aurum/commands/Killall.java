@@ -29,7 +29,7 @@ public class Killall extends AuricCommand {
         //Make sure the argument is valid
         if (!(arg.equals("all") || arg.equals("passive") || arg.equals("hostile"))) {
             sender.sendMessage(message("error.command-usage")
-                    .replace("%usage%", command.getUsage()));
+                    .replace("{usage}", command.getUsage()));
             return true;
         }
 
@@ -47,9 +47,9 @@ public class Killall extends AuricCommand {
 
         //Send appropiate message and reset amountKilled
         sender.sendMessage(message(command)
-                .replace("%count%", String.valueOf(amountKilled))
-                .replace("%set%", (arg.equals("all")) ? "passive and hostile" : arg)
-                .replace("%plural%", (amountKilled == 1) ? "" : "s"));
+                .replace("{count}", String.valueOf(amountKilled))
+                .replace("{set}", (arg.equals("all")) ? "passive and hostile" : arg)
+                .replace("{plural}", (amountKilled == 1) ? "" : "s"));
         amountKilled = 0;
         return true;
     }

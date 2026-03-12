@@ -21,7 +21,7 @@ public class Teleport extends AuricCommand {
         Player player = (Player) sender;
 
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player or position"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player or position"));
             return true;
         }
         if (getOnlineTarget(args[0]) != null) {
@@ -30,7 +30,7 @@ public class Teleport extends AuricCommand {
         }
 
         if (args.length < 3) {
-            sender.sendMessage(message("error.invalid").replace("%thing%", "player or position"));
+            sender.sendMessage(message("error.invalid").replace("{thing}", "player or position"));
             return true;
         }
         player.teleport(new Location(player.getWorld(),

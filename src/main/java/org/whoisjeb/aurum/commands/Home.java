@@ -36,7 +36,7 @@ public class Home extends AuricCommand {
         //It will alawys be "home" if the sender can only set 1
         String homeName;
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "home"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "home"));
             return true;
         } else {
             homeName = (user.getMaxHomes() > 1) ? args[0] : "home";
@@ -44,14 +44,14 @@ public class Home extends AuricCommand {
 
         //Check that the home exists
         if (!user.hasProperty("homes." + homeName)) {
-            sender.sendMessage(message("error.doesnt-exist").replace("%thing%", "That home"));
+            sender.sendMessage(message("error.doesnt-exist").replace("{thing}", "That home"));
             return true;
         }
 
         //Teleport target and send appropiate message
         player.teleport(user.getLocation("homes." + homeName));
         player.sendMessage(message(command, ((target == player) ? "self" : "other"))
-                .replace("%home%", homeName));
+                .replace("{home}", homeName));
         return true;
     }
 }

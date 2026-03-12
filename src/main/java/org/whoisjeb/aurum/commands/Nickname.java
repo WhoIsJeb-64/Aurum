@@ -18,7 +18,7 @@ public class Nickname extends AuricCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //Make sure that an argument is passed
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "nickname"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "nickname"));
             return true;
         }
 
@@ -31,7 +31,7 @@ public class Nickname extends AuricCommand {
         //Make sure that a target was resolved
         if (target == null) {
             sender.sendMessage(message("error-doesnt-exist")
-                    .replace("%thing%", "That player"));
+                    .replace("{thing}", "That player"));
             return true;
         }
 
@@ -45,7 +45,7 @@ public class Nickname extends AuricCommand {
             if (getOnlineTarget(target.getName()) != null) {
                 getOnlineTarget(target.getName()).setDisplayName(target.getName());
             }
-            sender.sendMessage(message(command, "clear").replace("%target%", target.getName()));
+            sender.sendMessage(message(command, "clear").replace("{target}", target.getName()));
             return true;
         }
 
@@ -58,8 +58,8 @@ public class Nickname extends AuricCommand {
             getOnlineTarget(target.getName()).setDisplayName(nicknamePrefix + nickname);
         }
         sender.sendMessage(message(command, "set." + ((sender == target) ? "sender" : "target"))
-                .replace("%nickname%", nicknamePrefix + nickname)
-                .replace("%target%", target.getName()));
+                .replace("{nickname}", nicknamePrefix + nickname)
+                .replace("{target}", target.getName()));
 
         return true;
     }

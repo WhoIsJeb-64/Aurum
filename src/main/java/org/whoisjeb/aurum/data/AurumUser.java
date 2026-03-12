@@ -17,14 +17,18 @@ public class AurumUser extends AurumData {
     private static Aurum plugin = (Aurum) Bukkit.getServer().getPluginManager().getPlugin("Aurum");
     private final File dataFile;
     private static final Logger log = Bukkit.getServer().getLogger();
+    private boolean exists;
 
     public AurumUser(UUID uuid) {
         super(new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml"));
         this.dataFile = new File(plugin.getDataFolder(), "userdata/" + uuid + ".yml");
+        this.exists = plugin.utils.getUsername(uuid) == null;
     }
 
-    public void load(UUID uuid) {
+    public boolean load(UUID uuid) {
         String name = plugin.utils.getUsername(uuid);
+        if (name == null) return false;
+
         try {
             Files.createDirectories(dataFile.getParentFile().toPath());
         } catch (IOException e) {
@@ -35,20 +39,24 @@ public class AurumUser extends AurumData {
         }
         super.load();
         plugin.loadedUsers().putIfAbsent(uuid, this);
+        return true;
     }
 
-    public void load(UUID uuid, boolean keep) {
+    public boolean load(UUID uuid, boolean keep) {
         String name = plugin.utils.getUsername(uuid);
+        if (name == null) return false;
+
         try {
             Files.createDirectories(dataFile.getParentFile().toPath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         if (!dataFile.exists()) {
-            if (!initializeNewUser(uuid)) return;
+            if (!initializeNewUser(uuid)) return false;
         }
         else super.load();
         if (keep) plugin.loadedUsers().putIfAbsent(uuid, this);
+        return true;
     }
 
     private boolean initializeNewUser(UUID uuid) {
@@ -85,9 +93,12 @@ public class AurumUser extends AurumData {
         Player player = Bukkit.getPlayer(this.getString("info.name"));
         Location location = player.getLocation();
         this.setProperty("data.position", location);
-        this.save();
-        plugin.loadedUsers().remove(this.getUUID("info.uuid"));
+        plugin.loadedUsers().remove(plugin.utils.getUUID(player.getName()));
         log.info("[Aurum] Unloaded data for " + this.getUUID("info.uuid") + " successfully!");
+    }
+
+    public boolean exists() {
+        return this.exists;
     }
 
     public int getMaxHomes() {

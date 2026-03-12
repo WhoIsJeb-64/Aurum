@@ -20,7 +20,7 @@ public class Heal extends AuricCommand {
 
         //Heal target and send appropiate messages
         target.setHealth(20);
-        sender.sendMessage(message(command, "sender").replace("%target%", target.getName()));
+        sender.sendMessage(message(command, "sender").replace("{target}", target.getName()));
         if (target != sender) target.sendMessage(message(command, "target"));
         return true;
     }

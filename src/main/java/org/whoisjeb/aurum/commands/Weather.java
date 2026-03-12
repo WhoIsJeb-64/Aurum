@@ -32,12 +32,12 @@ public class Weather extends AuricCommand {
         //Set the world's weather based on the argument and send appropiate message
         if (args[0].equalsIgnoreCase("clear")) {
             world.setStorm(false);
-            menu.add(message(command).replace("%weather%", args[0]));
+            menu.add(message(command).replace("{weather}", args[0]));
         } else if (args[0].equalsIgnoreCase("rain")) {
             world.setStorm(true);
-            menu.add(message(command).replace("%weather%", args[0]));
+            menu.add(message(command).replace("{weather}", args[0]));
         } else {
-            menu.add(message("error.invalid").replace("%thing%", "argument"));
+            menu.add(message("error.invalid").replace("{thing}", "argument"));
         }
 
         sendMessages(sender, menu);

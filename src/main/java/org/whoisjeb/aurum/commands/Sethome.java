@@ -24,7 +24,7 @@ public class Sethome extends AuricCommand {
 
         //Get given home name, unless they can only set 1, in which case it is set to "home"
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "home"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "home"));
             return true;
         }
         String homeName = (user.getMaxHomes() > 1) ? args[0] : "home";
@@ -41,11 +41,11 @@ public class Sethome extends AuricCommand {
         //Check if player is allowed to set a new home, then send appropiate message
         if (homesCount + 1 <= maxHomes) {
             user.setProperty("homes." + homeName, player.getLocation());
-            player.sendMessage(message(command, "run").replace("%home%", homeName));
+            player.sendMessage(message(command, "run").replace("{home}", homeName));
         } else {
             player.sendMessage(message(command, "cannot-exceed-max")
-                    .replace("%maxHomes%", String.valueOf(maxHomes))
-                    .replace("%plural%", (maxHomes == 1) ? "s" : ""));
+                    .replace("{maxHomes}", String.valueOf(maxHomes))
+                    .replace("{plural}", (maxHomes == 1) ? "s" : ""));
         }
         return true;
     }

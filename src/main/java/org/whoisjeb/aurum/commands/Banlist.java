@@ -51,16 +51,16 @@ public class Banlist extends AuricCommand {
 
         //Construct menu
         menu.add(message(command, "header")
-                .replace("%page%", String.valueOf(page))
-                .replace("%pageCount%", String.valueOf(pageCount)));
+                .replace("{page}", String.valueOf(page))
+                .replace("{pageCount}", String.valueOf(pageCount)));
         int i = 1;
         for (UUID uuid : banEntries) {
             //Only print the correct range of entries
             if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
                 menu.add(message(command, "line")
-                        .replace("%player%", plugin.utils.getUsername(uuid))
-                        .replace("%reason%", punishments.getString(reason(uuid)))
-                        .replace("%issuer%", punishments.getString(issuer(uuid))));
+                        .replace("{player}", plugin.utils.getUsername(uuid))
+                        .replace("{reason}", punishments.getString(reason(uuid)))
+                        .replace("{issuer}", punishments.getString(issuer(uuid))));
                 i++;
             }
         }

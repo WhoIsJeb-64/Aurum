@@ -48,7 +48,7 @@ public abstract class AuricCommand implements CommandExecutor {
     public Object getTarget(String name) {
         if (getOnlineTarget(name) != null) return getOnlineTarget(name);
 
-        return (Bukkit.getOfflinePlayer(name) == null) ? null : Bukkit.getOfflinePlayer(name);
+        return plugin.utils.getUUID(name) == null ? null : Bukkit.getOfflinePlayer(name);
     }
 
     public Player getOnlineTarget(String name) {

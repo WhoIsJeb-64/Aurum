@@ -48,25 +48,25 @@ public class Balancetop extends AuricCommand {
         //Construct menu
         ArrayList<String> menu = new ArrayList<>();
         menu.add(message(command, "header")
-                .replace("%page%", String.valueOf(page))
-                .replace("%pageCount%", String.valueOf(pageCount)));
+                .replace("{page}", String.valueOf(page))
+                .replace("{pageCount}", String.valueOf(pageCount)));
         int i = 1;
         for (Map.Entry<String, Double> entry : entries.entrySet()) {
             //Only print the correct range of entries
             if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
                 menu.add(message(command, "line")
-                        .replace("%name%", entry.getKey())
-                        .replace("%rank%", String.valueOf(i))
-                        .replace("%color%", plugin.utils.getColor(entry.getKey()))
-                        .replace("%prefix%", plugin.utils.getPrefix(entry.getKey()))
-                        .replace("%balance%", String.valueOf(entry.getValue())));
+                        .replace("{name}", entry.getKey())
+                        .replace("{rank}", String.valueOf(i))
+                        .replace("{color}", plugin.utils.getColor(entry.getKey()))
+                        .replace("{prefix}", plugin.utils.getPrefix(entry.getKey()))
+                        .replace("{balance}", String.valueOf(entry.getValue())));
                 i++;
             }
             serverTotal += entry.getValue();
         }
 
         //Server total
-        menu.add(message(command, "server-total").replace("%total%", String.valueOf(serverTotal)));
+        menu.add(message(command, "server-total").replace("{total}", String.valueOf(serverTotal)));
 
         sendMessages(sender, menu);
         return true;

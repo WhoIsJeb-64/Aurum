@@ -21,16 +21,16 @@ public class OfflineTeleport extends AuricCommand {
         Player player = (Player) sender;
 
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player"));
             return true;
         }
         if (getOnlineTarget(args[0]) != null) {
             sender.sendMessage(message(command, "target-online")
-                    .replace("%target%", getOnlineTarget(args[0]).getName()));
+                    .replace("{target}", getOnlineTarget(args[0]).getName()));
             return true;
         }
         if (plugin.utils.getUUID(args[0]) == null) {
-            sender.sendMessage(message("error.doesnt-exist").replace("%thing%", "That player"));
+            sender.sendMessage(message("error.doesnt-exist").replace("{thing}", "That player"));
             return true;
         }
 
@@ -40,7 +40,7 @@ public class OfflineTeleport extends AuricCommand {
 
         player.teleport(user.getLocation("data.position"));
         sender.sendMessage(message(command, "run")
-                .replace("%target%", user.getString("info.name")));
+                .replace("{target}", user.getString("info.name")));
         return true;
     }
 }

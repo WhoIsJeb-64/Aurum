@@ -41,18 +41,18 @@ public class Playerlist extends AuricCommand {
 
             ArrayList<String> menu = new ArrayList<>();
             menu.add(message(command, "header")
-                    .replace("%playerCount%", String.valueOf(playerCount))
-                    .replace("%maxPlayers%", String.valueOf(maxPlayers))
-                    .replace("%page%", String.valueOf(page))
-                    .replace("%pageCount%", String.valueOf(pageCount)));
+                    .replace("{playerCount}", String.valueOf(playerCount))
+                    .replace("{maxPlayers}", String.valueOf(maxPlayers))
+                    .replace("{page}", String.valueOf(page))
+                    .replace("{pageCount}", String.valueOf(pageCount)));
             int i = 1;
             for (Player player : players.keySet()) {
                 //Only print the correct range of entries
                 if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
                     menu.add(message(command, "line")
-                            .replace("%prefix%", plugin.utils.getPrefix(player.getName()))
-                            .replace("%color%", plugin.utils.getColor(player.getName()))
-                            .replace("%name%", player.getName()));
+                            .replace("{prefix}", plugin.utils.getPrefix(player.getName()))
+                            .replace("{color}", plugin.utils.getColor(player.getName()))
+                            .replace("{name}", player.getName()));
                 }
                 i++;
             }
@@ -62,17 +62,17 @@ public class Playerlist extends AuricCommand {
         //Construct and print menu using the compact format
         else {
             StringBuilder menu = new StringBuilder(message(command, "compact.head")
-                    .replace("%playerCount%", String.valueOf(playerCount))
-                    .replace("%maxPlayers%", String.valueOf(maxPlayers)));
+                    .replace("{playerCount}", String.valueOf(playerCount))
+                    .replace("{maxPlayers}", String.valueOf(maxPlayers)));
             int i = 1;
             for (Player player : Bukkit.getOnlinePlayers()) {
                 menu.append((i < playerCount)
                         ? message(command, "compact.body")
-                        .replace("%name%", player.getName())
-                        .replace("%color%", plugin.utils.getColor(player.getName()))
+                        .replace("{name}", player.getName())
+                        .replace("{color}", plugin.utils.getColor(player.getName()))
                         : message(command, "compact.tail")
-                        .replace("%name%", player.getName())
-                        .replace("%color%", plugin.utils.getColor(player.getName())));
+                        .replace("{name}", player.getName())
+                        .replace("{color}", plugin.utils.getColor(player.getName())));
                 i++;
             }
             sender.sendMessage(menu.toString());

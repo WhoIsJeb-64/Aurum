@@ -20,11 +20,11 @@ public class Teleportask extends AuricCommand {
 
         //Determine target
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player"));
             return true;
         }
         if (getOnlineTarget(args[0]) == null) {
-            sender.sendMessage(message("error.invalid").replace("%thing%", "player"));
+            sender.sendMessage(message("error.invalid").replace("{thing}", "player"));
             return true;
         }
         Player target = getOnlineTarget(args[0]);
@@ -39,10 +39,10 @@ public class Teleportask extends AuricCommand {
         TeleportRequest tpRequest = new TeleportRequest(plugin, (Player) sender, target);
         tpRequest.send(true);
         sender.sendMessage(message(command, "sender.sent")
-                .replace("%name%", target.getName())
-                .replace("%nickname%", target.getDisplayName())
-                .replace("%color%", plugin.utils.getColor(target.getName()))
-                .replace("%prefix%", plugin.utils.getPrefix(target.getName())));
+                .replace("{name}", target.getName())
+                .replace("{nickname}", target.getDisplayName())
+                .replace("{color}", plugin.utils.getColor(target.getName()))
+                .replace("{prefix}", plugin.utils.getPrefix(target.getName())));
         return true;
     }
 }

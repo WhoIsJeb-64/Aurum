@@ -30,35 +30,37 @@ public class Pay extends AuricCommand {
 
         //Make sure an amount is specified
         if (args.length < 2) {
-            sender.sendMessage(message("error.specify").replace("a %thing%", "an amount"));
+            sender.sendMessage(message("error.specify").replace("a {thing}", "an amount"));
             return true;
         }
 
         //Get AurumUser instances
         AurumUser userTarget = new AurumUser(plugin.utils.getUUID(target));
         userTarget.load(plugin.utils.getUUID(target));
+        if (!userTarget.exists()) return true;
+
         AurumUser userSender = new AurumUser(player.getUniqueId());
-        userSender.load(player.getUniqueId());
+        userSender.load(plugin.utils.getUUID(target));
 
         //Process payment and send appropiate messages
         double amount = Double.parseDouble(args[1]);
         if (!userSender.subtractBalance(amount, false)) {
             sender.sendMessage(message(command, "not-enough-money")
-                    .replace("%balance%", userSender.getString("economy.balance")));
+                    .replace("{balance}", userSender.getString("economy.balance")));
             return true;
         }
         sender.sendMessage(message(command, "message-sender")
-                .replace("%amount%", String.valueOf(amount))
-                .replace("%target%", target.getName())
-                .replace("%balance%", userSender.getString("economy.balance")));
+                .replace("{amount}", String.valueOf(amount))
+                .replace("{target}", target.getName())
+                .replace("{balance}", userSender.getString("economy.balance")));
         userTarget.addBalance(amount);
 
         //Target only recieves a message if they're online
         if (target.isOnline()) {
             Bukkit.getPlayer(target.getName()).sendMessage(message(command, "message-target")
-                    .replace("%sender%", sender.getName())
-                    .replace("%amount%", String.valueOf(amount))
-                    .replace("%balance%", userTarget.getString("economy.balance")));
+                    .replace("{sender}", sender.getName())
+                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{balance}", userTarget.getString("economy.balance")));
         }
         return true;
     }

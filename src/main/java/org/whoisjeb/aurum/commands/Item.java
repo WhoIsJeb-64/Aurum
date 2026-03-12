@@ -20,11 +20,11 @@ public class Item extends AuricCommand {
         //Make sure sender is a player and that there are enough arguments
         if (!isPlayer(sender)) return true;
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("a %thing%", "an item"));
+            sender.sendMessage(message("error.specify").replace("a {thing}", "an item"));
             return true;
         }
         if (args[0].equals("0")) {
-            sender.sendMessage(message("error.invalid").replace("%thing%", "item"));
+            sender.sendMessage(message("error.invalid").replace("{thing}", "item"));
             return true;
         }
 
@@ -39,21 +39,21 @@ public class Item extends AuricCommand {
 
         //Make sure the item is valid
         if (material == null) {
-            sender.sendMessage(message("error.invalid").replace("%thing%", "item"));
+            sender.sendMessage(message("error.invalid").replace("{thing}", "item"));
             return true;
         }
 
         //Give the ItemStack and send appropiate messages
         target.getInventory().addItem(new ItemStack(material, quantity));
         sender.sendMessage(message(command, "sender")
-                .replace("%target%", target.getName())
-                .replace("%quantity%", String.valueOf(quantity))
-                .replace("%item%", material.name().toLowerCase().replaceAll("_", " ")));
+                .replace("{target}", target.getName())
+                .replace("{quantity}", String.valueOf(quantity))
+                .replace("{item}", material.name().toLowerCase().replaceAll("_", " ")));
         if (sender != target) {
             sender.sendMessage(message(command, "target")
-                    .replace("%sender%", (sender instanceof Player) ? sender.getName() : "Console")
-                    .replace("%quantity%", String.valueOf(quantity))
-                    .replace("%item%", material.name().toLowerCase().replaceAll("_", " ")));
+                    .replace("{sender}", (sender instanceof Player) ? sender.getName() : "Console")
+                    .replace("{quantity}", String.valueOf(quantity))
+                    .replace("{item}", material.name().toLowerCase().replaceAll("_", " ")));
         }
         return true;
     }

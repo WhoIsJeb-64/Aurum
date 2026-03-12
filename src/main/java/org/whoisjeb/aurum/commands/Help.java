@@ -41,15 +41,15 @@ public class Help extends AuricCommand {
 
         //Construct menu
         menu.add(message(command, "header")
-                .replace("%page%", String.valueOf(page))
-                .replace("%pageCount%", String.valueOf(pageCount)));
+                .replace("{page}", String.valueOf(page))
+                .replace("{pageCount}", String.valueOf(pageCount)));
         int i = 1;
         for (Command cmd : commands) {
             //Only print the correct range of entries
             if ((i - 1) >= ((page * 10) - 10) && (i - 1) < (page * 10)) {
                 menu.add(message(command, "line")
-                        .replace("%command%", cmd.getName())
-                        .replace("%description%", cmd.getDescription()));
+                        .replace("{command}", cmd.getName())
+                        .replace("{description}", cmd.getDescription()));
             }
             i++;
         }

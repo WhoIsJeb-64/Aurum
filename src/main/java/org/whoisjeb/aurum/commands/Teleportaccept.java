@@ -37,7 +37,7 @@ public class Teleportaccept extends AuricCommand {
                 }
             }
         } else {
-            player.sendMessage(message("error.invalid").replace("%thing%", "player"));
+            player.sendMessage(message("error.invalid").replace("{thing}", "player"));
             return true;
         }
 

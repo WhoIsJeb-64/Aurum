@@ -20,13 +20,13 @@ public class Unmute extends AuricCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player"));
             return true;
         }
         OfflinePlayer target = (Bukkit.getPlayer(args[0]) == null) ? Bukkit.getOfflinePlayer(args[0]) : Bukkit.getPlayer(args[0]);
         punishments.unmute(target);
         String message = message(command, (!punishments.isMuted(plugin.utils.getUUID(target)) ? "run" : "fail"))
-                .replace("%target%", target.getName());
+                .replace("{target}", target.getName());
         sender.sendMessage(message);
         return true;
     }

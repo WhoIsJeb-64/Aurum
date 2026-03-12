@@ -23,23 +23,23 @@ public class Warp extends AuricCommand {
 
         String warpName;
         if (args.length < 1) {
-            sender.sendMessage(message("general.specify").replace("%thing%", "warp"));
+            sender.sendMessage(message("general.specify").replace("{thing}", "warp"));
             return true;
         } else {
             warpName = args[0];
         }
         if (!settings.hasProperty("data.warps." + warpName)) {
-            sender.sendMessage(message("general.does-not-exist").replace("%thing%", "That warp"));
+            sender.sendMessage(message("general.does-not-exist").replace("{thing}", "That warp"));
             return true;
         }
         if (settings.getBoolean("general.per-warp-perms", false)) {
             if (!player.hasPermission("aurum.warp." + warpName)) {
-                player.sendMessage(message(command, "no-perm").replace("%warp%", warpName));
+                player.sendMessage(message(command, "no-perm").replace("{warp}", warpName));
                 return true;
             }
         }
         player.teleport(settings.getLocation("data.warps." + warpName));
-        player.sendMessage(message(command, "run").replace("%warp%", warpName));
+        player.sendMessage(message(command, "run").replace("{warp}", warpName));
         return true;
     }
 }

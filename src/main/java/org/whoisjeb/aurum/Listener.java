@@ -32,7 +32,7 @@ public class Listener implements org.bukkit.event.Listener {
         //Override "I'm sorry, Dave" message with custom denial message
         if (!player.hasPermission(command.getPermission()) || !player.isOp()) {
             player.sendMessage(plugin.language.getString("error.no-perm")
-                    .replace("%command%", command.getName()));
+                    .replace("{command}", command.getName()));
             event.setCancelled(true);
         }
     }
@@ -50,8 +50,8 @@ public class Listener implements org.bukkit.event.Listener {
                     : plugin.language.getString("general.ban." + "temporary");
 
             message = message
-                    .replace("%reason%", plugin.punishments.getString("bans." + uuid + ".reason"))
-                    .replace("%time%", String.valueOf(expiration - System.currentTimeMillis()));
+                    .replace("{reason}", plugin.punishments.getString("bans." + uuid + ".reason"))
+                    .replace("{time}", String.valueOf(expiration - System.currentTimeMillis()));
 
             Bukkit.getPlayer(player.getName()).kickPlayer(message);
         }
@@ -63,19 +63,22 @@ public class Listener implements org.bukkit.event.Listener {
         //Broadcast welcome message if the player is new
         if (user.getBoolean("states.new", false)) {
             plugin.getServer().broadcastMessage(plugin.language.getString("general.welcome-message")
-                    .replace("%name%", player.getName()));
+                    .replace("{name}", player.getName()));
 
             //Make sure the player spawns at the Aurum spawn
-            if (plugin.settings.getLocation("data.spawn") != null) {
+            if (plugin.settings.getLocation("data.spawn") == null) {
+                //
+            } else {
                 player.teleport(plugin.settings.getLocation("data.spawn"));
             }
         }
 
         //Send MOTD
         List<String> motd = plugin.language.getStringList("commands.motd", null);
-        motd.replaceAll(str -> str.replace("%name%", player.getName()));
-        motd.replaceAll(str -> str.replace("%nickname%", player.getDisplayName()));
-        motd.replaceAll(line -> line.replace("%prefix%", plugin.utils.getPrefix(player.getName())));
+        motd.replaceAll(str -> str.replace("{name}", player.getName()));
+        motd.replaceAll(str -> str.replace("{nickname}", player.getDisplayName()));
+        motd.replaceAll(line -> line.replace("{prefix}", plugin.utils.getPrefix(player.getName())));
+        motd.replaceAll(line -> line.replace("{suffix}", plugin.utils.getSuffix(player.getName())));
         for (String line : motd) {
             player.sendMessage(plugin.utils.colorize(line, true));
         }
@@ -109,16 +112,18 @@ public class Listener implements org.bukkit.event.Listener {
 
     @EventHandler(priority = Event.Priority.High)
     public void onPlayerChat(PlayerChatEvent event) {
+        Player player = event.getPlayer();
+
         //Cancel event if chatter is muted
-        UUID uuid = event.getPlayer().getUniqueId();
+        UUID uuid = player.getUniqueId();
         if (plugin.punishments.isMuted(uuid)) {
-            event.getPlayer().sendMessage(plugin.language.getString("general.muted"));
+            player.sendMessage(plugin.language.getString("general.muted"));
             event.setCancelled(true);
         }
 
         //Use plugin's chat formatting
-        String prefix = plugin.utils.getPrefix(event.getPlayer().getName());
-        String finalMessage = plugin.utils.formatChat(event.getPlayer(), event.getMessage(), false);
+        String prefix = plugin.utils.getPrefix(player.getName());
+        String finalMessage = plugin.utils.formatChat(player, event.getMessage(), false);
         event.setFormat(plugin.utils.colorize(finalMessage, true));
     }
 

@@ -16,7 +16,7 @@ public class Tellraw extends AuricCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "message"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "message"));
             return true;
         }
 

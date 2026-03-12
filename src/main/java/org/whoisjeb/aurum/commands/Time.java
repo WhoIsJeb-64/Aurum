@@ -21,7 +21,7 @@ public class Time extends AuricCommand {
 
         long time = world.getTime() - (world.getTime() % 24000L);
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "time"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "time"));
             return true;
         }
 
@@ -44,12 +44,12 @@ public class Time extends AuricCommand {
                 offset = 42000L;
                 break;
             default:
-                sender.sendMessage(message("error.invalid").replace("%thing%", "time"));
+                sender.sendMessage(message("error.invalid").replace("{thing}", "time"));
                 return true;
         }
 
         world.setTime(time + offset);
-        sender.sendMessage(message(command).replace("%time%", args[0]));
+        sender.sendMessage(message(command).replace("{time}", args[0]));
         return true;
     }
 }

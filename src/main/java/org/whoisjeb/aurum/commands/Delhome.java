@@ -27,7 +27,7 @@ public class Delhome extends AuricCommand {
         //Get specified home name
         //If the sender can only set 1 home, it will always be "home"
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "home"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "home"));
             return true;
         }
         String homeName = (user.getMaxHomes() > 1) ? args[0] : "home";
@@ -35,13 +35,13 @@ public class Delhome extends AuricCommand {
         //Check that a home with the given name exists; Return if not
         if (!user.hasProperty("homes." + homeName)) {
             sender.sendMessage(message("error.doesnt-exist")
-                    .replace("%thing%", "The home " + homeName));
+                    .replace("{thing}", "The home " + homeName));
             return true;
         }
 
         //Remove the home and inform the player
         user.removeProperty("homes." + homeName);
-        sender.sendMessage(message(command).replace("%home%", homeName));
+        sender.sendMessage(message(command).replace("{home}", homeName));
         return true;
     }
 }

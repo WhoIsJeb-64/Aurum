@@ -21,7 +21,7 @@ public class Unwarn extends AuricCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player"));
             return true;
         }
 
@@ -32,7 +32,7 @@ public class Unwarn extends AuricCommand {
         OfflinePlayer target = (Bukkit.getPlayer(args[0]) == null) ? Bukkit.getOfflinePlayer(args[0]) : Bukkit.getPlayer(args[0]);
         plugin.punishments.unwarn(target, reason);
         String message = message(command, (!punishments.hasProperty("warnings." + plugin.utils.getUUID(target)) ? "run" : "fail"))
-                .replace("%target%", target.getName());
+                .replace("{target}", target.getName());
         sender.sendMessage(message);
         return true;
     }

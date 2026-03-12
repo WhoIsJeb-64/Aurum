@@ -36,10 +36,10 @@ public class Modview extends AuricCommand {
         //Initialize menu
         ArrayList<String> menu = new ArrayList<>();
         menu.add(message(command, "header")
-                .replace("%prefix%", prefix)
-                .replace("%color%", color)
-                .replace("%suffix%", suffix)
-                .replace("%name%", target.getName()));
+                .replace("{prefix}", prefix)
+                .replace("{color}", color)
+                .replace("{suffix}", suffix)
+                .replace("{name}", target.getName()));
 
         //Identifying Information (UUID, IP, Nickname)
         menu.add("- §2UUID:§7 " + uuid);

@@ -18,7 +18,7 @@ public class WhoIs extends AuricCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //Make sure a nickname is given
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "nickname"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "nickname"));
             return true;
         }
 
@@ -30,7 +30,7 @@ public class WhoIs extends AuricCommand {
         for (AurumUser user : plugin.loadedUsers().values()) {
             if (args[0].equalsIgnoreCase(nickname)) {
                 sender.sendMessage(message(command, "match")
-                        .replace("%name%", user.getString("info.name")));
+                        .replace("{name}", user.getString("info.name")));
                 matchFound = true;
             }
         }

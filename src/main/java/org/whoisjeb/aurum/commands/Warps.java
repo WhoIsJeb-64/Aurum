@@ -28,8 +28,8 @@ public class Warps extends AuricCommand {
         int i = 1;
         for (String key : settings.getKeys("data.warps")) {
             menu.append((i < settings.getKeys("data.warps").size())
-                    ? message(command, "body").replace("%warp%", key)
-                    : message(command, "tail").replace("%warp%", key));
+                    ? message(command, "body").replace("{warp}", key)
+                    : message(command, "tail").replace("{warp}", key));
             i++;
         }
 

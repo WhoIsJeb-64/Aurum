@@ -17,7 +17,7 @@ public class Economy extends AuricCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //Make sure a subcommand is specified
-        String message = message("error.command-usage").replace("%usage%", command.getUsage());
+        String message = message("error.command-usage").replace("{usage}", command.getUsage());
         if (args.length < 1) {
             sender.sendMessage(message);
             return true;
@@ -28,7 +28,7 @@ public class Economy extends AuricCommand {
             OfflinePlayer target = (args.length >= 2) ? (OfflinePlayer) getTarget(args[1]) : null;
             if (target == null) {
                 sender.sendMessage(message("error.command-usage")
-                        .replace("%usage%", command.getUsage()));
+                        .replace("{usage}", command.getUsage()));
                 return true;
             }
 
@@ -54,9 +54,9 @@ public class Economy extends AuricCommand {
 
             //Send appropiate message based on subcommand
             message = message(command, args[0])
-                    .replace("%target%", target.getName())
-                    .replace("%amount%", String.valueOf(balance))
-                    .replace("%newBalance%", String.valueOf(user.getDouble("economy.balance")));
+                    .replace("{target}", target.getName())
+                    .replace("{amount}", String.valueOf(balance))
+                    .replace("{newBalance}", String.valueOf(user.getDouble("economy.balance")));
             sender.sendMessage(message);
             return true;
         }

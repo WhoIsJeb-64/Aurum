@@ -25,14 +25,14 @@ public class Mute extends AuricCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //Target must be specified
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "player"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "player"));
             return true;
         }
 
         //Validate that the target exists
         OfflinePlayer target = (OfflinePlayer) getTarget(args[0]);
         if (target == null) {
-            sender.sendMessage(message("error.doesnt-exist").replace("%thing%", "Player"));
+            sender.sendMessage(message("error.doesnt-exist").replace("{thing}", "Player"));
             return true;
         }
 
@@ -82,13 +82,13 @@ public class Mute extends AuricCommand {
         //Issue mute and send appropiate messages
         punishments.mute(target, duration, reason, issuer);
         String message = message(command, (duration == 0) ? "permanent" : "temporary")
-                .replace("%player%", target.getName())
-                .replace("%reason%", reason)
-                .replace("%duration%", String.valueOf(duration));
+                .replace("{player}", target.getName())
+                .replace("{reason}", reason)
+                .replace("{duration}", String.valueOf(duration));
 
         //Should never happen, but just in case:
         if (!punishments.isBanned(plugin.utils.getUUID(target))) {
-            message = message(command, "fail").replace("%player%", target.getName());
+            message = message(command, "fail").replace("{player}", target.getName());
         }
 
         sender.sendMessage(message);

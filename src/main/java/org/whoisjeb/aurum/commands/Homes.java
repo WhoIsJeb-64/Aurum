@@ -31,20 +31,20 @@ public class Homes extends AuricCommand {
         //If the target has no homes, send a different message and return
         if (user.hasProperty("homes")) {
             String message = message(command, "no-homes." + ((sender == target) ? "sender" : "target"));
-            sender.sendMessage(message.replace("%target%", target.getName()));
+            sender.sendMessage(message.replace("{target}", target.getName()));
             return true;
         }
 
         //Construct menu
         int homesCount = user.getKeys("homes").size();
         StringBuilder menu = new StringBuilder(message(command, "head")
-                .replace("%homesCount%", String.valueOf(homesCount))
-                .replace("%maxHomes%", String.valueOf(user.getMaxHomes())));
+                .replace("{homesCount}", String.valueOf(homesCount))
+                .replace("{maxHomes}", String.valueOf(user.getMaxHomes())));
         int i = 1;
         for (String key : user.getKeys("homes")) {
             menu.append((i < homesCount)
-                    ? message(command, "body").replace("%home%", key)
-                    : message(command, "tail").replace("%home%", key));
+                    ? message(command, "body").replace("{home}", key)
+                    : message(command, "tail").replace("{home}", key));
             i++;
         }
 

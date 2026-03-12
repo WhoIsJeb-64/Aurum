@@ -65,15 +65,15 @@ public class ImportZCore extends AuricCommand {
 
         //Import Data
         settings.setProperty("chat.format.normal", zConfig.getString("text.chat-format")
-                .replace("{PLAYER}", "%name%"));
+                .replace("{PLAYER}", "{name}"));
         settings.setProperty("chat.nickname-prefix", zConfig.getString("text.nick-prefix"));
 
         language.setProperty("general.welcome-message", zConfig.getString("text.new-player-announcement", null)
-                .replace("{PLAYER}", "%name%"));
+                .replace("{PLAYER}", "{name}"));
         language.setProperty("general.muted", zConfig.getString("command.mute.default-reason", null));
 
         List<String> zMOTD = zConfig.getStringList("text.message-of-the-day", null);
-        zMOTD.replaceAll(line -> line.replace("{NAME}", "%name%"));
+        zMOTD.replaceAll(line -> line.replace("{NAME}", "{name}"));
         language.setProperty("commands.motd", zMOTD);
         language.setProperty("commands.rules", zConfig.getStringList("command.rules.lines", null));
 

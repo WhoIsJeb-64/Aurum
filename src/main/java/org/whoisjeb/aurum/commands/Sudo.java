@@ -18,7 +18,7 @@ public class Sudo extends AuricCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //Make sure a target is specified
         if (args.length < 1) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "target"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "target"));
             return true;
         }
 
@@ -26,13 +26,13 @@ public class Sudo extends AuricCommand {
         Player target;
         if (getOnlineTarget(args[0]) != null) target = getOnlineTarget(args[0]);
         else {
-            sender.sendMessage(message("error.invalid").replace("%thing%", "player"));
+            sender.sendMessage(message("error.invalid").replace("{thing}", "player"));
             return true;
         }
 
         //Make sure a command or message is specified
         if (args.length < 2) {
-            sender.sendMessage(message("error.specify").replace("%thing%", "command or message"));
+            sender.sendMessage(message("error.specify").replace("{thing}", "command or message"));
             return true;
         }
 

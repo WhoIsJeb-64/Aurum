@@ -31,8 +31,8 @@ public class GroundItemClear extends AuricCommand {
 
         //Send appropiate message and reset amountCleared
         sender.sendMessage(message(command)
-                .replace("%amount%", String.valueOf(amountCleared))
-                .replace("%plural%", (amountCleared == 1) ? "" : "s"));
+                .replace("{amount}", String.valueOf(amountCleared))
+                .replace("{plural}", (amountCleared == 1) ? "" : "s"));
         amountCleared = 0;
         return true;
     }
